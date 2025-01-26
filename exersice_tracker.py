@@ -3,12 +3,19 @@ import mediapipe as mp
 import numpy as np
 import math
 import time
+from playsound import playsound
+import os
+import pygame
 from datetime import datetime
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Initialize Mediapipe Pose
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 mp_drawing = mp.solutions.drawing_utils
+
+pygame.mixer.init()
+CORRECTION_SOUND = ".venv/Scripts/sounds/incorrect_posture_alert.mp3"
 
 # Calories burned per rep (approximate values)
 CALORIES_PER_REP = {
@@ -18,6 +25,28 @@ CALORIES_PER_REP = {
 }
 
 class WorkoutStats:
+    def calculate_angle(a, b, c):
+        """
+        Calculate the angle between three points.
+        Args:
+            a: First point (x, y)
+            b: Second point (x, y)
+            c: Third point (x, y)
+        Returns:
+            Angle in degrees.
+        """
+        a = np.array(a)  # First point
+        b = np.array(b)  # Middle point
+        c = np.array(c)  # End point
+
+        radians = np.arctan2(c[1] - b[1], c[0] - b[0]) - np.arctan2(a[1] - b[1], a[0] - b[0])
+        angle = np.abs(radians * 180.0 / np.pi)
+
+        if angle > 180.0:
+            angle = 360 - angle
+
+        return angle
+
     def __init__(self):
         self.start_time = time.time()
         self.exercise_times = {"bicep_curl": 0, "squat": 0, "pushup": 0}
@@ -46,19 +75,7 @@ class WorkoutStats:
         return self.exercise_times[exercise_type]
 
 
-def calculate_angle(a, b, c):
-    """Calculate angle between three points."""
-    a = np.array(a)  # First point
-    b = np.array(b)  # Middle point
-    c = np.array(c)  # End point
 
-    radians = np.arctan2(c[1] - b[1], c[0] - b[0]) - np.arctan2(a[1] - b[1], a[0] - b[0])
-    angle = np.abs(radians * 180.0 / np.pi)
-
-    if angle > 180.0:
-        angle = 360 - angle
-
-    return angle
 
 def get_landmark_coordinates(landmarks, landmark_point):
     """Helper function to get coordinates of a landmark"""
@@ -126,15 +143,46 @@ def draw_stats(image, stats, exercise_type, stage, frame_height):
     cv2.putText(image, 'Controls: b-Bicep Curls, s-Squats, p-Push-ups, r-Reset, q-Quit',
                 (10, frame_height - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
 
+def check_posture(exercise, landmarks):
+    """
+    Check if the posture is correct based on the exercise.
+    Args:
+        exercise: The current exercise name (e.g., "bicep_curl").
+        landmarks: Landmarks detected by Mediapipe.
+    Returns:
+        correct_posture: Boolean indicating if the posture is correct.
+    """
+    correct_posture = True
+
+    if exercise == "bicep_curl":
+        # Get landmarks for shoulder, elbow, and wrist
+        shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+        elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x, landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
+        wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x, landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+
+        # Calculate angle
+        angle = calculate_angle(shoulder, elbow, wrist)
+
+        # Check angle range for correct posture
+        if angle < 60 or angle > 160:
+            correct_posture = False
+
+    return correct_posture
 
 def main():
+    # Initialize video capture
     cap = cv2.VideoCapture(0)
-    stats = WorkoutStats()
-    stage = None
+
+    # Variables for exercise tracking
+    exercise = "bicep_curl"  # Current exercise
+    stage = None  # Stage of the exercise (e.g., "up" or "down")
+    reps = 0  # Repetition counter
+    start_time = time.time()  # Start time for session
     
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
+            print("Ignoring empty camera frame.")
             break
             
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -145,14 +193,32 @@ def main():
         
         try:
             landmarks = results.pose_landmarks.landmark
+                
+                # Check posture
+            correct_posture = check_posture(exercise, landmarks)
+
+            if not correct_posture:
+                # Play correction sound if posture is incorrect
+                pygame.mixer.music.load(CORRECTION_SOUND)
+                pygame.mixer.music.play()
+
+            # Bicep curl logic
+            if exercise == "bicep_curl":
+                shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x, landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+                elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x, landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
+                wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x, landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+
+                angle = calculate_angle(shoulder, elbow, wrist)
+   
             
-            if stats.current_exercise == "bicep_curl":
+            elif stats.current_exercise == "bicep_curl":
                 angle = count_bicep_curls(landmarks)
                 if angle > 160:
                     stage = "down"
                 if angle < 30 and stage == "down":
                     stage = "up"
                     stats.add_rep("bicep_curl")
+                    
                 
             elif stats.current_exercise == "squat":
                 angle = count_squats(landmarks)
@@ -161,6 +227,7 @@ def main():
                 if angle < 90 and stage == "up":
                     stage = "down"
                     stats.add_rep("squat")
+                    reps += 1
                 
             elif stats.current_exercise == "pushup":
                 elbow_angle, body_angle = count_pushups(landmarks)
