@@ -83,6 +83,7 @@ class PoseDetector:
                        cv2.FONT_HERSHEY_PLAIN, 2, (0,0,255), 2)
         return angle
 
+
 def main():
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
@@ -114,7 +115,7 @@ def main():
                 form = 1
         
             if form == 1:
-                # Level checking based on angles
+                # Check for proper push-up position and provide detailed feedback
                 if elbow <= 90 and hip > 160:
                     feedback = "Up"
                     if direction == 0:
@@ -126,15 +127,20 @@ def main():
                         count += 1  # Full push-up
                         direction = 0
                 else:
-                    feedback = "Fix Form"
+                    if elbow > 160:
+                        feedback = "Elbows too straight! Keep a controlled bend."
+                    if shoulder < 40:
+                        feedback = "Shoulders drooping! Engage core and straighten shoulders."
+                    if hip < 140:
+                        feedback = "Hips too low! Maintain a straight line from head to heels."
                 
                 # Categorizing push-up form by angle levels
                 if elbow < 100 and shoulder > 40 and hip > 160:
-                    feedback = "Beginner Form"
+                    feedback = "Beginner Form: Try to extend elbows more."
                 elif elbow >= 100 and elbow < 140 and shoulder > 45 and hip >= 140:
-                    feedback = "Intermediate Form"
+                    feedback = "Intermediate Form: Improve by fully extending arms."
                 elif elbow >= 140 and shoulder >= 50 and hip >= 160:
-                    feedback = "Expert Form"
+                    feedback = "Expert Form: Excellent push-up posture!"
                     
                 # Draw Bar
                 cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
