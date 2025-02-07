@@ -7,7 +7,7 @@ class PoseDetector:
     def __init__(self, mode=False, complexity=1, smooth_landmarks=True,
                  enable_segmentation=False, smooth_segmentation=True,
                  detectionCon=0.5, trackCon=0.5):
-        
+        # Initialize PoseDetector with various options for pose estimation
         self.mode = mode 
         self.complexity = complexity
         self.smooth_landmarks = smooth_landmarks
@@ -15,7 +15,7 @@ class PoseDetector:
         self.smooth_segmentation = smooth_segmentation
         self.detectionCon = detectionCon
         self.trackCon = trackCon
-        
+         # Load MediaPipe drawing utilities and pose model
         self.mpDraw = mp.solutions.drawing_utils
         self.mpPose = mp.solutions.pose
         self.pose = self.mpPose.Pose(self.mode, self.complexity, self.smooth_landmarks,
@@ -23,9 +23,11 @@ class PoseDetector:
                                     self.detectionCon, self.trackCon)
         
     def findPose(self, img, draw=True):
-        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        self.results = self.pose.process(imgRGB)
+        # Detect pose landmarks in the image
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) # Convert image to RGB
+        self.results = self.pose.process(imgRGB) # Process the image to detect poses
         
+        # Draw pose landmarks on the image if found
         if self.results.pose_landmarks:
             if draw:
                 self.mpDraw.draw_landmarks(img, self.results.pose_landmarks,
@@ -33,6 +35,7 @@ class PoseDetector:
         return img
     
     def findPosition(self, img, draw=True):
+        # Find and return the list of pose landmarks
         self.lmList = []
         if self.results.pose_landmarks:
             for id, lm in enumerate(self.results.pose_landmarks.landmark):
@@ -85,6 +88,7 @@ class PoseDetector:
 
 
 def main():
+    # Initialize webcam capture
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
     count = 0
@@ -93,20 +97,22 @@ def main():
     feedback = "Fix Form"
 
     while cap.isOpened():
-        ret, img = cap.read()
+        ret, img = cap.read() # Read frame from webcam
         if not ret:
             break
             
-        img = detector.findPose(img, False)
-        lmList = detector.findPosition(img, False)
+        img = detector.findPose(img, False) # Detect pose without drawing
+        lmList = detector.findPosition(img, False) # Get landmark positions
         
         if len(lmList) != 0:
+            # Calculate angles for form validation
             elbow = detector.findAngle(img, 11, 13, 15)  # Elbow angle
             shoulder = detector.findAngle(img, 13, 11, 23)  # Shoulder angle
             hip = detector.findAngle(img, 11, 23, 25)  # Hip angle
             knee = detector.findAngle(img, 25, 23, 27)  # Knee angle
             ankle = detector.findAngle(img, 27, 29, 31)  # Ankle angle
             
+            # Map elbow angle to push-up percentage and bar position
             per = np.interp(elbow, (90, 160), (0, 100))
             bar = np.interp(elbow, (90, 160), (380, 50))
 
@@ -127,6 +133,7 @@ def main():
                         count += 1  # Full push-up
                         direction = 0
                 else:
+                    # Posture correction suggestions
                     if elbow > 160:
                         feedback = "Elbows too straight! Keep a controlled bend."
                     if shoulder < 40:
@@ -158,12 +165,13 @@ def main():
             cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2,
                        (0, 255, 0), 2)
 
+        # Show final frame with feedback and counters
         cv2.imshow('Pushup Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
             
-    cap.release()
-    cv2.destroyAllWindows()
+    cap.release() # Release the webcam
+    cv2.destroyAllWindows() # Close all OpenCV windows
 
 if __name__ == "__main__":
     main()
