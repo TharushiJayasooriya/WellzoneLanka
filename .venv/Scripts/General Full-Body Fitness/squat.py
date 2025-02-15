@@ -59,13 +59,11 @@ class PoseDetector:
 
         # Calculate cosine of the angle using dot product
         dot_product = np.dot(A, B)
-        norm_A = np.linalg.norm(A)
-        norm_B = np.linalg.norm(B)
-        cos_theta = dot_product / (norm_A * norm_B)
-
+        magnitude_A = np.linalg.norm(A)
+        magnitude_B = np.linalg.norm(B)
         # Calculate the angle in degrees
-        angle = math.degrees(np.arccos(cos_theta))
-
+        angle = math.degrees(np.arccos(dot_product / (magnitude_A * magnitude_B)))
+    
         if angle < 0:
             angle += 360
         elif angle > 180:
@@ -94,7 +92,7 @@ def main():
     detector = PoseDetector()
     count = 0
     direction = 0  # 0: Standing, 1: Squatting
-    form = 0  # 0: Standing, 1: Squatting
+    form = "Incorrect"  # Initial form state
     feedback = "Fix Form"
 
     while cap.isOpened():
@@ -107,48 +105,60 @@ def main():
 
         if len(lmList) != 0:
             # Calculate knee and hip angles
+            left_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle (now considered left)
+            right_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle (now considered right)
+            left_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle (now considered left)
+            right_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle (now considered right)  
             left_knee = detector.findAngle(img, 23, 25, 27)  # Left Knee angle
             right_knee = detector.findAngle(img, 24, 26, 28)  # Right Knee angle
             left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
             right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
+            left_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle (now considered left)
+            right_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle (now considered right)
 
             # Use the average of left and right angles for squat tracking
+            elbow = (left_elbow + right_elbow) / 2
+            shoulder = (left_shoulder + right_shoulder) / 2
             knee = (left_knee + right_knee) / 2
             hip = (left_hip + right_hip) / 2
+            ankle = (left_ankle + right_ankle) / 2
 
             # Map knee angle to squat percentage and bar position
-            per = np.interp(knee, (90, 160), (0, 100))
-            bar = np.interp(knee, (90, 160), (380, 50))
+            per = max(0, min(100, (90 - knee) * (100 / 90)))
+            bar = per / 100
 
             # Add level checks for form (Beginner, Intermediate, Expert)
-            if knee > 120:
+            if knee > 80 and hip > 80 and ankle > 80:
                 form = "Beginner"
-            elif 90 < knee <= 120:
+            elif knee > 60 and hip > 60 and ankle > 60:
                 form = "Intermediate"
-            elif knee <= 90:
+            elif knee > 40 and hip > 40 and ankle > 40:
                 form = "Expert"
             else:
                 form = "Incorrect"
 
             # Check for proper squat position and provide detailed feedback
-            if form == "Beginner" or form == "Intermediate":
-                if knee > 160 and hip > 160:  # Standing position
+            if form == "Beginner" or form == "Intermediate" or form == "Expert":
+                if knee < 90 and hip < 90 and ankle < 90:
                     feedback = "Up"
-                    if direction == 1:
-                        count += 0.5  # Increment count when standing up
-                        direction = 0
-                        bar = np.interp(knee, (90, 160), (380, 50))  # Map the count to the progress bar
-                elif knee <= 120:  # Squatting down
-                    feedback = "Down"
                     if direction == 0:
+                        count += 1  # Full squat
                         direction = 1
+                        bar = np.interp(count, (0, 20), (380, 50))  # Map the count to the progress bar
+                elif knee >= 90 and hip >= 90 and ankle >= 90:
+                    feedback = "Down"
+                    if direction == 1:
+                        count +=1
+                        direction = 0
             else:
                 feedback = "Fix Form"
                 # Posture correction suggestions for beginners and intermediates
-                if knee > 160:
-                    feedback = "Stand straight and keep your back neutral."
-                if knee <= 120:
-                    feedback = "Bend your knees more to improve your squat depth."
+                if hip < 80:
+                    feedback = "Hips too low! Maintain a straight line from head to heels."
+                if knee < 80:
+                    feedback = "Knees not straight! Keep legs fully extended."
+                if ankle < 80:
+                    feedback = "Ankles not dorsiflexed! Keep feet flat and toes pointing forward."
 
             # Categorizing squat form by angle levels
             if form == "Beginner":
