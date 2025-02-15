@@ -151,7 +151,7 @@ def main():
                 form = "Beginner"
             elif elbow >= 100 and elbow < 130 and shoulder >= 40 and shoulder <= 50 and hip >= 140 and hip <= 160:
                 form = "Intermediate"
-            elif elbow < 90 and shoulder >= 50 and shoulder <= 60 and hip >= 160 and knee > 160 and ankle > 80:
+            elif elbow > 90 and elbow <=100 and shoulder >= 50 and shoulder <= 60 and hip >= 140 and hip <=160 and knee > 160 and ankle > 80:
                 form = "Expert"
             else:
                 form = "Incorrect"
