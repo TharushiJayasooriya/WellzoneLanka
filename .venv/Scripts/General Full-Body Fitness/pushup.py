@@ -205,6 +205,16 @@ def main():
                             (255, 0, 0), 5)
 
             # Feedback
+            cv2.putText(img, f"Elbow: {int(elbow)}", (10, 30),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Shoulder: {int(shoulder)}", (10, 60),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Hip: {int(hip)}", (10, 90),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Ankle: {int(ankle)}", (10, 120),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, feedback, (10, 150),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
             cv2.rectangle(img, (500, 0), (640, 40), (255, 255, 255), cv2.FILLED)
             cv2.putText(img, feedback, (510, 30), cv2.FONT_HERSHEY_PLAIN, 1.5,
                         (0, 255, 0), 2)
