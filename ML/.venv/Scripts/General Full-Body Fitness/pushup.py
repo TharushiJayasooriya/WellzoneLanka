@@ -100,6 +100,7 @@ def main():
     while cap.isOpened():
         ret, img = cap.read()  # Read frame from webcam
         if not ret:
+            feedback="Should connected to the web camera(Check camera is on)"
             break
 
         img = detector.findPose(img, False)  # Detect pose without drawing
