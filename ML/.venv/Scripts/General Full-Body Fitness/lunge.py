@@ -140,15 +140,16 @@ def main():
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
     count = 0
-    direction = 0
-    form = 0
     feedback = "Fix Form"
     left_lunge_complete = False
     right_lunge_complete = False
-
+    
     while cap.isOpened():
         ret, img = cap.read()  # Read frame from webcam
         if not ret:
+            feedback = "Should be connected to the web camera (Check if the camera is on)"
+            cv2.putText(img, feedback, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
+            cv2.waitKey(1)
             break
 
         img = detector.findPose(img, False)  # Detect pose without drawing
