@@ -102,7 +102,6 @@ def main():
         if not ret:
             feedback = "Should be connected to the web camera (Check if the camera is on)"
             cv2.putText(img, feedback, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
-            cv2.imshow('Pushup Counter', img)
             cv2.waitKey(1)
             break
 
@@ -230,8 +229,6 @@ def main():
             cv2.putText(img, f"Shoulder: {int(shoulder)}", (10, 60),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
             cv2.putText(img, f"Hip: {int(hip)}", (10, 90),
-                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-            cv2.putText(img, f"Ankle: {int(ankle)}", (10, 120),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
             cv2.putText(img, feedback, (10, 150),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
