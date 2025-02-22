@@ -87,45 +87,64 @@ class PoseDetector:
 
 
 def main():
-    # Initialize webcam capture
+     # Initialize webcam capture
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
     count = 0
-    direction = 0  # 0: Standing, 1: Squatting
-    form = "Incorrect"  # Initial form state
+    direction = 0
+    form = 0
     feedback = "Fix Form"
 
     while cap.isOpened():
         ret, img = cap.read()  # Read frame from webcam
         if not ret:
+            feedback = "Should be connected to the web camera (Check if the camera is on)"
+            cv2.putText(img, feedback, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
+            cv2.waitKey(1)
             break
 
         img = detector.findPose(img, False)  # Detect pose without drawing
         lmList = detector.findPosition(img, False)  # Get landmark positions
 
         if len(lmList) != 0:
-            # Calculate knee and hip angles
-            left_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle (now considered left)
-            right_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle (now considered right)
-            left_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle (now considered left)
-            right_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle (now considered right)  
-            left_knee = detector.findAngle(img, 23, 25, 27)  # Left Knee angle
-            right_knee = detector.findAngle(img, 24, 26, 28)  # Right Knee angle
-            left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
-            right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
-            left_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle (now considered left)
-            right_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle (now considered right)
+            # Determine user orientation
+            left_shoulder_x = lmList[11][1]  # x-coordinate of left shoulder
+            right_shoulder_x = lmList[12][1]  # x-coordinate of right shoulder
 
-            # Use the average of left and right angles for squat tracking
+            if left_shoulder_x < right_shoulder_x:
+                # Calculate angles for form validation - User is facing the webcam or slightly sideways
+                left_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle
+                right_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle
+                left_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle
+                right_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle
+                left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
+                right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
+                left_knee = detector.findAngle(img, 25, 23, 27)  # Left Knee angle
+                right_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle
+                left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
+                right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
+            else:
+                # User is facing away or sideways (swap left and right landmarks)
+                left_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle (now considered left)
+                right_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle (now considered right)
+                left_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle (now considered left)
+                right_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle (now considered right)
+                left_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle (now considered left)
+                right_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle (now considered right)
+                left_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle (now considered left)
+                right_knee = detector.findAngle(img, 25, 23, 27)  # Left Knee angle (now considered right)
+                left_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle (now considered left)
+                right_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle (now considered right)
+
+            # Use the average of left and right angles for push-up tracking
             elbow = (left_elbow + right_elbow) / 2
             shoulder = (left_shoulder + right_shoulder) / 2
-            knee = (left_knee + right_knee) / 2
             hip = (left_hip + right_hip) / 2
+            knee = (left_knee + right_knee) / 2
             ankle = (left_ankle + right_ankle) / 2
 
-            # Map knee angle to squat percentage and bar position
-            per = max(0, min(100, (90 - knee) * (100 / 90)))
-            bar = per / 100
+            # Combine elbow, shoulder, and hip angles into a single metric
+            combined_angle = (0.5 * knee) + (0.3 * hip) + (0.2 * ankle)  #A weighted average of the elbow, shoulder, and hip angles is calculated to represent the overall push-up form
 
             # Add level checks for form (Beginner, Intermediate, Expert)
             if knee > 80 and hip > 80 and ankle > 80:
@@ -137,18 +156,36 @@ def main():
             else:
                 form = "Incorrect"
 
+            # Map combined angle to push-up percentage and bar position based on form level
+            if form == "Beginner":
+                # Beginner level: Combined angle range 130° to 160°
+                per = np.interp(combined_angle, (130, 160), (0, 100))
+                bar = np.interp(combined_angle, (130, 160), (380, 50))
+            elif form == "Intermediate":
+                # Intermediate level: Combined angle range 100° to 130°
+                per = np.interp(combined_angle, (100, 130), (0, 100))
+                bar = np.interp(combined_angle, (100, 130), (380, 50))
+            elif form == "Expert":
+                # Expert level: Combined angle range 90° to 100°
+                per = np.interp(combined_angle, (90, 100), (0, 100))
+                bar = np.interp(combined_angle, (90, 100), (380, 50))
+            else:
+                # Incorrect form: No progress
+                per = 0
+                bar = 380
+
+
             # Check for proper squat position and provide detailed feedback
             if form == "Beginner" or form == "Intermediate" or form == "Expert":
-                if knee < 90 and hip < 90 and ankle < 90:
-                    feedback = "Up"
+                if bar <= 50:  # Check if the progress bar is at the top (Up position)
                     if direction == 0:
-                        count += 1  # Full squat
+                        feedback = "Up"
+                        count += 1  # Full push-up
                         direction = 1
-                        bar = np.interp(count, (0, 20), (380, 50))  # Map the count to the progress bar
-                elif knee >= 90 and hip >= 90 and ankle >= 90:
-                    feedback = "Down"
+                elif bar >= 380:  # Check if the progress bar is at the bottom (Down position)
                     if direction == 1:
-                        count +=1
+                        feedback = "Down"
+                        count += 1
                         direction = 0
             else:
                 feedback = "Fix Form"
