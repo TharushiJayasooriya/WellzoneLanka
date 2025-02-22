@@ -89,7 +89,7 @@ class PoseDetector:
 
 
 def main():
-    # Initialize webcam capture
+     # Initialize webcam capture
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
     feedback = "Fix Form"
@@ -97,69 +97,88 @@ def main():
     while cap.isOpened():
         ret, img = cap.read()  # Read frame from webcam
         if not ret:
+            feedback = "Should be connected to the web camera (Check if the camera is on)"
+            cv2.putText(img, feedback, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
+            cv2.waitKey(1)
             break
 
         img = detector.findPose(img, False)  # Detect pose without drawing
         lmList = detector.findPosition(img, False)  # Get landmark positions
 
         if len(lmList) != 0:
-            # Calculate knee and hip angles
-            left_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle (now considered left)
-            right_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle (now considered right)
-            left_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle (now considered left)
-            right_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle (now considered right)  
-            left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
-            right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
-            left_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle (now considered left)
-            right_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle (now considered right)
+            # Determine user orientation
+            left_shoulder_x = lmList[11][1]  # x-coordinate of left shoulder
+            right_shoulder_x = lmList[12][1]  # x-coordinate of right shoulder
+            swap_landmarks = left_shoulder_x > right_shoulder_x
 
-            # Use the average of left and right angles for squat tracking
+
+            if left_shoulder_x < right_shoulder_x:
+                # Calculate angles for form validation - User is facing the webcam or slightly sideways
+                left_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle
+                right_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle
+                left_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle
+                right_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle
+                left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
+                right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
+                left_knee = detector.findAngle(img, 25, 23, 27)  # Left Knee angle
+                right_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle
+                left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
+                right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
+            else:
+                # User is facing away or sideways (swap left and right landmarks)
+                left_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle (now considered left)
+                right_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle (now considered right)
+                left_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle (now considered left)
+                right_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle (now considered right)
+                left_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle (now considered left)
+                right_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle (now considered right)
+                left_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle (now considered left)
+                right_knee = detector.findAngle(img, 25, 23, 27)  # Left Knee angle (now considered right)
+                left_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle (now considered left)
+                right_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle (now considered right)
+
+            # Use the average of left and right angles for push-up tracking
             elbow = (left_elbow + right_elbow) / 2
             shoulder = (left_shoulder + right_shoulder) / 2
             hip = (left_hip + right_hip) / 2
+            knee = (left_knee + right_knee) / 2
             ankle = (left_ankle + right_ankle) / 2
             
-
             # Check elbow angle
-            if(80 <= elbow <= 100 and  # Elbow angle ~90°
-                80 <= shoulder <= 100 and  # Shoulder angle ~90°
-                160 <= hip <= 190 and  # Hip angle ~180°
-                80 <= ankle <= 100):  # Ankle angle ~90°
-                feedback = "Good Form!" 
-                if 80 <= elbow <= 100:
-                    feedback = "Elbow: Good"
-                elif elbow < 80:
-                    feedback = "Elbow: Too narrow, widen your arms"
-                else:
-                    feedback = "Elbow: Too wide, bring arms closer"
-
-                # Check shoulder angle
-                if 80 <= shoulder <= 100:
-                    feedback = "Shoulder: Good"
-                elif shoulder < 80:
-                    feedback = "Shoulder: Too low, raise your shoulders"
-                else:
-                    feedback = "Shoulder: Too high, lower your shoulders"
-
-                # Check hip angle
-                if 160 <= hip <= 190:
-                    feedback = "Hip: Good"
-                elif hip < 160:
-                    feedback = "Hip: Too low, straighten your body"
-                else:
-                    feedback = "Hip: Too high, lower your hips"
-
-                # Check ankle angle
-                if 80 <= ankle<= 100:
-                    feedback = "Ankle: Good"
-                elif ankle< 80:
-                    feedback = "Ankle: Adjust your feet"
-                else:
-                    feedback = "Ankle: Adjust your feet"
-
+            if 80 <= elbow <= 100 and 80 <= shoulder <= 100 and 160 <= hip <= 190 and 80 <= ankle <= 100:
+                feedback = "Good Form!"  # Level 1: Perfect alignment
+                
             else:
-                feedback = "Fix Form: Adjust your posture."
+                # Level 2: Minor adjustments needed
+                if not (80 <= elbow <= 100):
+                    if elbow < 80:
+                        feedback = "Elbow too narrow: Widen your arms slightly."
+                    elif elbow > 100:
+                        feedback = "Elbow too wide: Bring your arms closer."
+                elif not (80 <= shoulder <= 100):
+                    if shoulder < 80:
+                        feedback = "Shoulders too low: Raise your shoulders slightly."
+                    elif shoulder > 100:
+                        feedback = "Shoulders too high: Lower them slightly."
+                elif not (160 <= hip <= 190):
+                    if hip < 160:
+                        feedback = "Hip angle too low: Straighten your body."
+                    elif hip > 190:
+                        feedback = "Hip angle too high: Lower your hips."
+                elif not (80 <= ankle <= 100):
+                    if ankle < 80:
+                        feedback = "Ankle too low: Adjust your feet position."
+                    elif ankle > 100:
+                        feedback = "Ankle too high: Adjust your posture."
 
+                # Level 3: Major adjustments needed
+                else:
+                    feedback = "Fix Form: Significant posture adjustments required."
+
+
+           
+
+           
             # Display angles and feedback
             cv2.putText(img, f"Elbow: {int(elbow)}", (10, 30),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
