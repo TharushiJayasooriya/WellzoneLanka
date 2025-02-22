@@ -60,3 +60,69 @@ export default function Home() {
                   Facebook
                 </Button>
               </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">or continue with</span>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Email or Username</label>
+                  <Input
+                    type="text"
+                    placeholder="Enter your email or username"
+                    className="mt-1"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-gray-700">Password</label>
+                  <div className="relative mt-1">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Enter your password"
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute inset-y-0 right-0 flex items-center pr-3"
+                    >
+                      {showPassword ? (
+                        <EyeOff className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <Eye className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <a href="#" className="text-sm text-cyan-500 hover:text-cyan-600">
+                    Forgot Password?
+                  </a>
+                </div>
+
+                <Button className="w-full bg-cyan-500 hover:bg-cyan-600">
+                  Sign in
+                </Button>
+
+                <p className="text-center text-sm text-gray-600">
+                  No Account?{" "}
+                  <a href="#" className="text-cyan-500 hover:text-cyan-600 font-medium">
+                    Sign up
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
