@@ -100,7 +100,10 @@ def main():
     while cap.isOpened():
         ret, img = cap.read()  # Read frame from webcam
         if not ret:
-            feedback="Should connected to the web camera(Check camera is on)"
+            feedback = "Should be connected to the web camera (Check if the camera is on)"
+            cv2.putText(img, feedback, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
+            cv2.imshow('Pushup Counter', img)
+            cv2.waitKey(1)
             break
 
         img = detector.findPose(img, False)  # Detect pose without drawing
@@ -143,31 +146,47 @@ def main():
             knee = (left_knee + right_knee) / 2
             ankle = (left_ankle + right_ankle) / 2
 
-            # Map elbow angle to push-up percentage and bar position
-            per = np.interp(elbow, (90, 160), (0, 100))
-            bar = np.interp(elbow, (90, 160), (380, 50))
+            # Combine elbow, shoulder, and hip angles into a single metric
+            combined_angle = (0.5 * elbow) + (0.3 * shoulder) + (0.2 * hip)  #A weighted average of the elbow, shoulder, and hip angles is calculated to represent the overall push-up form
 
             # Add level checks for form (beginner, intermediate, expert)
             if elbow >= 130 and elbow <= 160 and shoulder >= 20 and shoulder <= 40 and hip >= 140 and hip <= 160:
                 form = "Beginner"
             elif elbow >= 100 and elbow < 130 and shoulder >= 40 and shoulder <= 50 and hip >= 140 and hip <= 160:
                 form = "Intermediate"
-            elif elbow > 90 and elbow <=100 and shoulder >= 50 and shoulder <= 60 and hip >= 140 and hip <=160 and knee > 160 and ankle > 80:
+            elif elbow > 90 and elbow <= 100 and shoulder >= 50 and shoulder <= 60 and hip >= 140 and hip <= 160 and knee > 160 and ankle > 80:
                 form = "Expert"
             else:
                 form = "Incorrect"
 
-            # Check for proper push-up position and provide detailed feedback
-            if form == "Beginner" or form == "Intermediate":
-                if elbow <= 90 and hip > 160 and (knee > 160 or ankle > 80):
-                    feedback = "Up"
+            # Map combined angle to push-up percentage and bar position based on form level
+            if form == "Beginner":
+                # Beginner level: Combined angle range 130° to 160°
+                per = np.interp(combined_angle, (130, 160), (0, 100))
+                bar = np.interp(combined_angle, (130, 160), (380, 50))
+            elif form == "Intermediate":
+                # Intermediate level: Combined angle range 100° to 130°
+                per = np.interp(combined_angle, (100, 130), (0, 100))
+                bar = np.interp(combined_angle, (100, 130), (380, 50))
+            elif form == "Expert":
+                # Expert level: Combined angle range 90° to 100°
+                per = np.interp(combined_angle, (90, 100), (0, 100))
+                bar = np.interp(combined_angle, (90, 100), (380, 50))
+            else:
+                # Incorrect form: No progress
+                per = 0
+                bar = 380
+
+           # Check for proper push-up position and provide detailed feedback
+            if form == "Beginner" or form == "Intermediate" or form == "Expert":
+                if bar <= 50:  # Check if the progress bar is at the top (Up position)
                     if direction == 0:
+                        feedback = "Up"
                         count += 1  # Full push-up
                         direction = 1
-                        bar = np.interp(count, (0, 20), (380, 50))  # Map the count to the progress bar
-                elif elbow >= 100 and elbow < 140 and shoulder > 45 and hip >= 140:
-                    feedback = "Down"
+                elif bar >= 380:  # Check if the progress bar is at the bottom (Down position)
                     if direction == 1:
+                        feedback = "Down"
                         count += 1
                         direction = 0
             else:
@@ -194,16 +213,16 @@ def main():
             else:
                 feedback = "Incorrect Form: Adjust your posture. Check elbow, shoulder, hip, knee, and ankle angles."
 
-                # Draw Bar
-                cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
-                cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
-                cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                            (255, 0, 0), 2)
+            # Draw Bar
+            cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
+            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
+            cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                        (255, 0, 0), 2)
 
-                # Pushup counter
-                cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
-                cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
-                            (255, 0, 0), 5)
+            # Pushup counter
+            cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
+            cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
+                        (255, 0, 0), 5)
 
             # Feedback
             cv2.putText(img, f"Elbow: {int(elbow)}", (10, 30),
