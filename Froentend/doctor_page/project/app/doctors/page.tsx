@@ -9,7 +9,7 @@ export default function DoctorsPage() {
       specialization: "Senior Physiotherapist",
       experience: "15+ years",
       rating: 4.9,
-      image: "/Froentend/doctor_page/project/images/doctor-male.png",
+      image: "/images/female-doctor.png",
       expertise: ["Sports Injuries", "Rehabilitation", "Joint Pain"]
     },
     {
@@ -18,7 +18,7 @@ export default function DoctorsPage() {
       specialization: "Orthopedic Physiotherapist",
       experience: "12+ years",
       rating: 4.8,
-      image: "/Froentend/doctor_page/project/images/doctor-male.png",
+      image: "/images/doctor-male.png",
       expertise: ["Back Pain", "Neck Pain", "Post-Surgery Rehabilitation"]
     },
     {
@@ -27,7 +27,7 @@ export default function DoctorsPage() {
       specialization: "Neurological Physiotherapist",
       experience: "10+ years",
       rating: 4.7,
-      image: "/Froentend/doctor_page/project/images/female-doctor.png",
+      image: "/images/female-doctor.png",
       expertise: ["Stroke Rehabilitation", "Balance Disorders", "Nerve Pain"]
     }
   ];
