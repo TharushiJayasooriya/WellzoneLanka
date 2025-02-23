@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Activity } from 'lucide-react'
+import Image from 'next/image';
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Activity className="h-6 w-6 text-primary" />
+            <Image src="./images/icon.png" alt="Wellzone Logo" width={24} height={24} /> 
             <span className="font-bold">Wellzone Lanka</span>
           </Link>
         </div>
