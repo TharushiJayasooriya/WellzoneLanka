@@ -13,7 +13,7 @@ export default function Navbar() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src="./images/icon.png" alt="Wellzone Logo" width={24} height={24} /> 
+            <Image src="./images/icon.png" alt="Wellzone Logo" width={70} height={70} className="pl-4" /> 
             <span className="font-bold">Wellzone Lanka</span>
           </Link>
         </div>
