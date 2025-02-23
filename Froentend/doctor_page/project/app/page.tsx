@@ -12,18 +12,17 @@ export default function Home() {
             Your Journey to Physical Wellness Starts Here
           </h1>
           <p className="text-lg text-muted-foreground">
-            Connect with Sri Lanka's leading physiotherapists and wellness experts for personalized care and treatment
+            Connect with Sri Lanka&apos;s leading physiotherapists and wellness experts for personalized care and treatment
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/register">
-              <Button size="lg" className="w-full sm:w-auto">
-                Get Started <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <Button className="w-full sm:w-auto">
+              Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+
             </Link>
             <Link href="/about">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Learn More
-              </Button>
+            <Button className="w-full sm:w-auto">Learn More</Button>
             </Link>
           </div>
         </div>
