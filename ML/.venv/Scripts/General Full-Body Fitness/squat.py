@@ -103,6 +103,8 @@ def main():
             cv2.waitKey(1)
             break
 
+        elbow=shoulder=knee=ankle=hip=0
+
         img = detector.findPose(img, False)  # Detect pose without drawing
         lmList = detector.findPosition(img, False)  # Get landmark positions
 
@@ -185,7 +187,7 @@ def main():
                 elif bar >= 380:  # Check if the progress bar is at the bottom (Down position)
                     if direction == 1:
                         feedback = "Down"
-                        count += 1
+                    
                         direction = 0
             else:
                 feedback = "Fix Form"
