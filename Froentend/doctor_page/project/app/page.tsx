@@ -100,20 +100,20 @@ export default function Home() {
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <TestimonialCard
-              image="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=2787&auto=format&fit=crop"
-              name="Sarah Johnson"
+              image="/images/user.png"
+              name="Esala Gamage"
               text="The physiotherapy services at Wellzone Lanka have been transformative. I've seen significant improvement in my recovery."
               delay={0.1}
             />
             <TestimonialCard
-              image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2787&auto=format&fit=crop"
-              name="Michael Chang"
+              image="/images/user.png"
+              name="Anjana Rusiru"
               text="Professional staff and excellent facilities. The personalized care plan made all the difference in my rehabilitation."
               delay={0.2}
             />
             <TestimonialCard
-              image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2787&auto=format&fit=crop"
-              name="Emily Roberts"
+              image="/images/user.png"
+              name="Nohim Dhanawardhana"
               text="The virtual sessions are so convenient, and the quality of care is just as good as in-person visits."
               delay={0.3}
             />
