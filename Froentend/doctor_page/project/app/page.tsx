@@ -41,7 +41,7 @@ export default function Home() {
             src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2940&auto=format&fit=crop"
             alt="Hero background"
             fill
-            className="object-cover opacity-10"
+            className="object-cover opacity-50"
             priority
           />
         </div>
