@@ -91,9 +91,37 @@ def main():
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
     count = 0
-    direction = 0
+    # Use a state machine for more robust rep counting
+    # 0 = standing, 1 = going down, 2 = squat position, 3 = going up
+    squat_state = 0
+    
     form = 0
     feedback = "Fix Form"
+    
+    # Make these thresholds more lenient
+    beginner_angle_threshold = 70
+    intermediate_angle_threshold = 50
+    expert_angle_threshold = 30
+    
+    # For rep counting - REDUCE sensitivity by widening the gap between thresholds
+    up_threshold = 130  # Was 120 - higher number means you need to stand up more
+    down_threshold = 80  # Was 90 - lower number means you need to squat deeper
+    
+    # Add confirmation counters to prevent accidental rep counting
+    frames_in_up_position = 0
+    frames_in_down_position = 0
+    required_confirmation_frames = 10  # Number of frames to confirm a position
+    
+    # Increase smoothing window to reduce jitter
+    angle_buffer_size = 10  # Was 5
+    last_knee_angles = [0] * angle_buffer_size
+    last_hip_angles = [0] * angle_buffer_size
+    last_ankle_angles = [0] * angle_buffer_size
+    angle_index = 0
+    
+    # Track combined angle for debouncing
+    last_combined_angles = [0] * 15  # Longer buffer for combined angle
+    combined_angle_index = 0
 
     while cap.isOpened():
         ret, img = cap.read()  # Read frame from webcam
@@ -105,6 +133,10 @@ def main():
 
         img = detector.findPose(img, False)  # Detect pose without drawing
         lmList = detector.findPosition(img, False)  # Get landmark positions
+
+        # Initialize variables
+        elbow = shoulder = hip = knee = ankle = 0
+        knee_angle_smoothed = hip_angle_smoothed = ankle_angle_smoothed = 0
 
         if len(lmList) != 0:
             # Determine user orientation
@@ -136,77 +168,105 @@ def main():
                 left_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle (now considered left)
                 right_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle (now considered right)
 
-            # Use the average of left and right angles for push-up tracking
+           # Use the average of left and right angles for squat tracking
             elbow = (left_elbow + right_elbow) / 2
             shoulder = (left_shoulder + right_shoulder) / 2
             hip = (left_hip + right_hip) / 2
             knee = (left_knee + right_knee) / 2
             ankle = (left_ankle + right_ankle) / 2
-
-            # Combine elbow, shoulder, and hip angles into a single metric
-            combined_angle = (0.5 * knee) + (0.3 * hip) + (0.2 * ankle)  #A weighted average of the elbow, shoulder, and hip angles is calculated to represent the overall push-up form
+            
+            # Apply smoothing to angles to reduce jitter - now with larger buffer
+            last_knee_angles[angle_index] = knee
+            last_hip_angles[angle_index] = hip
+            last_ankle_angles[angle_index] = ankle
+            angle_index = (angle_index + 1) % angle_buffer_size
+            
+            knee_angle_smoothed = sum(last_knee_angles) / angle_buffer_size
+            hip_angle_smoothed = sum(last_hip_angles) / angle_buffer_size
+            ankle_angle_smoothed = sum(last_ankle_angles) / angle_buffer_size
+            
+            # Combine angles with weighted average as in original code
+            combined_angle = (0.5 * knee_angle_smoothed) + (0.3 * hip_angle_smoothed) + (0.2 * ankle_angle_smoothed)
+            
+            # Add an additional layer of smoothing for the combined angle
+            last_combined_angles[combined_angle_index] = combined_angle
+            combined_angle_index = (combined_angle_index + 1) % len(last_combined_angles)
+            combined_angle_smoothed = sum(last_combined_angles) / len(last_combined_angles)
 
             # Add level checks for form (Beginner, Intermediate, Expert)
-            if knee > 80 and hip > 80 and ankle > 80:
+            if knee_angle_smoothed > beginner_angle_threshold and hip_angle_smoothed > beginner_angle_threshold and ankle_angle_smoothed > beginner_angle_threshold:
                 form = "Beginner"
-            elif knee > 60 and hip > 60 and ankle > 60:
+            elif knee_angle_smoothed > intermediate_angle_threshold and hip_angle_smoothed > intermediate_angle_threshold and ankle_angle_smoothed > intermediate_angle_threshold:
                 form = "Intermediate"
-            elif knee > 40 and hip > 40 and ankle > 40:
+            elif knee_angle_smoothed > expert_angle_threshold and hip_angle_smoothed > expert_angle_threshold and ankle_angle_smoothed > expert_angle_threshold:
                 form = "Expert"
             else:
-                form = "Incorrect"
+                form = "Deep Squat"
 
-            # Map combined angle to push-up percentage and bar position based on form level
+            # Map combined angle to percentage and bar position based on form level
             if form == "Beginner":
-                # Beginner level: Combined angle range 130° to 160°
-                per = np.interp(combined_angle, (130, 160), (0, 100))
-                bar = np.interp(combined_angle, (130, 160), (380, 50))
+                # Beginner level (more lenient range)
+                per = np.interp(combined_angle_smoothed, (110, 140), (0, 100))
+                bar = np.interp(combined_angle_smoothed, (110, 140), (380, 50))
             elif form == "Intermediate":
-                # Intermediate level: Combined angle range 100° to 130°
-                per = np.interp(combined_angle, (100, 130), (0, 100))
-                bar = np.interp(combined_angle, (100, 130), (380, 50))
+                # Intermediate level
+                per = np.interp(combined_angle_smoothed, (90, 110), (0, 100))
+                bar = np.interp(combined_angle_smoothed, (90, 110), (380, 50))
             elif form == "Expert":
-                # Expert level: Combined angle range 90° to 100°
-                per = np.interp(combined_angle, (90, 100), (0, 100))
-                bar = np.interp(combined_angle, (90, 100), (380, 50))
+                # Expert level
+                per = np.interp(combined_angle_smoothed, (70, 90), (0, 100))
+                bar = np.interp(combined_angle_smoothed, (70, 90), (380, 50))
             else:
-                # Incorrect form: No progress
-                per = 0
-                bar = 380
+                # Deep squat or incorrect form
+                per = np.interp(combined_angle_smoothed, (50, 70), (0, 100))
+                bar = np.interp(combined_angle_smoothed, (50, 70), (380, 50))
 
-
-            # Check for proper squat position and provide detailed feedback
-            if form == "Beginner" or form == "Intermediate" or form == "Expert":
-                if bar <= 50:  # Check if the progress bar is at the top (Up position)
-                    if direction == 0:
-                        feedback = "Up"
-                        count += 1  # Full push-up
-                        direction = 1
-                elif bar >= 380:  # Check if the progress bar is at the bottom (Down position)
-                    if direction == 1:
-                        feedback = "Down"
-                        count += 1
-                        direction = 0
-            else:
-                feedback = "Fix Form"
-                # Posture correction suggestions for beginners and intermediates
-                if hip < 80:
-                    feedback = "Hips too low! Maintain a straight line from head to heels."
-                if knee < 80:
-                    feedback = "Knees not straight! Keep legs fully extended."
-                if ankle < 80:
-                    feedback = "Ankles not dorsiflexed! Keep feet flat and toes pointing forward."
-
-            # Categorizing squat form by angle levels
+            # Improved state machine for rep counting
+            if form != "":
+                # STATE MACHINE FOR REP COUNTING
+                if squat_state == 0:  # Standing position
+                    if combined_angle_smoothed < down_threshold:
+                        squat_state = 1  # Transition to going down
+                        feedback = "Going Down"
+                elif squat_state == 1:  # Going down
+                    if combined_angle_smoothed < down_threshold - 10:  # Need to go clearly below threshold
+                        frames_in_down_position += 1
+                        if frames_in_down_position >= required_confirmation_frames:
+                            squat_state = 2  # Confirmed in squat position
+                            frames_in_down_position = 0
+                            feedback = "In Squat Position"
+                    else:
+                        frames_in_down_position = 0  # Reset if not consistently in position
+                elif squat_state == 2:  # In squat position
+                    if combined_angle_smoothed > down_threshold + 10:  # Started coming up
+                        squat_state = 3  # Transition to going up
+                        feedback = "Going Up"
+                elif squat_state == 3:  # Going up
+                    if combined_angle_smoothed > up_threshold:  # Need to go clearly above threshold
+                        frames_in_up_position += 1
+                        if frames_in_up_position >= required_confirmation_frames:
+                            squat_state = 0  # Confirmed back to standing position
+                            frames_in_up_position = 0
+                            count += 1  # Only count a complete rep when fully returned to start
+                            feedback = "Rep Completed!"
+                    else:
+                        frames_in_up_position = 0  # Reset if not consistently in position
+            
+            # Detailed feedback based on form and angles
             if form == "Beginner":
-                feedback = f"Beginner Form: Try to squat deeper. Angles: Knee={int(knee)}°, Hip={int(hip)}°"
+                if "Rep Completed" not in feedback:  # Don't override rep completion message
+                    feedback = f"Beginner: Try to squat deeper, Knee={int(knee_angle_smoothed)}°"
             elif form == "Intermediate":
-                feedback = f"Intermediate Form: Good! Aim for a deeper squat. Angles: Knee={int(knee)}°, Hip={int(hip)}°"
+                if "Rep Completed" not in feedback:
+                    feedback = f"Intermediate: Good form, Knee={int(knee_angle_smoothed)}°"
             elif form == "Expert":
-                feedback = f"Expert Form: Excellent squat posture! Angles: Knee={int(knee)}°, Hip={int(hip)}°"
-            else:
-                feedback = "Incorrect Form: Adjust your posture. Check knee and hip angles."
-
+                if "Rep Completed" not in feedback:
+                    feedback = f"Expert: Excellent squat, Knee={int(knee_angle_smoothed)}°"
+            elif form == "Deep Squat":
+                if "Rep Completed" not in feedback:
+                    feedback = f"Deep Squat: Great depth, Knee={int(knee_angle_smoothed)}°"
+                
+            
             # Draw Bar
             cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
             cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
@@ -218,21 +278,22 @@ def main():
             cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
                         (255, 0, 0), 5)
 
-        # Feedback and Level
-        cv2.putText(img, f"Elbow: {int(elbow)}", (10, 30),
-                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-        cv2.putText(img, f"Shoulder: {int(shoulder)}", (10, 60),
+        # Feedback and Level display
+        cv2.putText(img, f"Form: {form}", (10, 30),
                     cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-        cv2.putText(img, f"Hip: {int(hip)}", (10, 90),
+        cv2.putText(img, f"State: {squat_state}", (10, 60),
                     cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-        cv2.putText(img, f"Ankle: {int(ankle)}", (10, 120),
+        cv2.putText(img, f"Hip: {int(hip_angle_smoothed)}", (10, 90),
                     cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-        cv2.putText(img, feedback, (10, 150),
+        cv2.putText(img, f"Knee: {int(knee_angle_smoothed)}", (10, 120),
                     cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-        cv2.rectangle(img, (500, 0), (640, 40), (255, 255, 255), cv2.FILLED)
-        cv2.putText(img, feedback, (510, 30), cv2.FONT_HERSHEY_PLAIN, 1.5,
+        cv2.putText(img, f"Ankle: {int(ankle_angle_smoothed)}", (10, 150),
+                    cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+                    
+        # Top feedback banner
+        cv2.rectangle(img, (0, 0), (640, 40), (255, 255, 255), cv2.FILLED)
+        cv2.putText(img, feedback, (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5,
                     (0, 255, 0), 2)
-            
 
         # Show final frame with feedback and counters
         cv2.imshow('Squat Counter', img)
