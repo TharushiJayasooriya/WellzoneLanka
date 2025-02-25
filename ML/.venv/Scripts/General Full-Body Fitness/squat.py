@@ -131,8 +131,6 @@ def main():
             cv2.waitKey(1)
             break
 
-        elbow=shoulder=knee=ankle=hip=0
-
         img = detector.findPose(img, False)  # Detect pose without drawing
         lmList = detector.findPosition(img, False)  # Get landmark positions
 
