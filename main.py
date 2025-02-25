@@ -24,3 +24,22 @@ class User(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     workouts = db.relationship('Workout', backref='user', lazy=True)
     achievements = db.relationship('Achievement', backref='user', lazy=True)
+
+class Trainer(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    experience_years = db.Column(db.Integer)
+    rating = db.Column(db.Float)
+    bio = db.Column(db.Text)
+    specialties = db.Column(db.Text)  # Stored as comma-separated values
+    certifications = db.Column(db.Text)  # Stored as comma-separated values
+    profile_image = db.Column(db.String(200))
+
+class Exercise(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    video_url = db.Column(db.String(200))
+    tips = db.Column(db.Text)
+    category = db.Column(db.String(50))
+    workout_exercises = db.relationship('WorkoutExercise', backref='exercise', lazy=True)
