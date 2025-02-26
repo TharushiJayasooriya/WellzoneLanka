@@ -31,5 +31,9 @@ class User(db.Model):
         name = db.Column(db.String(100), nullable=False)
         experience_years = db.Column(db.Integer)
         rating = db.Column(db.Float)
-        
+        bio = db.Column(db.Text)
+        specialties = db.Column(db.Text)  # Stored as comma-separated values
+        certifications = db.Column(db.Text)  # Stored as comma-separated values
+        profile_image = db.Column(db.String(200))
+
 
