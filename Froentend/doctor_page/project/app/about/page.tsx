@@ -1,5 +1,7 @@
-import { Heart, Users, Award, Activity, CheckCircle } from 'lucide-react';
+import { Heart, Users, Award, Activity, CheckCircle,Bot } from 'lucide-react';
 import Image from 'next/image';
+import Link from "next/link";
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
@@ -98,6 +100,12 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+       {/* Chatbot Icon */}
+       <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-blue-300 p-2 rounded-full shadow-lg flex items-center justify-center animate-bounce">
+        <Link href="/chat">
+          <Bot className="h-12 w-12 cursor-pointer hover:scale-110 transition-transform duration-200" />
+        </Link>
+      </div>
 
       {/* CTA Section */}
       <section className="py-16 px-4 bg-primary text-primary-foreground">

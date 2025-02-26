@@ -3,7 +3,7 @@
 import { Button } from "../components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Activity, Heart, Calendar, Video, Star, CheckCircle } from "lucide-react";
+import { ArrowRight, Activity, Heart, Calendar, Video, Star, CheckCircle,Bot } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Home() {
@@ -58,13 +58,7 @@ export default function Home() {
           >
             Why Choose Wellzone Lanka
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <FeatureCard
-              icon={<Activity className="h-10 w-10" />}
-              title="Expert Assessment"
-              description="Comprehensive physical evaluation and personalized treatment plans"
-              delay={0.1}
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
             <FeatureCard
               icon={<Heart className="h-10 w-10" />}
               title="Specialized Care"
@@ -86,6 +80,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Chatbot Icon */}
+      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-blue-300 p-2 rounded-full shadow-lg flex items-center justify-center animate-bounce">
+        <Link href="/chat">
+          <Bot className="h-12 w-12 cursor-pointer hover:scale-110 transition-transform duration-200" />
+        </Link>
+      </div>
+
 
       {/* Testimonials Section */}
       <section className="py-20 px-4 md:px-6 bg-gradient-to-b from-secondary/20 to-background">
