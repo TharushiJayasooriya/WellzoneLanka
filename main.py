@@ -1,3 +1,4 @@
+from functools import wraps
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
 
@@ -71,3 +72,23 @@ class Achievement(db.Model):
     date_achieved = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     badge_type = db.Column(db.String(50))  # e.g., streak, weight, form
 
+# Authentication token required decorator
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        if 'Authorization' in request.headers:
+            token = request.headers['Authorization'].split(" ")[1]
+        
+        if not token:
+            return jsonify({'message': 'Token is missing!'}), 401
+        
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+            current_user = User.query.filter_by(id=data['user_id']).first()
+        except:
+            return jsonify({'message': 'Token is invalid!'}), 401
+            
+        return f(current_user, *args, **kwargs)
+    
+    return decorated
