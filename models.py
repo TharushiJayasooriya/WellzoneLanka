@@ -24,4 +24,12 @@ class User(db.Model):
             'name': self.name,
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
         }
+    
+    class Trainer(db.Model):
+        "Trainer model for trainer profile information"
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String(100), nullable=False)
+        experience_years = db.Column(db.Integer)
+        rating = db.Column(db.Float)
+        
 
