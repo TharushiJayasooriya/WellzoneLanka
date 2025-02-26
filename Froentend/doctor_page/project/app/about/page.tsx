@@ -11,8 +11,7 @@ export default function AboutPage() {
         <nav className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full overflow-hidden">
-            <Link href="/home" className="text-sky-600 border-b-2 border-sky-500"></Link>
+            <Link href="/about" className="text-sky-600 border-b-2 border-sky-500"></Link>
               <Image 
                 src="/images/icon.png" 
                 alt="Logo" 
@@ -20,7 +19,7 @@ export default function AboutPage() {
                 width={40} 
                 
               />
-            </div>
+            
             <span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-gray-600">
