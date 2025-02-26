@@ -44,3 +44,30 @@ class Exercise(db.Model):
     category = db.Column(db.String(50))
     workout_exercises = db.relationship('WorkoutExercise', backref='exercise', lazy=True)
 
+
+class Workout(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    duration = db.Column(db.Integer)  # in seconds
+    form_accuracy = db.Column(db.Float)
+    exercises = db.relationship('WorkoutExercise', backref='workout', lazy=True)
+
+class workoutExercise(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    workout_id = db.Column(db.Integer, db.ForeignKey('workout.id'), nullable=False)
+    exercise_id = db.Column(db.Integer, db.ForeignKey('exercise.id'), nullable=False)
+    sets = db.Column(db.Integer)
+    reps = db.Column(db.Integer)
+    weight = db.Column(db.Float)
+    duration = db.Column(db.Integer)  # in seconds
+    form_accuracy = db.Column(db.Float)
+
+class Achievement(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    date_achieved = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    badge_type = db.Column(db.String(50))  # e.g., streak, weight, form
+
