@@ -222,3 +222,16 @@ def get_trainers(current_user):
 @token_required
 def get_exercises(current_user):
     exercises = Exercise.query.all()
+
+    exercises_data = []
+    for exercise in exercises:
+        exercises_data.append({
+            'id': exercise.id,
+            'name': exercise.name,
+            'description': exercise.description,
+            'video_url': exercise.video_url,
+            'tips': exercise.tips.split('\n') if exercise.tips else [],
+            'category': exercise.category
+        })
+    
+    return jsonify(exercises_data)
