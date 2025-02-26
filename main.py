@@ -193,3 +193,26 @@ def get_dashboard(current_user):
         'daily_progress': daily_progress,
         'recent_achievements': achievements_data[:3]
     })
+
+def get_trainers(current_user):
+    # Get all trainers
+    trainers = Trainer.query.all()
+    
+    # Get user's favorite trainers
+    favorite_trainers = current_user.favorite_trainers
+    
+    # Prepare data
+    trainers_data = []
+    for trainer in trainers:
+        trainers_data.append({
+            'id': trainer.id,
+            'name': trainer.name,
+            'experience_years': trainer.experience_years,
+            'rating': trainer.rating,
+            'bio': trainer.bio,
+            'specialties': trainer.specialties.split(',') if trainer.specialties else [],
+            'certifications': trainer.certifications.split(',') if trainer.certifications else [],
+            'profile_image': trainer.profile_image
+        })
+    
+    return jsonify(trainers_data)
