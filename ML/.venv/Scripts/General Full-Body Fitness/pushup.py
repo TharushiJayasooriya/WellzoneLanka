@@ -78,7 +78,7 @@ def main():
     count = 0
     direction = 0
     form = 0
-    feedback = "Fix Form"
+    feedback = "Fix Your position first"
 
     while cap.isOpened():
         ret, img = cap.read()
@@ -99,70 +99,60 @@ def main():
             right_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle
             left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
             right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
-
-            # Use the average of left and right angles for push-up tracking
-            elbow = (left_elbow + right_elbow) / 2
-            shoulder = (left_shoulder + right_shoulder) / 2
-            hip = (left_hip + right_hip) / 2
-            knee = (left_knee + right_knee) / 2
-            ankle = (left_ankle + right_ankle) / 2
-
             
-            per = np.interp(elbow, (90, 160), (0, 100))
-            bar = np.interp(elbow, (90, 160), (380, 50))
+            per = np.interp((right_elbow or left_elbow), (90, 160), (0, 100))
+            bar = np.interp((right_elbow or left_elbow), (90, 160), (380, 50))
 
-            if (170 < elbow and elbow < 175) and (90 < shoulder and shoulder < 100) and (175 < hip and hip < 180):
-                
-                form = 1
-            elif (175 < elbow and elbow < 180) and (95 < shoulder and shoulder < 100) and (hip == 180):
-                
-                form = 2
-            
+            # Check form for beginner or expert level
+            if (170 < (right_elbow or left_elbow) < 175) and (90 < (right_shoulder or left_shoulder) < 100) and (175 < (right_hip or left_hip) < 180):
+                form = 1  # Beginner form detected
+            elif (175 < (right_elbow or left_elbow) < 180) and (95 < (right_shoulder or left_shoulder) < 100) and ((right_hip or left_hip) == 180):
+                form = 2  # Expert form detected
 
+            # Beginner Level Logic
             if form == 1:
-                if (170 < elbow and elbow < 175) and (175 < hip and hip < 180):
-                    feedback = "Beginner Level-Up"
+                if (170 < (right_elbow or left_elbow) < 175) and (175 < (right_hip or left_hip) < 180):
+                    feedback = "Beginner Level - Up"
                     if direction == 0:
                         count += 0.5
                         direction = 1
-                elif (90 <= elbow and elbow <= 95) and (60 < shoulder and shoulder < 80) and (160 < hip and hip < 170):
-                    feedback = "Beginner Level-Down"
+                elif (90 <= (right_elbow or left_elbow) <= 95) and (60 < (right_shoulder or left_shoulder) < 80) and (160 < (right_hip or left_hip) < 170):
+                    feedback = "Beginner Level - Down"
                     if direction == 1:
                         count += 0.5
                         direction = 0
                 else:
                     feedback = "Fix Form"
 
-            if form == 2:
-                if (175 < elbow and elbow < 180) and hip == 180 and (95 < shoulder and shoulder < 100):
-                    feedback = "Up"
+            # Expert Level Logic
+            elif form == 2:
+                if (175 < (right_elbow or left_elbow) < 180) and (right_hip or left_hip) == 180 and (95 < (right_shoulder or left_shoulder) < 100):
+                    feedback = "Expert Level - Up"
                     if direction == 0:
                         count += 0.5
                         direction = 1
-                elif (165 < elbow and elbow < 175) and (60 < shoulder and shoulder < 70) and (165 < hip and hip < 175):
-                    feedback = "Down"
+                elif (165 < (right_elbow or left_elbow) < 175) and (60 < (right_shoulder or left_shoulder) < 70) and (165 < (right_hip or left_hip) < 175):
+                    feedback = "Expert Level - Down"
                     if direction == 1:
                         count += 0.5
                         direction = 0
                 else:
                     feedback = "Fix Form"
                     
-            # Draw Bar
-            
-            cv2.rectangle(img, (580, 50), (600, 380), (0, 0, 0), 3)
-            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 0,0), cv2.FILLED)
+             # Draw Progress Bar
+            cv2.rectangle(img, (580, 50), (600, 380), (255, 255, 255), 3)
+            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 0, 0), cv2.FILLED)
             cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
                         (255, 0, 0), 2)
-
             # Pushup counter
-            cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
+            cv2.rectangle(img, (0, 380), (100, 480), (0, 0, 0), cv2.FILLED)
             cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
                        (255, 0, 0), 5)
             
             # Feedback 
-            cv2.rectangle(img, (500, 0), (640, 40), (255, 255, 255), cv2.FILLED)
+            cv2.rectangle(img, (500, 0), (640, 40), (0, 0, 0), cv2.FILLED)
             cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2,
-                       (0, 255, 0), 2)
+                       (255, 0, 0), 2)
 
         cv2.imshow('Pushup Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
