@@ -79,6 +79,7 @@ def main():
     direction = 0
     form = 0
     feedback = "Fix Your position first"
+    
 
     while cap.isOpened():
         ret, img = cap.read()
@@ -100,24 +101,27 @@ def main():
             left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
             right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
             
-            per = np.interp((right_elbow or left_elbow), (90, 160), (0, 100))
-            bar = np.interp((right_elbow or left_elbow), (90, 160), (380, 50))
+            
 
             # Check form for beginner or expert level
-            if (170 < (right_elbow or left_elbow) < 175) and (90 < (right_shoulder or left_shoulder) < 100) and (175 < (right_hip or left_hip) < 180):
+            if (right_elbow or left_elbow) >140 and (right_shoulder or left_shoulder) >30 and  (right_hip or left_hip) >140:
                 form = 1  # Beginner form detected
-            elif (175 < (right_elbow or left_elbow) < 180) and (95 < (right_shoulder or left_shoulder) < 100) and ((right_hip or left_hip) == 180):
+            elif (right_elbow or left_elbow)>160 and (right_shoulder or left_shoulder) >40 and (right_hip or left_hip) >160:
                 form = 2  # Expert form detected
 
             # Beginner Level Logic
             if form == 1:
-                if (170 < (right_elbow or left_elbow) < 175) and (175 < (right_hip or left_hip) < 180):
+                if (right_elbow or left_elbow) <=100 and (right_hip or left_hip) >140:
                     feedback = "Beginner Level - Up"
+                    per = 100  # 100% when in "Up" position
+                    bar = 50   # Progress bar at the top
                     if direction == 0:
                         count += 0.5
                         direction = 1
-                elif (90 <= (right_elbow or left_elbow) <= 95) and (60 < (right_shoulder or left_shoulder) < 80) and (160 < (right_hip or left_hip) < 170):
+                elif (right_elbow or left_elbow)>140 and (right_shoulder or left_shoulder) >30 and (right_hip or left_hip) >140:
                     feedback = "Beginner Level - Down"
+                    per = 0  # 0% when in "Down" position
+                    bar = 380   # Progress bar at the bottom
                     if direction == 1:
                         count += 0.5
                         direction = 0
@@ -126,13 +130,17 @@ def main():
 
             # Expert Level Logic
             elif form == 2:
-                if (175 < (right_elbow or left_elbow) < 180) and (right_hip or left_hip) == 180 and (95 < (right_shoulder or left_shoulder) < 100):
+                if (right_elbow or left_elbow) <=90 and (right_hip or left_hip) >160:
                     feedback = "Expert Level - Up"
+                    per = 100  # 100% when in "Up" position
+                    bar = 50   # Progress bar at the top
                     if direction == 0:
                         count += 0.5
                         direction = 1
-                elif (165 < (right_elbow or left_elbow) < 175) and (60 < (right_shoulder or left_shoulder) < 70) and (165 < (right_hip or left_hip) < 175):
+                elif (right_elbow or left_elbow) >160 and  (right_shoulder or left_shoulder) >40 and (right_hip or left_hip) >160:
                     feedback = "Expert Level - Down"
+                    per = 0  # 0% when in "Down" position
+                    bar = 380   # Progress bar at the bottom
                     if direction == 1:
                         count += 0.5
                         direction = 0
