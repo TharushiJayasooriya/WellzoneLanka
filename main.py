@@ -129,3 +129,66 @@ def login():
     }, app.config['SECRET_KEY'], algorithm="HS256")
     
     return jsonify({'token': token, 'user_id': user.id, 'username': user.username, 'name': user.name})
+
+    
+
+def get_dashboard(current_user):
+    # Get data for the dashboard
+    
+    # Calculate weekly goal progress
+    today = datetime.datetime.utcnow()
+    start_of_week = today - datetime.timedelta(days=today.weekday())
+    end_of_week = start_of_week + datetime.timedelta(days=6)
+    
+    workouts_this_week = Workout.query.filter(
+        Workout.user_id == current_user.id,
+        Workout.date >= start_of_week,
+        Workout.date <= end_of_week
+    ).count()
+    
+    # Assuming weekly goal is 14 workouts
+    weekly_goal_percentage = min(100, int((workouts_this_week / 14) * 100))
+    
+    # Get achievements
+    achievements = Achievement.query.filter_by(user_id=current_user.id).all()
+    achievements_data = [{'name': a.name, 'description': a.description, 'badge_type': a.badge_type} 
+                        for a in achievements]
+    
+    # Get daily progress for the week
+    daily_progress = []
+    for i in range(7):
+        day = start_of_week + datetime.timedelta(days=i)
+        day_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]
+        
+        # Count workouts for this day
+        workouts_count = Workout.query.filter(
+            Workout.user_id == current_user.id,
+            Workout.date >= day,
+            Workout.date < day + datetime.timedelta(days=1)
+        ).count()
+        
+        # Calculate average form accuracy for the day
+        form_accuracy = db.session.query(db.func.avg(Workout.form_accuracy)).filter(
+            Workout.user_id == current_user.id,
+            Workout.date >= day,
+            Workout.date < day + datetime.timedelta(days=1)
+        ).scalar() or 0
+        
+        # Add to progress data
+        daily_progress.append({
+            'day': day_name,
+            'value': form_accuracy * 100  # Converting to percentage
+        })
+    
+    # Calculate trainer rating based on workout performance
+    # This is a placeholder - actual implementation would be more complex
+    rating = 4.8
+    
+    return jsonify({
+        'weekly_goal': weekly_goal_percentage,
+        'workouts_this_week': workouts_this_week,
+        'achievements_count': len(achievements_data),
+        'rating': rating,
+        'daily_progress': daily_progress,
+        'recent_achievements': achievements_data[:3]
+    })
