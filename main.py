@@ -130,8 +130,9 @@ def login():
     
     return jsonify({'token': token, 'user_id': user.id, 'username': user.username, 'name': user.name})
 
-    
 
+@app.route('/api/dashboard', methods=['GET'])
+@token_required
 def get_dashboard(current_user):
     # Get data for the dashboard
     
