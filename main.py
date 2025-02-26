@@ -1,3 +1,4 @@
+import datetime
 from functools import wraps
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.orm import Session
@@ -92,3 +93,39 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
     
     return decorated
+
+
+# Routes
+@app.route('/api/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    
+    new_user = User(
+        username=data['username'],
+        password=hashed_password,
+        email=data['email'],
+        name=data.get('name', '')
+    )
+    
+    db.session.add(new_user)
+    db.session.commit()
+    
+    return jsonify({'message': 'User created successfully!'}), 201
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    
+    user = User.query.filter_by(username=data['username']).first()
+    
+    if not user or not check_password_hash(user.password, data['password']):
+        return jsonify({'message': 'Invalid credentials!'}), 401
+    
+    token = jwt.encode({
+        'user_id': user.id,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)
+    }, app.config['SECRET_KEY'], algorithm="HS256")
+    
+    return jsonify({'token': token, 'user_id': user.id, 'username': user.username, 'name': user.name})
