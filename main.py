@@ -43,3 +43,4 @@ class Exercise(db.Model):
     tips = db.Column(db.Text)
     category = db.Column(db.String(50))
     workout_exercises = db.relationship('WorkoutExercise', backref='exercise', lazy=True)
+
