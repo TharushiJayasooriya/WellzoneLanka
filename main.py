@@ -216,3 +216,9 @@ def get_trainers(current_user):
         })
     
     return jsonify(trainers_data)
+
+
+@app.route('/api/exercises', methods=['GET'])
+@token_required
+def get_exercises(current_user):
+    exercises = Exercise.query.all()
