@@ -235,3 +235,19 @@ def get_exercises(current_user):
         })
     
     return jsonify(exercises_data)
+
+
+@app.route('/api/exercises/<int:exercise_id>', methods=['GET'])
+@token_required
+def get_exercise(current_user, exercise_id):
+    exercise = Exercise.query.get_or_404(exercise_id)
+    
+    return jsonify({
+        'id': exercise.id,
+        'name': exercise.name,
+        'description': exercise.description,
+        'video_url': exercise.video_url,
+        'tips': exercise.tips.split('\n') if exercise.tips else [],
+        'category': exercise.category
+    })
+
