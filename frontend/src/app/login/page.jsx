@@ -26,11 +26,11 @@ export default function Login() {
           <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             <Image 
-              src="/api/placeholder/600/800" 
+              src="https://lafayettefamilyymca.org/wp-content/uploads/2023/02/190936627_m.jpg" 
               alt="Professional Fitness Experience" 
-              width={600} 
-              height={800}
-              className="w-full h-full object-cover"
+              width={1000} 
+              height={1000}
+              className="object-cover t"
             />
             <div className="absolute bottom-0 left-0 right-0 p-8">
               <h2 className="text-white text-3xl font-bold mb-2">Elevate Your Fitness</h2>
@@ -53,19 +53,12 @@ export default function Login() {
                 </div>
 
                 {/* Social Login Buttons - Professional Design */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="w-full">
                   <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
                     <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
                     <span className="font-medium text-gray-600">Google</span>
                   </button>
-                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                    <Facebook className="w-5 h-5 mr-2 text-blue-600" />
-                    <span className="font-medium text-gray-600">Facebook</span>
-                  </button>
-                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                    <Instagram className="w-5 h-5 mr-2 text-pink-600" />
-                    <span className="font-medium text-gray-600">Instagram</span>
-                  </button>
+                  
                 </div>
 
                 <div className="relative">
@@ -149,9 +142,7 @@ export default function Login() {
                       <Link href="#" className="text-gray-500 hover:text-pink-600 transition-colors">
                         <Instagram className="h-6 w-6" />
                       </Link>
-                      <Link href="#" className="text-gray-500 hover:text-blue-600 transition-colors">
-                        <Facebook className="h-6 w-6" />
-                      </Link>
+                     
                       <Link href="#" className="text-gray-500 hover:text-red-600 transition-colors">
                         <Youtube className="h-6 w-6" />
                       </Link>
