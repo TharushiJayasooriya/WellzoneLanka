@@ -17,7 +17,7 @@ export default function Navbar() {
                       <Link href="/contact" className="text-gray-700 hover:text-gray-900">Contact us</Link>
                       <Link href="/login" className="text-gray-700 hover:text-gray-900">Log in</Link>
                       <Link 
-                        href="/start" 
+                        href="/register" 
                         className="bg-cyan-500 text-white px-4 py-2 hover:bg-cyan-600 transition-colors rounded-full"
                       >
                         Start now

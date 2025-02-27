@@ -4,6 +4,7 @@ import { Activity, Users, Clock, Award, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "./Navbar";
+import { Footer } from "./Footer";
 
 export default function Home() {
   return (
@@ -360,6 +361,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      <Footer/>
     </div>
   );
 }
