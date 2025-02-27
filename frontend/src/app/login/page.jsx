@@ -1,123 +1,163 @@
 "use client";
 
 import { useState } from "react";
-import { Dumbbell, Eye, EyeOff, Facebook, Github } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Dumbbell, Eye, EyeOff, Facebook, Instagram, Youtube } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import Navbar from "../Navbar";
 
-export default function Home() {
+export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-      {/* Navigation */}
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Dumbbell className="h-8 w-8 text-cyan-500" />
-              <span className="ml-2 text-xl font-bold">WellZone Lanka</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <a href="#" className="text-gray-600 hover:text-gray-900">Home</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">About us</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">Services</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900">Contact us</a>
-              <Button variant="ghost">Log in</Button>
-              <Button className="bg-cyan-500 hover:bg-cyan-600">Start now</Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+      {/* Subtle Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-64 -left-64 w-96 h-96 bg-teal-500 opacity-5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 -right-48 w-96 h-96 bg-blue-500 opacity-5 rounded-full blur-3xl"></div>
+      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          {/* Left Side - Image */}
-          <div className="rounded-2xl overflow-hidden shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-              alt="Group Fitness Training"
-              className="w-full h-[600px] object-cover"
+      <Navbar/>
+
+      {/* Main Content - Professional Layout */}
+      <div className="relative z-10 max-w-7xl mx-auto pt-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
+          {/* Left Side - Professional Image Section (5 columns) */}
+          <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <Image 
+              src="/api/placeholder/600/800" 
+              alt="Professional Fitness Experience" 
+              width={600} 
+              height={800}
+              className="w-full h-full object-cover"
             />
+            <div className="absolute bottom-0 left-0 right-0 p-8">
+              <h2 className="text-white text-3xl font-bold mb-2">Elevate Your Fitness</h2>
+              <p className="text-white/90 text-lg mb-4">Professional training programs tailored to your goals</p>
+              <div className="flex items-center space-x-1">
+                <div className="h-1 w-8 bg-cyan-500 rounded"></div>
+                <div className="h-1 w-2 bg-cyan-500 rounded opacity-70"></div>
+                <div className="h-1 w-2 bg-cyan-500 rounded opacity-40"></div>
+              </div>
+            </div>
           </div>
 
-          {/* Right Side - Sign In Form */}
-          <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md mx-auto w-full">
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <h2 className="text-2xl font-semibold">Welcome to <span className="text-cyan-500">WellZone Lanka</span></h2>
-                <h1 className="text-4xl font-bold">Sign in</h1>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <Button variant="outline" className="w-full">
-                  <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
-                  Google
-                </Button>
-                <Button variant="outline" className="w-full">
-                  <Facebook className="w-5 h-5 mr-2 text-blue-600" />
-                  Facebook
-                </Button>
-              </div>
-
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-200" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">or continue with</span>
-                </div>
-              </div>
-
-              <div className="space-y-4">
+          {/* Right Side - Professional Sign In Form (7 columns) */}
+          <div className="md:col-span-7">
+            <div className="max-w-lg mx-auto bg-white p-10 rounded-lg border border-gray-200 shadow-lg">
+              <div className="space-y-6">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Email or Username</label>
-                  <Input
-                    type="text"
-                    placeholder="Enter your email or username"
-                    className="mt-1"
-                  />
+                  <h1 className="text-3xl font-bold text-gray-800">Welcome back</h1>
+                  <h2 className="text-xl font-medium text-gray-600">Sign in to <span className="text-cyan-600 font-semibold">WellZone Lanka</span></h2>
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium text-gray-700">Password</label>
-                  <div className="relative mt-1">
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter your password"
-                      className="pr-10"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3"
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-400" />
-                      ) : (
-                        <Eye className="h-5 w-5 text-gray-400" />
-                      )}
-                    </button>
+                {/* Social Login Buttons - Professional Design */}
+                <div className="grid grid-cols-3 gap-4">
+                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
+                    <span className="font-medium text-gray-600">Google</span>
+                  </button>
+                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                    <Facebook className="w-5 h-5 mr-2 text-blue-600" />
+                    <span className="font-medium text-gray-600">Facebook</span>
+                  </button>
+                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                    <Instagram className="w-5 h-5 mr-2 text-pink-600" />
+                    <span className="font-medium text-gray-600">Instagram</span>
+                  </button>
+                </div>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200" />
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">or continue with email</span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <a href="#" className="text-sm text-cyan-500 hover:text-cyan-600">
-                    Forgot Password?
-                  </a>
+                {/* Professional Form Fields */}
+                <div className="space-y-5">
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 mb-1 block">Email or Username</label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        placeholder="Enter your email or username"
+                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
+                        className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 pr-10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute inset-y-0 right-0 flex items-center pr-3"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        ) : (
+                          <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      <input
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        className="h-4 w-4 bg-gray-50 border-gray-300 rounded text-cyan-600 focus:ring-cyan-500"
+                      />
+                      <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                        Remember me
+                      </label>
+                    </div>
+                    <a href="#" className="text-sm text-cyan-600 hover:text-cyan-700 font-medium">
+                      Forgot Password?
+                    </a>
+                  </div>
+
+                  <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-md font-medium shadow-sm hover:shadow-md transition-all">
+                    Sign in to account
+                  </button>
+
+                  <div className="text-center">
+                    <p className="text-gray-600 text-sm">
+                      No Account? {" "}
+                      <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                        Create an account
+                      </a>
+                    </p>
+                  </div>
+                  
+                  {/* Added Social Media Links */}
+                  <div className="pt-6 border-t border-gray-200">
+                    <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
+                    <div className="flex justify-center space-x-6">
+                      <Link href="#" className="text-gray-500 hover:text-pink-600 transition-colors">
+                        <Instagram className="h-6 w-6" />
+                      </Link>
+                      <Link href="#" className="text-gray-500 hover:text-blue-600 transition-colors">
+                        <Facebook className="h-6 w-6" />
+                      </Link>
+                      <Link href="#" className="text-gray-500 hover:text-red-600 transition-colors">
+                        <Youtube className="h-6 w-6" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-
-                <Button className="w-full bg-cyan-500 hover:bg-cyan-600">
-                  Sign in
-                </Button>
-
-                <p className="text-center text-sm text-gray-600">
-                  No Account?{" "}
-                  <a href="#" className="text-cyan-500 hover:text-cyan-600 font-medium">
-                    Sign up
-                  </a>
-                </p>
               </div>
             </div>
           </div>
