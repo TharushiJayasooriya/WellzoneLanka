@@ -14,7 +14,7 @@ export default function Home() {
       <nav className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Link href="/about" className="text-sky-600 border-b-2 border-sky-500"></Link>
+            <Link href="/about" >
               <Image 
                 src="/images/icon.png" 
                 alt="Logo" 
@@ -22,8 +22,8 @@ export default function Home() {
                 width={40} 
                 
               />
-            
-            <span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span>
+              </Link>
+            <Link href="/about" ><span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span></Link>
           </div>
           <div className="hidden md:flex items-center gap-8 text-gray-600">
             <Link href="/" className="text-sky-600 border-b-2 border-sky-500">Home</Link>
@@ -75,12 +75,12 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative h-[600px] w-full">
+            <div className="relative h-[600px] w-full " >
               <Image
-                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2940&auto=format&fit=crop"
-                alt="Physical Therapy"
+                src="./images/aboutpage.png"
+                alt="Telemedicine Physical Therapy"
                 fill
-                className="object-cover rounded-2xl shadow-2xl"
+                className="object-cover rounded-2xl shadow-2xl bg-gradient-to-b from-white"
                 priority
               />
             </div>
