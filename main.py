@@ -251,3 +251,36 @@ def get_exercise(current_user, exercise_id):
         'category': exercise.category
     })
 
+# Workouts
+@app.route('/api/workouts', methods=['POST'])
+@token_required
+def create_workout(current_user):
+    data = request.get_json()
+    
+    new_workout = Workout(
+        user_id=current_user.id,
+        duration=data.get('duration', 0),
+        form_accuracy=data.get('form_accuracy', 0)
+    )
+    
+    db.session.add(new_workout)
+    db.session.commit()
+    
+    # Add exercises to the workout
+    if 'exercises' in data:
+        for exercise_data in data['exercises']:
+            workout_exercise = WorkoutExercise(
+                workout_id=new_workout.id,
+                exercise_id=exercise_data['exercise_id'],
+                reps=exercise_data.get('reps', 0),
+                sets=exercise_data.get('sets', 0),
+                form_accuracy=exercise_data.get('form_accuracy', 0)
+            )
+            db.session.add(workout_exercise)
+        
+        db.session.commit()
+    
+    # Check for achievements
+    check_for_achievements(current_user.id)
+    
+    return jsonify({'message': 'Workout recorded successfully!', 'workout_id': new_workout.id}), 201
