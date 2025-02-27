@@ -44,8 +44,7 @@ export default function DoctorsPage() {
       <nav className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full overflow-hidden">
-            <Link href="/home" className="text-sky-600 border-b-2 border-sky-500"></Link>
+            <Link href="/about" >
               <Image 
                 src="/images/icon.png" 
                 alt="Logo" 
@@ -53,12 +52,12 @@ export default function DoctorsPage() {
                 width={40} 
                 
               />
-            </div>
-            <span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span>
+              </Link>
+            <Link href="/about" ><span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span></Link>
           </div>
           <div className="hidden md:flex items-center gap-8 text-gray-600">
             <Link href="/" className="hover:text-sky-600 transition-colors">Home</Link>
-            <Link href="/services" className="hover:text-sky-600 transition-colors">Services</Link>
+            <Link href="/services" className="thover:text-sky-600 transition-colors">Services</Link>
             <Link href="/doctors" className="text-sky-600 border-b-2 border-sky-500">Doctors</Link>
             <Link href="/contact" className="hover:text-sky-600 transition-colors">Contact</Link>
           </div>
@@ -67,7 +66,7 @@ export default function DoctorsPage() {
             <Button className="bg-sky-500 hover:bg-sky-600 text-white">Register</Button>
           </div>
         </div>
-        </nav>
+      </nav>
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-foreground mb-4">Our Specialist Doctors</h1>

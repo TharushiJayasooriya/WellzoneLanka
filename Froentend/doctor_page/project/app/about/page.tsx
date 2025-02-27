@@ -11,7 +11,7 @@ export default function AboutPage() {
         <nav className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Link href="/about" className="text-sky-600 border-b-2 border-sky-500"></Link>
+          <Link href="/about" >
               <Image 
                 src="/images/icon.png" 
                 alt="Logo" 
@@ -19,8 +19,8 @@ export default function AboutPage() {
                 width={40} 
                 
               />
-            
-            <span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span>
+              </Link>
+            <Link href="/about" ><span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span></Link>
           </div>
           <div className="hidden md:flex items-center gap-8 text-gray-600">
             <Link href="/" className="text-sky-600 border-b-2 border-sky-500">Home</Link>
@@ -131,9 +131,9 @@ export default function AboutPage() {
         </div>
       </section>
        {/* Chatbot Icon */}
-       <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-blue-300 p-2 rounded-full shadow-lg flex items-center justify-center animate-bounce">
+      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors justify-center animate-bounce">
         <Link href="/chat">
-          <Bot className="h-12 w-12 cursor-pointer hover:scale-110 transition-transform duration-200" />
+          <Bot className="h-8 w-8 text-white" />
         </Link>
       </div>
 

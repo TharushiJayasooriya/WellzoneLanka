@@ -82,7 +82,7 @@ export default function ServicesPage() {
       <nav className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full overflow-hidden">
+            <Link href="/about" >
               <Image 
                 src="/images/icon.png" 
                 alt="Logo" 
@@ -90,9 +90,8 @@ export default function ServicesPage() {
                 width={40} 
                 
               />
-            </div>
-            <Link href="/about" className="text-sky-600 border-b-2 border-sky-500"></Link>
-            <span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span>
+              </Link>
+            <Link href="/about" ><span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span></Link>
           </div>
           <div className="hidden md:flex items-center gap-8 text-gray-600">
             <Link href="/" className="hover:text-sky-600 transition-colors">Home</Link>
@@ -105,7 +104,7 @@ export default function ServicesPage() {
             <Button className="bg-sky-500 hover:bg-sky-600 text-white">Register</Button>
           </div>
         </div>
-        </nav>
+      </nav>
       {/* Hero Section */}
       <section className="relative py-20 px-4 bg-gradient-to-b from-primary/10 to-background">
         <div className="max-w-7xl mx-auto text-center">
@@ -195,7 +194,7 @@ export default function ServicesPage() {
               Book an appointment with our expert physiotherapists and take the first step towards better health.
             </p>
             <Link href="/book-appointment">
-              <button className="bg-background text-foreground px-8 py-3 rounded-lg font-medium hover:bg-background/90 transition-colors">
+              <button className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg px-8 py-3 rounded-lg font-medium hover:bg-background/90 transition-colors">
                 Book an Appointment
               </button>
             </Link>
