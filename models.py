@@ -72,6 +72,30 @@ class Exercise(db.Model):
             'category': self.category
         }
 
+
+
+class Workout(db.Model):
+    """Workout model to track user exercise sessions"""
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow)
+    duration = db.Column(db.Integer)  # in seconds
+    form_accuracy = db.Column(db.Float)
+    
+    # Relationships
+    exercises = db.relationship('WorkoutExercise', backref='workout', lazy=True)
+    
+    def to_dict(self):
+        exercises_data = [exercise.to_dict() for exercise in self.exercises]
+        
+        return {
+            'id': self.id,
+            'date': self.date.strftime('%Y-%m-%d %H:%M:%S'),
+            'duration': self.duration,
+            'form_accuracy': self.form_accuracy,
+            'exercises': exercises_data
+        }
+
     
 
 
