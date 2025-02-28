@@ -2,12 +2,13 @@ import cv2
 import mediapipe as mp
 import math
 import numpy as np
+import threading
+from tkinter import filedialog, Label, Frame, Button, Tk, BOTH, LEFT, SUNKEN, GROOVE, RAISED, X, YES, TOP, BOTTOM
 
 class PoseDetector:
     def __init__(self, mode=False, complexity=1, smooth_landmarks=True,
                  enable_segmentation=False, smooth_segmentation=True,
                  detectionCon=0.5, trackCon=0.5):
-        
         self.mode = mode 
         self.complexity = complexity
         self.smooth_landmarks = smooth_landmarks
@@ -70,9 +71,26 @@ class PoseDetector:
                        cv2.FONT_HERSHEY_PLAIN, 2, (0,0,255), 2)
         return angle
 
-def main():
-    cap = cv2.VideoCapture(0)
-    detector = PoseDetector()
+class VideoHandler:
+    def __init__(self):
+        self.cap = None
+        self.video_playing = False
+
+    def camselect(self, cam=True, file1=None):
+        self.cap = cv2.VideoCapture(0 if cam else file1)
+
+    def openVIDEO(self):
+        self.camselect(False, './cat-cow-guide.mp4')
+        self.video_playing = True
+
+    def openfile(self):
+        file1 = filedialog.askopenfilename()
+        self.camselect(False, file1)
+
+    def camvideo(self):
+        self.camselect(True)    
+
+def start_posture_correction(cap, detector, feedback_label):
     feedback = "Fix Your Position First"
     # Thresholds for Cat-Cow Stretch angles
     thresholds = {
@@ -97,11 +115,11 @@ def main():
             left_knee = detector.findAngle(img, 23, 25, 27)  
             right_knee = detector.findAngle(img, 24, 26, 28)  
             left_hip = detector.findAngle(img, 11, 23, 25)  
-            right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle (5-10° flexion/extension)
-            left_shoulder = detector.findAngle(img, 11, 13, 15)  # Left Shoulder angle (scapular protraction/retraction)
-            right_shoulder = detector.findAngle(img, 12, 14, 16)  # Right Shoulder angle (scapular protraction/retraction)
-            spine = detector.findAngle(img, 11, 12, 24)  # Spine angle (20-30° flexion/15-25° extension)
-            neck = detector.findAngle(img, 0, 1, 2)  # Neck angle (20-30° flexion/15-25° extension)
+            right_hip = detector.findAngle(img, 12, 24, 26)  
+            left_shoulder = detector.findAngle(img, 11, 13, 15)  
+            right_shoulder = detector.findAngle(img, 12, 14, 16)  
+            spine = detector.findAngle(img, 11, 12, 24)  
+            neck = detector.findAngle(img, 0, 1, 2)  
             
             # Initialize feedback messages
             spine_feedback = ""
@@ -132,29 +150,93 @@ def main():
             else:
                 hip_feedback = "Good hip movement!"
 
-            # Display feedback on the image
-            y_offset = 50  # Starting y-coordinate for the first feedback message
-            cv2.putText(img, spine_feedback, (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
-            y_offset += 40  # Move down for the next feedback message
-            cv2.putText(img, neck_feedback, (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
-            y_offset += 40  # Move down for the next feedback message
-            cv2.putText(img, hip_feedback, (50, y_offset), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
-            
-            # Display angles and feedback
-            
-            cv2.putText(img, f"Hip: {int(left_hip or right_hip)}", (10, 90),
+            # Display feedback on the OpenCV window
+            cv2.putText(img, f"Spine: {spine_feedback}", (10, 40), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Neck: {neck_feedback}", (10, 70), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Hips: {hip_feedback}", (10, 100), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+
+            # Display angles on the OpenCV window (for feedback on the video feed)
+            cv2.putText(img, f"Hip: {int(left_hip or right_hip)}", (10, 130),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-            cv2.putText(img, f"Knee: {int(left_knee or right_knee)}", (10, 120),
-                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-            cv2.putText(img, feedback, (10, 150),
+            cv2.putText(img, f"Knee: {int(left_knee or right_knee)}", (10, 160),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
+        # Show the image with feedback on OpenCV window       
         cv2.imshow('Cat-Cow Stretch', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
-            
+
     cap.release()
     cv2.destroyAllWindows()
+
+def main():
+    window = Tk()
+    window.title("Cat-cow exercise guide")
+
+    feedback_label = Label(window, text="Select an action", font=("Arial", 20, "bold"), bg="white", fg="black")
+    feedback_label.pack(side=TOP, fill=X)
+
+    video_handler = VideoHandler()
+    detector = PoseDetector()
+    
+    def on_posture_correction():
+        video_handler.camvideo()  # Start webcam for posture correction
+        start_posture_correction(video_handler.cap, detector, feedback_label)
+    def on_video_guide():
+        video_handler.openVIDEO()  # Start the video file for the guide
+        
+        while video_handler.cap.isOpened():
+            ret, frame = video_handler.cap.read()
+            if not ret:
+                break
+            
+            # Show the guide video in an OpenCV window
+            cv2.imshow('Guide Video', frame)
+            
+            # Handle closing the video window
+            if cv2.waitKey(10) & 0xFF == ord('q'):
+                break
+
+        video_handler.cap.release()
+        cv2.destroyAllWindows()
+
+    def start_video_in_thread():
+        # This runs the video in a separate thread so that it does not block Tkinter
+        video_thread = threading.Thread(target=on_video_guide)
+        video_thread.start()
+
+    def on_video_guide_button():
+        start_video_in_thread()  
+
+    def on_exit():
+        window.quit()
+    
+
+   # Create a frame to hold the buttons and apply padding and styling
+    button_frame = Frame(window, bg="lightblue", padx=20, pady=20)
+    button_frame.pack(side=BOTTOM, fill=X)
+
+    # Create custom styles for buttons
+    button_style = {
+        "font": ("Arial", 14, "bold"),
+        "bg": "#4CAF50",  # Green background
+        "fg": "white",    # White text color
+        "relief": RAISED,  # Raised button style
+        "bd": 3,          # Border thickness
+        "width": 20,      # Button width
+        "height": 2       # Button height
+    }
+
+    # Posture Correction Button
+    Button(button_frame, text="Posture Correction", command=on_posture_correction, **button_style).pack(side=LEFT, padx=20)
+
+    # Guide Video Button
+    Button(button_frame, text="Guide Video", command=on_video_guide_button, **button_style).pack(side=LEFT, padx=20)
+
+    # Exit Button
+    Button(button_frame, text="Exit", command=on_exit, font=("Arial", 14, "bold"), bg="#f44336", fg="white", relief=RAISED, bd=3, width=20, height=2).pack(side=LEFT, padx=20)
+    
+    window.mainloop()
 
 if __name__ == "__main__":
     main()
