@@ -48,6 +48,30 @@ class Trainer(db.Model):
                 'certifications': self.certifications.split(',') if self.certifications else [],
                 'profile_image': self.profile_image
             }
+
+
+class Exercise(db.Model):
+    """Exercise model with details and instructional content"""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text)
+    video_url = db.Column(db.String(200))
+    tips = db.Column(db.Text)
+    category = db.Column(db.String(50))
+    
+    # Relationships
+    workout_exercises = db.relationship('WorkoutExercise', backref='exercise', lazy=True)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'description': self.description,
+            'video_url': self.video_url,
+            'tips': self.tips.split('\n') if self.tips else [],
+            'category': self.category
+        }
+
     
 
 
