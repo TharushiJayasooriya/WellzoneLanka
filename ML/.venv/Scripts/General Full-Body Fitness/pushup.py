@@ -101,6 +101,8 @@ def main():
             left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
             right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
             
+            per = np.interp((right_elbow or left_elbow), (90, 160), (0, 100))
+            bar = np.interp((right_elbow or left_elbow), (90, 160), (380, 50))
             
 
             # Check form for beginner or expert level
