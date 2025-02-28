@@ -25,15 +25,29 @@ class User(db.Model):
             'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
         }
     
-    class Trainer(db.Model):
-        "Trainer model for trainer profile information"
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(100), nullable=False)
-        experience_years = db.Column(db.Integer)
-        rating = db.Column(db.Float)
-        bio = db.Column(db.Text)
-        specialties = db.Column(db.Text)  # Stored as comma-separated values
-        certifications = db.Column(db.Text)  # Stored as comma-separated values
-        profile_image = db.Column(db.String(200))
+class Trainer(db.Model):
+    """Trainer model containing profile and certification information"""
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    experience_years = db.Column(db.Integer)
+    rating = db.Column(db.Float)
+    bio = db.Column(db.Text)
+    specialties = db.Column(db.Text)  # Stored as comma-separated values
+    certifications = db.Column(db.Text)  # Stored as comma-separated values
+    profile_image = db.Column(db.String(200))
+
+
+    def to_dict(self):
+            return {
+                'id': self.id,
+                'name': self.name,
+                'experience_years': self.experience_years,
+                'rating': self.rating,
+                'bio': self.bio,
+                'specialties': self.specialties.split(',') if self.specialties else [],
+                'certifications': self.certifications.split(',') if self.certifications else [],
+                'profile_image': self.profile_image
+            }
+    
 
 
