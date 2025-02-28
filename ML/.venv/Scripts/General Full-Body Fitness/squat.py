@@ -155,6 +155,15 @@ def main():
             cv2.rectangle(img, (500, 0), (640, 40), (0, 0, 0), cv2.FILLED)
             cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2,
                        (255, 0, 0), 2)
+            
+            # Display angles and feedback
+            
+            cv2.putText(img, f"Hip: {int(left_hip or right_hip)}", (10, 90),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Knee: {int(left_knee or right_knee)}", (10, 120),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, feedback, (10, 150),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
         cv2.imshow('Squat Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
