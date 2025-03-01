@@ -17,20 +17,26 @@ export default function Register() {
     confirmPassword:"",
   })
   const[pending,setPending]=useState(false)
-  const handleSubmit=async(e: React.FormEvent)=>{
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
-
-    const res=await fetch("/api/auth/signup",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify(form),
+  
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
     });
-    if (res.ok){
+  
+    if (res.ok) {
       setPending(false);
-      const data=await res.json();
+      const data = await res.json();
+      console.log("Signup successful:", data);
+    } else {
+      setPending(false);
+      const error = await res.json();
+      console.error("Signup failed:", error);
     }
-
+  
   }
 
   return (
@@ -95,9 +101,10 @@ export default function Register() {
 
                 {/* Professional Form Fields */}
                 <div className="space-y-5">
+                <form onSubmit={handleSubmit} className="px-2 sm:px-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                      <form onSubmit={handleSubmit} className="px-2 sm:px-6">
+                      
                         <label  className="text-sm font-medium text-gray-700 mb-1 block">First Name</label>
                         <div className="relative">
                           <input
@@ -110,11 +117,11 @@ export default function Register() {
                             required
                           />
                         </div>
-                        </form>
+                        
                     </div>
                     
                     <div>
-                    <form onSubmit={handleSubmit} className="px-2 sm:px-6">
+                    
                       <label className="text-sm font-medium text-gray-700 mb-1 block">Last Name</label>
                       <div className="relative">
                         <input
@@ -126,12 +133,12 @@ export default function Register() {
                           onChange={(e)=>setForm({...form,lastName:e.target.value})}
                         />
                       </div>
-                    </form>
+                    
                     </div>
                   </div>
 
                   <div>
-                  <form onSubmit={handleSubmit} className="px-2 sm:px-6">
+                  
                     <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
                     <div className="relative">
                       <input
@@ -143,11 +150,11 @@ export default function Register() {
                         onChange={(e)=>setForm({...form,email:e.target.value})}
                       />
                     </div>
-                  </form>
+                  
                   </div>
 
                   <div>
-                  <form onSubmit={handleSubmit} className="px-2 sm:px-6">
+                  
 
                     <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
                     <div className="relative">
@@ -173,11 +180,11 @@ export default function Register() {
                       </button>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters</p>
-                  </form>
+                  
                   </div>
 
                   <div>
-                  <form onSubmit={handleSubmit} className="px-2 sm:px-6">
+                  
 
                     <label className="text-sm font-medium text-gray-700 mb-1 block">Confirm Password</label>
                     <div className="relative">
@@ -202,7 +209,7 @@ export default function Register() {
                         )}
                       </button>
                     </div>
-                  </form>
+                  
                   </div>
 
                   <div className="flex items-start">
@@ -249,6 +256,7 @@ export default function Register() {
                       </Link>
                     </div>
                   </div>
+                </form>
                 </div>
               </div>
             </div>
