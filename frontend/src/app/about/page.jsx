@@ -2,6 +2,8 @@
 
 import { ArrowRight, Heart, Brain, Activity, Users, Star } from "lucide-react";
 import Navbar from "../Navbar";
+import Footer from "./Footer";
+
 
 export default function About() {
   return (
@@ -88,11 +90,12 @@ export default function About() {
             AI-powered precision meets expert coaching. Let’s achieve your fitness goals together.
           </p>
           <div className="flex justify-center space-x-4">
-          
+         
            
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </div> 
   );
 }
