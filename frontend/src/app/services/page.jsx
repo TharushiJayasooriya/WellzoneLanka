@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Navbar from "../Navbar";
 import Image from 'next/image';
 import Link from 'next/link';
+import { Footer } from "../Footer";
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState('fitness');
@@ -151,7 +152,7 @@ export default function ServicesPage() {
     ))}
   </div>
 </div>
-
+<Footer/>
     </div>
   );
 }
