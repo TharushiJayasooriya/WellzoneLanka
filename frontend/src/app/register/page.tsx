@@ -26,6 +26,10 @@ export default function Register() {
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify(form),
     });
+    if (res.ok){
+      setPending(false);
+      const data=await res.json();
+    }
 
   }
 
