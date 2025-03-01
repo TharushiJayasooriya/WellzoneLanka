@@ -6,18 +6,15 @@ import Navbar from "../Navbar";
 export default function About() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar/>
+      <Navbar />
 
       {/* Hero Section */}
-      <div className="relative w-full h-96">
+      <div className="relative w-full h-96 bg-[url('/api/placeholder/1600/800')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black opacity-30"></div>
-        <div className="absolute inset-0 bg-[url('/api/placeholder/1600/800')] bg-cover bg-center"></div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
             <h1 className="text-5xl font-bold text-white mb-6">About WellZone Lanka</h1>
-            <p className="text-xl text-white">
-              Sri Lanka's premier AI-powered health and fitness platform
-            </p>
+            <p className="text-xl text-white">Sri Lanka's premier AI-powered health and fitness platform</p>
           </div>
         </div>
       </div>
@@ -25,145 +22,80 @@ export default function About() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Introduction Section */}
-        <div className="mb-16">
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="md:w-2/3">
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Redefining Wellness in Sri Lanka
-              </h2>
-              <p className="text-lg text-gray-700 mb-6">
-                WellZone Lanka is your premier AI-powered health and fitness platform, dedicated to transforming lives through personalized wellness solutions. We combine cutting-edge AI technology with expert human guidance to create a revolutionary approach to fitness.
-              </p>
-              <p className="text-lg text-gray-700">
-                Our team of certified fitness experts and physiotherapists works alongside our advanced AI to create customized plans that evolve with you, making professional-grade fitness coaching accessible and affordable for everyone in Sri Lanka.
-              </p>
-            </div>
-            <div className="md:w-1/3">
-              <div className="relative h-64 w-64 mx-auto">
-                <div className="absolute inset-0 bg-blue-500 bg-opacity-10 rounded-full"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Heart size={80} className="text-blue-500" />
-                </div>
-              </div>
+        <div className="mb-16 flex flex-col md:flex-row items-center gap-12">
+          <div className="md:w-2/3">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Redefining Wellness in Sri Lanka</h2>
+            <p className="text-lg text-gray-700 mb-6">
+              WellZone Lanka combines AI technology with expert guidance to provide personalized wellness solutions, making fitness accessible and affordable for everyone.
+            </p>
+          </div>
+          <div className="md:w-1/3 flex justify-center">
+            <div className="h-64 w-64 bg-blue-100 rounded-full flex items-center justify-center">
+              <Heart size={80} className="text-blue-500" />
             </div>
           </div>
         </div>
 
         {/* Mission & Vision */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div className="bg-gray-50 rounded-lg p-8 shadow-sm border border-gray-100">
-            <div className="flex items-center mb-4">
-              <div className="bg-blue-100 p-3 rounded-full mr-4">
-                <Star className="text-blue-600 h-6 w-6" />
+          {[{ icon: <Star />, title: "Our Mission", text: "Empowering individuals with AI-driven fitness and expert guidance for a healthier Sri Lanka." },
+            { icon: <Brain />, title: "Our Vision", text: "Revolutionizing fitness by making professional coaching accessible to all." }].map((item, index) => (
+            <div key={index} className="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-4">
+                <div className="bg-blue-100 p-3 rounded-full mr-4 text-blue-600">{item.icon}</div>
+                <h3 className="text-2xl font-bold text-gray-900">{item.title}</h3>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Our Mission</h3>
+              <p className="text-gray-700">{item.text}</p>
             </div>
-            <p className="text-gray-700">
-              To empower individuals on their journey to better health by combining cutting-edge AI technology with expert human guidance. We strive to make professional-grade fitness coaching accessible to everyone in Sri Lanka, regardless of their fitness level or experience.
-            </p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-8 shadow-sm border border-gray-100">
-            <div className="flex items-center mb-4">
-              <div className="bg-blue-100 p-3 rounded-full mr-4">
-                <Brain className="text-blue-600 h-6 w-6" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Our Vision</h3>
-            </div>
-            <p className="text-gray-700">
-              To revolutionize the fitness industry in Sri Lanka by making professional-grade fitness coaching accessible to everyone. We envision a healthier nation where personalized fitness guidance is not a luxury but a fundamental right for everyone, regardless of their background.
-            </p>
-          </div>
+          ))}
         </div>
 
         {/* What Makes Us Different */}
-        <div className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">What Makes Us Different</h2>
+        <div className="mb-16 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10">What Makes Us Different</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <Activity className="h-8 w-8 text-blue-600" />,
-                title: "AI-Powered Precision",
-                description: "Our proprietary algorithms adapt to your progress, preferences, and feedback in real-time to deliver truly personalized fitness experiences."
-              },
-              {
-                icon: <Users className="h-8 w-8 text-blue-600" />,
-                title: "Expert Human Guidance",
-                description: "Access to Sri Lanka's top fitness trainers and physiotherapists who work alongside our AI to provide nuanced coaching and support."
-              },
-              {
-                icon: <Heart className="h-8 w-8 text-blue-600" />,
-                title: "Holistic Wellness Approach",
-                description: "We focus on complete wellness—physical fitness, nutrition, mental health, and recovery optimization tailored to Sri Lankan lifestyles."
-              }
-            ].map((feature, index) => (
+            {[{ icon: <Activity />, title: "AI-Powered Precision", text: "Adaptive fitness plans that evolve with you." },
+              { icon: <Users />, title: "Expert Human Guidance", text: "Top fitness trainers and physiotherapists support you." },
+              { icon: <Heart />, title: "Holistic Wellness Approach", text: "Complete wellness solutions tailored to Sri Lankan lifestyles." }].map((feature, index) => (
               <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                  {feature.icon}
-                </div>
+                <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mb-4 text-blue-600">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-700">{feature.description}</p>
+                <p className="text-gray-700">{feature.text}</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* How It Works */}
-        <div className="bg-gray-50 rounded-lg p-10 mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-10 text-center">Your Wellness Journey with WellZone</h2>
+        <div className="bg-gray-50 p-10 mb-16 text-center rounded-lg">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10">Your Wellness Journey with WellZone</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {[
-              {
-                step: "01",
-                title: "AI Assessment",
-                description: "Our AI analyzes your goals, fitness level, and preferences to create your profile."
-              },
-              {
-                step: "02",
-                title: "Expert Matching",
-                description: "Connect with fitness trainers or physiotherapists who specialize in your needs."
-              },
-              {
-                step: "03",
-                title: "Personalized Plan",
-                description: "Receive a custom fitness plan that adapts as you progress toward your goals."
-              },
-              {
-                step: "04",
-                title: "Ongoing Support",
-                description: "Get continuous guidance from both AI and human experts throughout your journey."
-              }
-            ].map((step, index) => (
+            {["AI Assessment", "Expert Matching", "Personalized Plan", "Ongoing Support"].map((step, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-xl font-bold text-blue-600">{step.step}</span>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-gray-700">{step.description}</p>
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-blue-600">{`0${index + 1}`}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{step}</h3>
               </div>
             ))}
           </div>
         </div>
 
         {/* Testimonial Section */}
-        <div className="mb-16 bg-blue-50 rounded-lg p-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-2xl italic text-gray-700 mb-6">
-              "WellZone Lanka completely transformed my approach to fitness. The AI understands my body's responses better than I do, and the human coaches provide the motivation I need exactly when I need it."
-            </p>
-            <p className="font-semibold text-gray-900">Dinesh J. — Lost 18kg in 6 months</p>
-          </div>
+        <div className="mb-16 bg-blue-50 p-8 rounded-lg text-center">
+          <p className="text-2xl italic text-gray-700 mb-6">
+            "WellZone Lanka transformed my approach to fitness. AI and human coaches keep me on track!"
+          </p>
+          <p className="font-semibold text-gray-900">Dinesh J. — Lost 18kg in 6 months</p>
         </div>
 
         {/* CTA Section */}
-        <div className="bg-white rounded-lg p-10 text-center shadow-sm border border-gray-200">
+        <div className="bg-white p-10 text-center shadow-sm border border-gray-200 rounded-lg">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Start Your Wellness Journey Today</h2>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
-            Experience the perfect blend of AI technology and human expertise tailored to your unique fitness goals.
+            AI-powered precision meets expert coaching. Let’s achieve your fitness goals together.
           </p>
           <div className="flex justify-center space-x-4">
             <button className="bg-black text-white px-8 py-3 rounded-md font-medium flex items-center">
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
+              Get Started <ArrowRight className="ml-2 h-5 w-5" />
             </button>
             <button className="bg-white text-black px-8 py-3 rounded-md font-medium border border-black">
               Learn More
