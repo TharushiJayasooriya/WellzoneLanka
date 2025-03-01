@@ -30,12 +30,7 @@ export function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#team"
-                    className="text-gray-400 hover:text-white transition-colors"
-                  >
-                    Team
-                  </a>
+                
                 </li>
                 <li>
                   <a
