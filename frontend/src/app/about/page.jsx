@@ -79,13 +79,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Testimonial Section */}
-        <div className="mb-16 bg-blue-50 p-8 rounded-lg text-center">
-          <p className="text-2xl italic text-gray-700 mb-6">
-            "WellZone Lanka transformed my approach to fitness. AI and human coaches keep me on track!"
-          </p>
-          <p className="font-semibold text-gray-900">Dinesh J. — Lost 18kg in 6 months</p>
-        </div>
+        
 
         {/* CTA Section */}
         <div className="bg-white p-10 text-center shadow-sm border border-gray-200 rounded-lg">
@@ -94,12 +88,8 @@ export default function About() {
             AI-powered precision meets expert coaching. Let’s achieve your fitness goals together.
           </p>
           <div className="flex justify-center space-x-4">
-            <button className="bg-black text-white px-8 py-3 rounded-md font-medium flex items-center">
-              Get Started <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
-            <button className="bg-white text-black px-8 py-3 rounded-md font-medium border border-black">
-              Learn More
-            </button>
+          
+           
           </div>
         </div>
       </div>
