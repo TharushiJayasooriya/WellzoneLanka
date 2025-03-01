@@ -214,7 +214,28 @@ export default function ServicesPage() {
           </p>
         </div>
 
-
+{/* Services Showcase Image */}
+<div 
+  id="services-showcase" 
+  className="mt-10 mb-16 animate-on-scroll animate-visible rounded-2xl overflow-hidden shadow-xl"
+  style={{ opacity: isVisible['services-showcase'] ? 1 : 0, transform: isVisible['services-showcase'] ? 'translateY(0)' : 'translateY(20px)' }}
+>
+  <div className="relative w-full h-96">
+    <Image
+      src="/api/placeholder/1200/800"
+      alt="WellZone Services Showcase"
+      fill
+      className="object-cover hover-scale"
+      style={{ transition: 'transform 0.6s ease-out' }}
+    />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+      <div className="p-8 text-white">
+        <h3 className="text-3xl font-bold mb-2">Transform Your Life</h3>
+        <p className="text-xl">Expert guidance for your wellness journey</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 
         
