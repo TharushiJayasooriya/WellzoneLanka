@@ -104,7 +104,7 @@ export default function ServicesPage() {
                 </div>
                 <Link 
                   href={`/services/${service.category}/${service.id}`}
-                  className="block w-full  text-center bg-gradient-to-r px-6  from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white py-3 rounded-xl font-medium transition-all duration-300 transform hover:-translate-y-0.5"
+                  className="block w-full text-center bg-gradient-to-r px-6 from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white py-3 rounded-full font-medium transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   Learn More
                 </Link>
