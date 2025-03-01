@@ -53,10 +53,10 @@ export default function ServicesPage() {
     ]
   };
 
-  // Function to handle service selection
+  // Function to handle service selection and scroll to CTA section
   const handleServiceSelection = () => {
-    // Scroll to services section and set the activeTab
-    document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    // Scroll to the 'Ready to Transform Your Wellness Journey?' section
+    document.getElementById('cta-section').scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -185,6 +185,10 @@ export default function ServicesPage() {
             </p>
             <a href="#services" 
               className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('cta-section').scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Explore Our Services
             </a>
@@ -239,7 +243,7 @@ export default function ServicesPage() {
 
 
         
-      {/* FAQ Section */}
+{/* FAQ Section */}
 <div className="mt-20">
   <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">Frequently Asked Questions</h2>
   <div className="max-w-3xl mx-auto">
@@ -269,37 +273,37 @@ export default function ServicesPage() {
   </div>
 </div>
 
-                  {/* Call to Action - Changed text and link */}
-                  <div 
-          id="cta-section"
-          className="mt-24 text-center animate-on-scroll animate-visible"
-          style={{ opacity: isVisible['cta-section'] ? 1 : 0, transform: isVisible['cta-section'] ? 'translateY(0)' : 'translateY(20px)' }}
-        >
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Ready to Transform Your Wellness Journey?</h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-            Join WellZone Lanka today and take the first step towards a healthier, more balanced life.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button 
-              onClick={() => {
-                setActiveTab('fitness');
-                handleServiceSelection();
-              }}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
-            >
-              Start Your Fitness Journey
-            </button>
-            <button 
-              onClick={() => {
-                setActiveTab('medical');
-                handleServiceSelection();
-              }}
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
-            >
-              Explore Health Checkups
-            </button>
-          </div>
-        </div>
+{/* Call to Action - Changed text and link */}
+<div 
+  id="cta-section"
+  className="mt-24 text-center animate-on-scroll animate-visible"
+  style={{ opacity: isVisible['cta-section'] ? 1 : 0, transform: isVisible['cta-section'] ? 'translateY(0)' : 'translateY(20px)' }}
+>
+  <h2 className="text-3xl font-bold text-gray-800 mb-6">Ready to Transform Your Wellness Journey?</h2>
+  <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+    Join WellZone Lanka today and take the first step towards a healthier, more balanced life.
+  </p>
+  <div className="flex justify-center space-x-4">
+    <button 
+      onClick={() => {
+        setActiveTab('fitness');
+        handleServiceSelection();
+      }}
+      className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
+    >
+      Start Your Fitness Journey
+    </button>
+    <button 
+      onClick={() => {
+        setActiveTab('medical');
+        handleServiceSelection();
+      }}
+      className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
+    >
+      Explore Health Checkups
+    </button>
+  </div>
+</div>
      
       </div>
       <Footer />
