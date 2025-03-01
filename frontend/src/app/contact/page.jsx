@@ -304,7 +304,7 @@ export default function Contact() {
               
               <Link 
                 href="/services" 
-                className="inline-flex items-center px-8 py-4 border border-white text-base font-medium rounded-full text-white hover:bg-red-600 hover:shadow-lg transition-colors duration-300"
+                className="inline-flex items-center px-8 py-4 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-blue-600 hover:shadow-lg transition-colors duration-300"
               >
                 Explore Services
               </Link>
