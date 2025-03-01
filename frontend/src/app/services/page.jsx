@@ -116,7 +116,7 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        {/* FAQ Section */}
+        
         <div className="mt-16">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Frequently Asked Questions</h2>
           <p className="text-lg text-gray-600 text-center">Find answers to common questions about our services.</p>
@@ -125,7 +125,7 @@ export default function ServicesPage() {
 
       {/* FAQ Section */}
 <div className="mt-20">
-  <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">Frequently Asked Questions</h2>
+  <h2 className="text-3xl font-bold text-gray-800 text-center mb-10"></h2>
   <div className="max-w-3xl mx-auto">
     {[
       {
