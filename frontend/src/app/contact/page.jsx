@@ -35,7 +35,6 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
-      {/* Navigation Bar - Kept exactly as original */}
             <Navbar/>
 
       {/* Hero Section */}

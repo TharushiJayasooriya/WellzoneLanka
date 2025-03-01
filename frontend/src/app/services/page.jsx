@@ -1,40 +1,38 @@
-"use client"
+// pages/services/index.js
+"use client";
 import React, { useState } from 'react';
+import Navbar from "../Navbar";
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function ServicesPage() {
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState('fitness');
 
-  const services = [
-    {
-      id: 1,
-      name: "Personal Training",
-      description: "One-on-one fitness coaching tailored to your specific goals and needs.",
-      image: "/api/placeholder/600/400",
-      category: "fitness",
-      features: ["Custom workout plans", "Nutritional guidance", "Progress tracking", "Flexibility training"]
-    },
-    
-    {
-      id: 3,
-      name: "Health Checkups",
-      description: "Comprehensive medical examinations to assess your overall health status.",
-      image: "/api/placeholder/600/400",
-      category: "medical",
-      features: ["Full body assessment", "Blood work", "Cardiac evaluation", "Health risk assessment"]
-    },
-    
-  ];
-
-  const filteredServices = activeTab === 'all' 
-    ? services 
-    : services.filter(service => service.category === activeTab);
+  const services = {
+    fitness: [
+      {
+        id: 1,
+        name: "Personal Training",
+        description: "One-on-one fitness coaching tailored to your specific goals and needs.",
+        image: "/api/placeholder/600/400",
+        features: ["Custom workout plans", "Nutritional guidance", "Progress tracking", "Flexibility training"]
+      }
+    ],
+    medical: [
+      {
+        id: 2,
+        name: "Health Checkups",
+        description: "Comprehensive medical examinations to assess your overall health status.",
+        image: "/api/placeholder/600/400",
+        features: ["Full body assessment", "Blood work", "Cardiac evaluation", "Health risk assessment"]
+      }
+    ]
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-cyan-50 pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
+    <div className="min-h-screen bg-gradient-to-b from-white to-cyan-50">
+      <Navbar />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-16">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Services</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -42,6 +40,12 @@ export default function ServicesPage() {
           </p>
         </div>
 
+         {/* Services Display */}
+         <div className="text-center mb-12">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">Choose Your Service Category</h2>
+          <p className="text-lg text-gray-600">Select between fitness or medical services to explore our offerings.</p>
+        </div>
+        
         {/* Category Tabs */}
         <div className="flex justify-center mb-12">
           <div className="inline-flex p-1 bg-gray-100 rounded-full shadow-sm">
@@ -68,12 +72,13 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {filteredServices.map((service) => (
+       
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 w-full place-items-center ml-auto">
+          {services[activeTab].map((service) => (
             <div 
               key={service.id} 
-              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 w-full max-w-2xl"
             >
               <div className="h-56 relative">
                 <Image 
@@ -84,9 +89,6 @@ export default function ServicesPage() {
                 />
               </div>
               <div className="p-6">
-                <div className="inline-block px-3 py-1 mb-4 text-xs font-semibold text-cyan-700 bg-cyan-100 rounded-full">
-                  {service.category === 'fitness' ? 'Fitness' : 'Medical'} Service
-                </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-2">{service.name}</h3>
                 <p className="text-gray-600 mb-4">{service.description}</p>
                 <div className="mb-6">
@@ -103,7 +105,7 @@ export default function ServicesPage() {
                   </ul>
                 </div>
                 <Link 
-                  href={`/services/${service.category}/${service.id}`}
+                  href={`/services/${activeTab}/${service.id}`}
                   className="block w-full text-center bg-gradient-to-r px-6 from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white py-3 rounded-full font-medium transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   Learn More
@@ -113,58 +115,43 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl shadow-xl p-8 text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to start your wellness journey?</h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto">
-            Join WellZone Lanka today and take the first step towards a healthier, happier you. Our expert team is ready to support you every step of the way.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <Link 
-              href="/contact"
-              className="bg-white text-cyan-600 hover:bg-gray-100 px-8 py-3 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300"
-            >
-              Contact Us
-            </Link>
-            <Link 
-              href="/register"
-              className="bg-transparent hover:bg-white hover:text-cyan-600 border-2 border-white px-8 py-3 rounded-full font-medium transition-all duration-300"
-            >
-              Start Now
-            </Link>
-          </div>
-        </div>
-
         {/* FAQ Section */}
-        <div className="mt-20">
-          <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">Frequently Asked Questions</h2>
-          <div className="max-w-3xl mx-auto">
-            {[
-              {
-                question: "How do I know which service is right for me?",
-                answer: "Our team offers free consultations to assess your needs and goals. We'll recommend the most suitable services based on your individual requirements."
-              },
-              {
-                question: "Can I combine fitness and medical services?",
-                answer: "Absolutely! In fact, we encourage a holistic approach to wellness. Many of our members benefit from both our fitness programs and medical services."
-              },
-              {
-                question: "What qualifications do your trainers and medical staff have?",
-                answer: "All our fitness trainers are certified professionals with extensive experience. Our medical staff includes licensed physicians, physiotherapists, and health counselors."
-              },
-              {
-                question: "Do you offer any packages or membership options?",
-                answer: "Yes, we offer various membership tiers and packages that provide access to multiple services at discounted rates. Contact us for more details."
-              }
-            ].map((faq, index) => (
-              <div key={index} className="mb-6 bg-white rounded-xl shadow-md p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
-              </div>
-            ))}
-          </div>
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Frequently Asked Questions</h2>
+          <p className="text-lg text-gray-600 text-center">Find answers to common questions about our services.</p>
         </div>
       </div>
+
+      {/* FAQ Section */}
+<div className="mt-20">
+  <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">Frequently Asked Questions</h2>
+  <div className="max-w-3xl mx-auto">
+    {[
+      {
+        question: "How do I know which service is right for me?",
+        answer: "Our team offers free consultations to assess your needs and goals. We'll recommend the most suitable services based on your individual requirements."
+      },
+      {
+        question: "Can I combine fitness and medical services?",
+        answer: "Absolutely! In fact, we encourage a holistic approach to wellness. Many of our members benefit from both our fitness programs and medical services."
+      },
+      {
+        question: "What qualifications do your trainers and medical staff have?",
+        answer: "All our fitness trainers are certified professionals with extensive experience. Our medical staff includes licensed physicians, physiotherapists, and health counselors."
+      },
+      {
+        question: "Do you offer any packages or membership options?",
+        answer: "Yes, we offer various membership tiers and packages that provide access to multiple services at discounted rates. Contact us for more details."
+      }
+    ].map((faq, index) => (
+      <div key={index} className="mb-6 bg-white rounded-xl shadow-md p-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">{faq.question}</h3>
+        <p className="text-gray-600">{faq.answer}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
     </div>
   );
 }
