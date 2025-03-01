@@ -301,12 +301,7 @@ export default function Contact() {
               Join WellZone Lanka today and begin your journey to optimal wellness with our expert team.
             </p>
             <div className="mt-8 flex justify-center space-x-4">
-              <Link 
-                href="/start" 
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-cyan-700 bg-white hover:bg-gray-50 transition-colors"
-              >
-                Get Started
-              </Link>
+              
               <Link 
                 href="/services" 
                 className="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-blue-500 transition-colors"
