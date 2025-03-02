@@ -9,6 +9,35 @@ import Navbar from "../Navbar";
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const[form,setForm]=useState({
+    firstName:"",
+    lastName:"",
+    email:"",
+    password:"",
+    confirmPassword:"",
+  })
+  const[pending,setPending]=useState(false)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPending(true);
+  
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+  
+    if (res.ok) {
+      setPending(false);
+      const data = await res.json();
+      console.log("Signup successful:", data);
+    } else {
+      setPending(false);
+      const error = await res.json();
+      console.error("Signup failed:", error);
+    }
+  
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
@@ -72,48 +101,71 @@ export default function Register() {
 
                 {/* Professional Form Fields */}
                 <div className="space-y-5">
+                <form onSubmit={handleSubmit} className="px-2 sm:px-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
-                      <label className="text-sm font-medium text-gray-700 mb-1 block">First Name</label>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          placeholder="First name"
-                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
-                        />
-                      </div>
+                      
+                        <label  className="text-sm font-medium text-gray-700 mb-1 block">First Name</label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            disabled={pending}
+                            placeholder="First name"
+                            className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                            value={form.firstName}
+                            onChange={(e)=>setForm({...form,firstName:e.target.value})}
+                            required
+                          />
+                        </div>
+                        
                     </div>
                     
                     <div>
+                    
                       <label className="text-sm font-medium text-gray-700 mb-1 block">Last Name</label>
                       <div className="relative">
                         <input
                           type="text"
                           placeholder="Last name"
                           className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.lastName}
+                          onChange={(e)=>setForm({...form,lastName:e.target.value})}
                         />
                       </div>
+                    
                     </div>
                   </div>
 
                   <div>
+                  
                     <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
                     <div className="relative">
                       <input
                         type="email"
                         placeholder="Enter your email address"
                         className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                        disabled={pending}
+                        value={form.email}
+                        onChange={(e)=>setForm({...form,email:e.target.value})}
                       />
                     </div>
+                  
                   </div>
 
                   <div>
+                  
+
                     <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
                         placeholder="Create a password"
                         className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 pr-10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                        disabled={pending}
+                        value={form.password}
+                        onChange={(e)=>setForm({...form,password:e.target.value})}
+                        required
                       />
                       <button
                         type="button"
@@ -128,15 +180,22 @@ export default function Register() {
                       </button>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters</p>
+                  
                   </div>
 
                   <div>
+                  
+
                     <label className="text-sm font-medium text-gray-700 mb-1 block">Confirm Password</label>
                     <div className="relative">
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Confirm your password"
                         className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 pr-10 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                        disabled={pending}
+                        value={form.confirmPassword}
+                        onChange={(e)=>setForm({...form,confirmPassword:e.target.value})}
+                        required
                       />
                       <button
                         type="button"
@@ -150,6 +209,7 @@ export default function Register() {
                         )}
                       </button>
                     </div>
+                  
                   </div>
 
                   <div className="flex items-start">
@@ -168,7 +228,10 @@ export default function Register() {
                     </div>
                   </div>
 
-                  <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-md font-medium shadow-sm hover:shadow-md transition-all">
+                  <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-md font-medium shadow-sm hover:shadow-md transition-all"
+                    disabled={pending}
+                  >
+                    
                     Create account
                   </button>
 
@@ -193,6 +256,7 @@ export default function Register() {
                       </Link>
                     </div>
                   </div>
+                </form>
                 </div>
               </div>
             </div>
