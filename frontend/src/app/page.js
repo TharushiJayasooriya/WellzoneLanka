@@ -112,8 +112,7 @@ export default function Home() {
               AI-powered fitness and nutrition plans designed to match your body type, goals, and personal preferences.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                <span className="text-sm font-medium">Learn more</span>
-                <ChevronRight className="ml-1 h-4 w-4" />
+               
               </div>
             </div>
 
@@ -127,8 +126,7 @@ export default function Home() {
                 Advanced algorithms that adjust in real-time to your progress, ensuring optimal results every step of the way.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                <span className="text-sm font-medium">Learn more</span>
-                <ChevronRight className="ml-1 h-4 w-4" />
+                
               </div>
             </div>
 
@@ -142,8 +140,7 @@ export default function Home() {
               Get expert guidance, motivation, and support from certified professionals.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                <span className="text-sm font-medium">Learn more</span>
-                <ChevronRight className="ml-1 h-4 w-4" />
+                
               </div>
             </div>
 
@@ -157,8 +154,7 @@ export default function Home() {
               Complete programs focusing on fitness
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                <span className="text-sm font-medium">Learn more</span>
-                <ChevronRight className="ml-1 h-4 w-4" />
+
               </div>
             </div>
           </div>
