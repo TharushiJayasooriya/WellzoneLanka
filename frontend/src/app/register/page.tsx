@@ -44,7 +44,7 @@ export default function Register() {
       if (res.ok) {
         setPending(false);
         toast.success(data.message); // Show success message
-        router.push("../register"); // Redirect to sign-in page
+        router.push("../about"); // Redirect to sign-in page
       } else if (res.status === 400) {
         setError(data.message); // Set error message for 400 status
         setPending(false);
@@ -105,23 +105,7 @@ export default function Register() {
                   <h2 className="text-xl font-medium text-gray-600">Join <span className="text-cyan-600 font-semibold">WellZone Lanka</span> today</h2>
                 </div>
 
-                {/* Social Signup Buttons - Professional Design */}
-                
-                <div className="w-full">
-                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
-                    <span className="font-medium text-gray-600">Sign up with Google</span>
-                  </button>
-                </div>
-
-                <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-200" />
-                  </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">or sign up with email</span>
-                  </div>
-                </div>
+               
                
                 {/* Professional Form Fields */}
                 <div className="space-y-5">
@@ -274,6 +258,25 @@ export default function Register() {
                     </p>
                   </div>
                   
+
+                   {/* Social Signup Buttons - Professional Design */}
+                
+                <div className="w-full">
+                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
+                    <span className="font-medium text-gray-600">Sign up with Google</span>
+                  </button>
+                </div>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200" />
+                  </div>
+                  <div className="relative flex justify-center text-sm">
+                    <span className="px-2 bg-white text-gray-500">or sign up with email</span>
+                  </div>
+                </div>
+                
                   {/* Social Media Links */}
                   <div className="pt-6 border-t border-gray-200">
                     <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
