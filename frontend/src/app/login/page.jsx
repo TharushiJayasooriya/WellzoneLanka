@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Dumbbell, Eye, EyeOff, Facebook, Instagram, Youtube } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../Navbar";
 
-export default function Login() {
+export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -39,50 +39,52 @@ export default function Login() {
       {/* Main Content - Professional Layout */}
       <div className="relative z-10 max-w-7xl mx-auto pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
-          {/* Left Side - Professional Image Section (5 columns) */}
-          <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative h-96">
-            {/* Image slideshow with fade transition */}
-            {images.map((src, index) => (
-              <div 
-                key={index}
-                className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                style={{ 
-                  opacity: currentImageIndex === index ? 1 : 0,
-                  zIndex: currentImageIndex === index ? 10 : 0
-                }}
-              >
-                <Image 
-                  src={src} 
-                  alt={`Fitness Image ${index + 1}`} 
-                  layout="fill"
-                  objectFit="cover"
-                  className="transform hover:scale-105 transition-transform duration-700"
-                  priority={index === 0}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              </div>
-            ))}
-            
-            <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
-              <h2 className="text-white text-3xl font-bold mb-2">Elevate Your Fitness</h2>
-              <p className="text-white/90 text-lg mb-4">Professional training programs tailored to your goals</p>
+          {/* Left Side - Professional Image Section (increased size, now 7 columns) */}
+          <div className="md:col-span-7 rounded-lg overflow-hidden shadow-xl relative">
+            {/* Image slideshow with fade transition - increased height */}
+            <div className="relative w-full" style={{ height: "650px" }}>
+              {images.map((src, index) => (
+                <div 
+                  key={index}
+                  className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                  style={{ 
+                    opacity: currentImageIndex === index ? 1 : 0,
+                    zIndex: currentImageIndex === index ? 10 : 0
+                  }}
+                >
+                  <Image 
+                    src={src} 
+                    alt={`Fitness Image ${index + 1}`} 
+                    fill
+                    style={{ objectFit: "cover" }}
+                    className="transform hover:scale-105 transition-transform duration-700"
+                    priority={index === 0}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+              ))}
               
-              {/* Slideshow indicators */}
-              <div className="flex items-center space-x-2 mt-4">
-                {images.map((_, index) => (
-                  <div 
-                    key={index}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      currentImageIndex === index ? "w-8 bg-cyan-500" : "w-2 bg-white/70"
-                    }`}
-                  ></div>
-                ))}
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
+                <h2 className="text-white text-4xl font-bold mb-3">Elevate Your Fitness</h2>
+                <p className="text-white/90 text-xl mb-4">Professional training programs tailored to your goals</p>
+                
+                {/* Slideshow indicators */}
+                <div className="flex items-center space-x-2 mt-6">
+                  {images.map((_, index) => (
+                    <div 
+                      key={index}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        currentImageIndex === index ? "w-10 bg-cyan-500" : "w-3 bg-white/70"
+                      }`}
+                    ></div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right Side - Professional Sign In Form (7 columns) */}
-          <div className="md:col-span-7">
+          {/* Right Side - Professional Sign In Form (reduced to 5 columns) */}
+          <div className="md:col-span-5">
             <div className="max-w-lg mx-auto bg-white p-10 rounded-lg border border-gray-200 shadow-lg">
               <div className="space-y-6">
                 <div>
