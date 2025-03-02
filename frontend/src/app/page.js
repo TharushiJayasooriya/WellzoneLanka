@@ -109,7 +109,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Personalized Plans</h3>
               <p className="mt-4 text-gray-600">
-                AI-driven fitness and nutrition plans tailored specifically to your body type, goals, and preferences.
+              AI-powered fitness and nutrition plans designed to match your body type, goals, and personal preferences.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 <span className="text-sm font-medium">Learn more</span>
@@ -124,7 +124,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">AI Technology</h3>
               <p className="mt-4 text-gray-600">
-                Advanced algorithms that adapt to your progress, providing real-time adjustments to maximize results.
+                Advanced algorithms that adjust in real-time to your progress, ensuring optimal results every step of the way.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 <span className="text-sm font-medium">Learn more</span>
@@ -139,7 +139,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Expert Coaches</h3>
               <p className="mt-4 text-gray-600">
-                Work with certified professionals who provide guidance, motivation, and accountability.
+              Get expert guidance, motivation, and support from certified professionals.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 <span className="text-sm font-medium">Learn more</span>
@@ -154,7 +154,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Holistic Approach</h3>
               <p className="mt-4 text-gray-600">
-                Comprehensive programs addressing fitness, nutrition, sleep, and mental wellbeing.
+              Complete programs focusing on fitness
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 <span className="text-sm font-medium">Learn more</span>
