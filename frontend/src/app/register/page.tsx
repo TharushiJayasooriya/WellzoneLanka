@@ -260,15 +260,8 @@ export default function Register() {
                   
 
                    {/* Social Signup Buttons - Professional Design */}
-                
-                <div className="w-full">
-                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
-                    <span className="font-medium text-gray-600">Sign up with Google</span>
-                  </button>
-                </div>
 
-                <div className="relative">
+                   <div className="relative">
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-200" />
                   </div>
@@ -277,6 +270,16 @@ export default function Register() {
                   </div>
                 </div>
                 
+                
+                <div className="w-full">
+                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
+                    <span className="font-medium text-gray-600">Sign up with Google</span>
+                  </button>
+                </div>
+
+                
+
                   {/* Social Media Links */}
                   <div className="pt-6 border-t border-gray-200">
                     <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
