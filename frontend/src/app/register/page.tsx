@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Dumbbell, Eye, EyeOff, Facebook, Instagram, Youtube } from "lucide-react";
+import { Dumbbell, Eye, EyeOff, Facebook, Instagram, Triangle, TriangleAlert, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../Navbar";
+import { toast } from "sonner";
+import {useRouter} from "next/navigation"
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,28 +18,42 @@ export default function Register() {
     password:"",
     confirmPassword:"",
   })
-  const[pending,setPending]=useState(false)
+  const[pending,setPending]=useState(false);
+  const[error,setError]=useState(null);
+  const router=useRouter();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
   
-    const res = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
   
-    if (res.ok) {
+      const data = await res.json(); // Parse the response JSON
+  
+      if (res.ok) {
+        setPending(false);
+        toast.success(data.message); // Show success message
+        router.push("/sign-in"); // Redirect to sign-in page
+      } else if (res.status === 400) {
+        setError(data.message); // Set error message for 400 status
+        setPending(false);
+      } else if (res.status === 500) {
+        setError(data.message); // Set error message for 500 status
+        setPending(false);
+      } else {
+        setError("An unexpected error occurred."); // Handle other errors
+        setPending(false);
+      }
+    } catch (error) {
       setPending(false);
-      const data = await res.json();
-      console.log("Signup successful:", data);
-    } else {
-      setPending(false);
-      const error = await res.json();
-      console.error("Signup failed:", error);
+      setError("An error occurred while submitting the form."); // Handle fetch errors
+      console.error("Fetch error:", error);
     }
-  
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
@@ -83,6 +99,7 @@ export default function Register() {
                 </div>
 
                 {/* Social Signup Buttons - Professional Design */}
+                
                 <div className="w-full">
                   <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
                     <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
@@ -98,9 +115,15 @@ export default function Register() {
                     <span className="px-2 bg-white text-gray-500">or sign up with email</span>
                   </div>
                 </div>
-
+               
                 {/* Professional Form Fields */}
                 <div className="space-y-5">
+                {!!error && (
+                    <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6 bg-red-500 justify-center">
+                      <TriangleAlert />
+                      <p>{error}</p>
+                    </div>
+                  )}
                 <form onSubmit={handleSubmit} className="px-2 sm:px-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
@@ -256,7 +279,9 @@ export default function Register() {
                       </Link>
                     </div>
                   </div>
+                  
                 </form>
+                
                 </div>
               </div>
             </div>
