@@ -286,10 +286,10 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12">
                     <Image 
-                      src="/assets/assessment.jpg" 
+                      src="/assets/hm1.png" 
                       alt="Initial Assessment" 
-                      width={600} 
-                      height={400} 
+                      width={400} 
+                      height={100} 
                       className="rounded-xl shadow-lg animate-slide-in-right opacity-0"
                     />
                   </div>
@@ -317,7 +317,7 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12 md:order-first">
                     <Image 
-                      src="/assets/plan-creation.jpg" 
+                      src="/assets/hm2.png" 
                       alt="Personalized Plan Creation" 
                       width={600} 
                       height={400} 
@@ -348,7 +348,7 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12">
                     <Image 
-                      src="/assets/coaching.jpg" 
+                      src="/assets/hm3.png" 
                       alt="Implementation & Coaching" 
                       width={600} 
                       height={400} 
@@ -379,7 +379,7 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12 md:order-first">
                     <Image 
-                      src="/assets/optimization.jpg" 
+                      src="/assets/hm4.png"
                       alt="Continuous Optimization" 
                       width={600} 
                       height={400} 
