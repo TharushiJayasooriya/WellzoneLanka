@@ -24,6 +24,13 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
+    setError(null);
+    // Validate password match
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match.");
+      setPending(false);
+      return;
+    }
   
     try {
       const res = await fetch("/api/auth/signup", {
@@ -37,7 +44,7 @@ export default function Register() {
       if (res.ok) {
         setPending(false);
         toast.success(data.message); // Show success message
-        router.push("/sign-in"); // Redirect to sign-in page
+        router.push("../register"); // Redirect to sign-in page
       } else if (res.status === 400) {
         setError(data.message); // Set error message for 400 status
         setPending(false);
