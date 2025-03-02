@@ -183,10 +183,10 @@ export default function Home() {
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-in-left opacity-0">
               <div className="flex items-center mb-6">
                 <div className="h-16 w-16 rounded-full overflow-hidden mr-4">
-                  <Image src="/assets/testimonial1.jpg" alt="Client" width={64} height={64} className="h-full w-full object-cover" />
+                  <Image src="/assets/AI 1.png" alt="Client" width={64} height={64} className="h-full w-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Sarah Johnson</h3>
+                  <h3 className="text-xl font-bold text-gray-900">Bihandu Methsilu</h3>
                   <p className="text-gray-600">Lost 25kg in 6 months</p>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-gray-700 italic">
-                "WellZone Lanka completely transformed my approach to fitness. The AI-powered recommendations were spot on, and my coach kept me motivated throughout my journey."
+              "WellZone Lanka changed how I do fitness. The AI gave great advice, and my coach kept me motivated."
               </p>
             </div>
 
@@ -204,10 +204,10 @@ export default function Home() {
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-up opacity-0" style={{ animationDelay: '0.3s' }}>
               <div className="flex items-center mb-6">
                 <div className="h-16 w-16 rounded-full overflow-hidden mr-4">
-                  <Image src="/assets/testimonial2.jpg" alt="Client" width={64} height={64} className="h-full w-full object-cover" />
+                  <Image src="/assets/AI 2.png" alt="Client" width={64} height={64} className="h-full w-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Michael Chen</h3>
+                  <h3 className="text-xl font-bold text-gray-900">Dineth Jayasuriya</h3>
                   <p className="text-gray-600">Gained 10kg muscle mass</p>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-gray-700 italic">
-                "As someone who struggled to gain weight, the personalized nutrition plan was a game-changer. The coaches understood my goals and helped me achieve what I thought was impossible."
+              "I had a hard time gaining weight, but the custom nutrition plan changed everything. The coaches knew my goals and helped me succeed."
               </p>
             </div>
 
@@ -225,10 +225,10 @@ export default function Home() {
             <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-in-right opacity-0">
               <div className="flex items-center mb-6">
                 <div className="h-16 w-16 rounded-full overflow-hidden mr-4">
-                  <Image src="/assets/testimonial3.jpg" alt="Client" width={64} height={64} className="h-full w-full object-cover" />
+                  <Image src="/assets/AI 3.png" alt="Client" width={64} height={64} className="h-full w-full object-cover" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Priya Patel</h3>
+                  <h3 className="text-xl font-bold text-gray-900">Lushy Jay</h3>
                   <p className="text-gray-600">Improved overall wellness</p>
                 </div>
               </div>
@@ -238,7 +238,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-gray-700 italic">
-                "Beyond just physical fitness, WellZone Lanka helped me improve my sleep quality and reduce stress. The holistic approach made all the difference in my wellbeing."
+              "WellZone Lanka not only improved my fitness but also helped me sleep better and feel less stressed. Their complete approach really improved my well-being."
               </p>
             </div>
           </div>
