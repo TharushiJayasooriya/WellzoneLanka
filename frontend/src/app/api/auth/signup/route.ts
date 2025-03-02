@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   }
 
   if (confirmPassword !== password) {
-    return NextResponse.json({ message: "Passwords do not match" }, { status: 400 });
+    return NextResponse.json({ message: "Passwords do not match. Please check and try again. 🔒" }, { status: 400 });
   }
 
   if (password.length < 8) {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return NextResponse.json({ message: "User already exists" }, { status: 400 });
+      return NextResponse.json({ message: "Email already in use. Please log in or use a different email. 📧" }, { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -49,9 +49,9 @@ export async function POST(request: Request) {
     await newUser.save();
     console.log("User created:", newUser);
 
-    return NextResponse.json({ message: "User created" }, { status: 201 });
+    return NextResponse.json({ message: "Welcome to WellZone Lanka! Your account has been created successfully. 🎉" }, { status: 201 });
   } catch (error) {
     console.error("Error in signup route:", error);
-    return NextResponse.json({ message: "Something went wrong" }, { status: 500 });
+    return NextResponse.json({ message: "Oops! Something went wrong. Please try again. 🛠️" }, { status: 500 });
   }
 }

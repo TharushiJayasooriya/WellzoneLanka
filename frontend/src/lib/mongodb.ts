@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGO;
 if (!MONGODB_URI) {
@@ -11,16 +11,11 @@ async function connectToDatabase() {
     return mongoose;
   }
 
-  try {
-    await mongoose.connect(MONGODB_URI, {
-      bufferCommands: false,
-    });
-    console.log("Connected to MongoDB");
-    return mongoose;
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error);
-    throw error;
+  const opts={
+    bufferCommands:false,
   }
+  await mongoose.connect(MONGODB_URI!,opts);
+  return mongoose;
 }
 
 export default connectToDatabase;
