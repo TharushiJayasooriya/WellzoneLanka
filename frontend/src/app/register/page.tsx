@@ -280,18 +280,31 @@ export default function Register() {
 
                 
 
-                  {/* Social Media Links */}
-                  <div className="pt-6 border-t border-gray-200">
-                    <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
-                    <div className="flex justify-center space-x-6">
-                      <Link href="#" className="text-gray-500 hover:text-pink-600 transition-colors">
-                        <Instagram className="h-6 w-6" />
-                      </Link>
-                      <Link href="#" className="text-gray-500 hover:text-red-600 transition-colors">
-                        <Youtube className="h-6 w-6" />
-                      </Link>
-                    </div>
-                  </div>
+                                {/* Added Social Media Links */}
+  <div className="pt-6 border-t border-gray-200">
+  <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
+  <div className="flex justify-center space-x-6">
+    
+    {/* Instagram Logo */}
+    <Link href="https://www.instagram.com" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+        alt="Instagram"
+        className="h-8 w-8 transition-transform transform hover:scale-110"
+      />
+    </Link>
+
+    {/* YouTube Logo */}
+    <Link href="https://www.youtube.com" target="_blank">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+        alt="YouTube"
+        className="h-8 w-auto transition-transform transform hover:scale-110"
+      />
+    </Link>
+    
+  </div>
+</div>
                   
                 </form>
                 
