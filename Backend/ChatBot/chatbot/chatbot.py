@@ -1,63 +1,24 @@
-from DiseaseRelatedData import find_physical_disease
+# chatbot.py
+import DiseaseRelatedData
 
-def chatbot():
-    print("Hi! Can I help you?")
+def chatbot_response(user_input):
+    """Process user input and return chatbot response."""
+    user_input = user_input.lower()
     
-    while True:
-        user_input = input("You (yes/no): ").strip().lower()
-        
-        if user_input == "no":
-            print("Chatbot: Okay, stay healthy! 😊")
-            return
-        elif user_input == "yes":
-            print("Chatbot: If you have a physical illness, can you describe it?")
-            
-            while True:
-                symptoms = input("You: ").strip().lower()
+    # Check for matching disease
+    for disease, synonyms in DiseaseRelatedData.PHYSICAL_DISEASE_SYNONYMS.items():
+        if any(word in user_input for word in synonyms):
+            return DiseaseRelatedData.recommend_treatment(disease)
 
-                # Automatically exit if user enters nothing
-                if not symptoms:
-                    print("Chatbot: Exiting... Take care! 👋")
-                    return
-                
-                # Detect physical disease
-                disease = find_physical_disease(symptoms)
+    return "I'm not sure about that. Can you describe your symptoms in more detail? 🤔"
 
-                if disease:
-                    print(f"Chatbot: It seems like you may have {disease}. You should consider consulting a physiotherapist or gym trainer. 🏥")
-                    
-                    while True:
-                        follow_up = input("You: ").strip().lower()
-
-                        # Automatically exit if user enters nothing
-                        if not follow_up:
-                            print("Chatbot: Exiting... Take care! 👋")
-                            return
-
-                        elif follow_up in ["ok","okay","ok thank you","ok thanks", "okay thank you","thank you","thanks", "nothing"]:
-                            print("Chatbot: Do you have any other physical problems? (yes/no)")
-                            response = input("You: ").strip().lower()
-
-                            if response == "no":
-                                print("Chatbot: Okay, stay healthy! 😊")
-                                return
-                            elif response == "yes":
-                                print("Chatbot: Please describe your other physical illness.")
-                            else:
-                                print("Chatbot: Please answer with 'yes' or 'no'.")
-                        
-                        else:
-                            new_disease = find_physical_disease(follow_up)
-                            if new_disease:
-                                print(f"Chatbot: It seems like you may have {new_disease}. You should consider consulting a doctor. 🏥")
-                            else:
-                                print("Chatbot: Sorry, I can only identify physical illnesses. 😕")
-
-                else:
-                    print("Chatbot: Sorry, I can only identify physical illnesses. 😕")
-
-        else:
-            print("Chatbot: Please respond with 'yes' or 'no'.")
-
+# Testing the chatbot interaction
 if __name__ == "__main__":
-    chatbot()
+    print("🤖 Chatbot: Hello! Describe your pain, and I'll recommend the best treatment.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() in ["exit", "quit"]:
+            print("🤖 Chatbot: Take care! Goodbye! 👋")
+            break
+        response = chatbot_response(user_input)
+        print(f"🤖 Chatbot: {response}")

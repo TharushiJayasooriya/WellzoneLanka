@@ -1,14 +1,5 @@
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.stem import PorterStemmer
+# physical_disease.py
 
-# Download necessary NLTK resources
-nltk.download('punkt')
-
-# Initialize the stemmer
-stemmer = PorterStemmer()
-
-# Dictionary containing physical diseases and their synonyms
 PHYSICAL_DISEASE_SYNONYMS = {
     "back pain": ["back", "lower back", "spine", "lumbar", "stiff back", "aching back"],
     "neck pain": ["neck", "cervical", "stiff neck", "sore neck", "neck stiffness"],
@@ -28,16 +19,23 @@ PHYSICAL_DISEASE_SYNONYMS = {
     "plantar fasciitis": ["plantar", "heel", "foot arch", "sole pain"]
 }
 
-# Function to find disease based on user input (with improved stemming & matching)
-def find_physical_disease(user_input):
-    user_input = user_input.lower()
-    user_tokens = {stemmer.stem(word) for word in word_tokenize(user_input)}  # Stem user input words
+# Categorizing conditions for Physiotherapists and Gym Trainers
+PHYSIOTHERAPY_CONDITIONS = {
+    "back pain", "neck pain", "shoulder pain", "knee pain", "joint pain",
+    "sciatica", "tendonitis", "carpal tunnel syndrome", "fibromyalgia",
+    "herniated disc", "osteoarthritis", "rheumatoid arthritis", 
+    "ankle sprain", "plantar fasciitis"
+}
 
-    for disease, synonyms in PHYSICAL_DISEASE_SYNONYMS.items():
-        disease_tokens = {stemmer.stem(word) for word in synonyms}  # Stem synonym words
-        
-        # Check if at least one synonym matches user input
-        if user_tokens & disease_tokens:  # Intersection method
-            return disease
+GYM_TRAINING_CONDITIONS = {
+    "muscle pain", "tennis elbow"
+}
 
-    return None
+def recommend_treatment(disease):
+    """Return the appropriate recommendation based on the disease."""
+    if disease in PHYSIOTHERAPY_CONDITIONS:
+        return f"The best way to treat **{disease}** is to choose a **physiotherapist**. 💆‍♂️"
+    elif disease in GYM_TRAINING_CONDITIONS:
+        return f"The best way to treat **{disease}** is to choose a **gym trainer**. 🏋️‍♂️"
+    else:
+        return f"I'm not sure about **{disease}**. Please consult a doctor. 🏥"
