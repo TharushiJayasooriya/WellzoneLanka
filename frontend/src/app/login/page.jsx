@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dumbbell, Eye, EyeOff, Facebook, Instagram, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +8,23 @@ import Navbar from "../Navbar";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Array of fitness-related images for the slideshow
+  const images = [
+    "https://lafayettefamilyymca.org/wp-content/uploads/2023/02/190936627_m.jpg",
+    "/api/placeholder/1000/1000", // Replace with actual image URL
+    "/api/placeholder/1000/1000", // Replace with actual image URL
+  ];
+  
+  // Set up the slideshow effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); // Change image every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
@@ -23,22 +40,43 @@ export default function Login() {
       <div className="relative z-10 max-w-7xl mx-auto pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
           {/* Left Side - Professional Image Section (5 columns) */}
-          <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-            <Image 
-              src="https://lafayettefamilyymca.org/wp-content/uploads/2023/02/190936627_m.jpg" 
-              alt="Professional Fitness Experience" 
-              width={1000} 
-              height={1000}
-              className="object-cover t"
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-8">
+          <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative h-96">
+            {/* Image slideshow with fade transition */}
+            {images.map((src, index) => (
+              <div 
+                key={index}
+                className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                style={{ 
+                  opacity: currentImageIndex === index ? 1 : 0,
+                  zIndex: currentImageIndex === index ? 10 : 0
+                }}
+              >
+                <Image 
+                  src={src} 
+                  alt={`Fitness Image ${index + 1}`} 
+                  layout="fill"
+                  objectFit="cover"
+                  className="transform hover:scale-105 transition-transform duration-700"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
+            ))}
+            
+            <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
               <h2 className="text-white text-3xl font-bold mb-2">Elevate Your Fitness</h2>
               <p className="text-white/90 text-lg mb-4">Professional training programs tailored to your goals</p>
-              <div className="flex items-center space-x-1">
-                <div className="h-1 w-8 bg-cyan-500 rounded"></div>
-                <div className="h-1 w-2 bg-cyan-500 rounded opacity-70"></div>
-                <div className="h-1 w-2 bg-cyan-500 rounded opacity-40"></div>
+              
+              {/* Slideshow indicators */}
+              <div className="flex items-center space-x-2 mt-4">
+                {images.map((_, index) => (
+                  <div 
+                    key={index}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      currentImageIndex === index ? "w-8 bg-cyan-500" : "w-2 bg-white/70"
+                    }`}
+                  ></div>
+                ))}
               </div>
             </div>
           </div>
@@ -117,54 +155,45 @@ export default function Login() {
                     </p>
                   </div>
 
-
                   {/* Social Login Buttons - Professional Design */}
-
                   <div className="relative">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-gray-200" />
+                    <div className="absolute inset-0 flex items-center">
+                      <div className="w-full border-t border-gray-200" />
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                      <span className="px-2 bg-white text-gray-500">or continue with email</span>
+                    </div>
                   </div>
-                  <div className="relative flex justify-center text-sm">
-                    <span className="px-2 bg-white text-gray-500">or continue with email</span>
+                  <div className="w-full">
+                    <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                      <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
+                      <span className="font-medium text-gray-600">Google</span>
+                    </button>
                   </div>
-                </div>
-                <div className="w-full">
-                  <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
-                    <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
-                    <span className="font-medium text-gray-600">Google</span>
-                  </button>
-                  
-                </div>
 
-               
+                  {/* Added Social Media Links */}
+                  <div className="pt-6 border-t border-gray-200">
+                    <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
+                    <div className="flex justify-center space-x-6">
+                      {/* Instagram Logo */}
+                      <Link href="https://www.instagram.com" target="_blank">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                          alt="Instagram"
+                          className="h-8 w-8 transition-transform transform hover:scale-110"
+                        />
+                      </Link>
 
-                  
-                {/* Added Social Media Links */}
-<div className="pt-6 border-t border-gray-200">
-  <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
-  <div className="flex justify-center space-x-6">
-    
-    {/* Instagram Logo */}
-    <Link href="https://www.instagram.com" target="_blank">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-        alt="Instagram"
-        className="h-8 w-8 transition-transform transform hover:scale-110"
-      />
-    </Link>
-
-    {/* YouTube Logo */}
-    <Link href="https://www.youtube.com" target="_blank">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
-        alt="YouTube"
-        className="h-8 w-auto transition-transform transform hover:scale-110"
-      />
-    </Link>
-    
-  </div>
-</div>
-
+                      {/* YouTube Logo */}
+                      <Link href="https://www.youtube.com" target="_blank">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+                          alt="YouTube"
+                          className="h-8 w-auto transition-transform transform hover:scale-110"
+                        />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
