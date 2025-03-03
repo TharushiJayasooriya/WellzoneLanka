@@ -121,23 +121,7 @@ export default function Contact() {
                   </div>
             </div>
             
-            <div className="mt-8 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl shadow-md overflow-hidden p-8 text-white">
-              <h3 className="text-xl font-bold mb-4">Business Hours</h3>
-              <dl className="space-y-3 text-cyan-50">
-                <div className="flex justify-between">
-                  <dt className="font-medium">Monday - Friday</dt>
-                  <dd>9:00 AM - 6:00 PM</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="font-medium">Saturday</dt>
-                  <dd>10:00 AM - 4:00 PM</dd>
-                </div>
-                <div className="flex justify-between">
-                  <dt className="font-medium">Sunday</dt>
-                  <dd>Closed</dd>
-                </div>
-              </dl>
-            </div>
+            
           </div>
           
           {/* Contact Form */}
