@@ -377,37 +377,36 @@ export default function Home() {
               </div>
 
 
-              {/* Step 4 */}
-            <div className="relative">
-              <div className="md:flex items-center">
-                <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 md:order-last animate-slide-in-right opacity-0">
-                  <div className="bg-white p-8 rounded-xl shadow-lg">
-                    <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
-                      <span className="text-xl font-bold">4</span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Mental wellness support</h3>
-                    <p className="text-gray-600">
-                    Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you're facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
-                    </p>
-                  </div>
-                </div>
-                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                  <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
-                    <Brain className="h-6 w-6 text-white" />
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-8 md:ml-0"> 
-                  <Image 
-                    src="/assets/hmB.png"
-                    alt="Continuous Optimization" 
-                    width={600} 
-                    height={400} 
-                    className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
-                  />
-                </div>
-              </div>
-            </div>
-
+{/* Step 4 */}
+<div className="relative">
+  <div className="md:flex items-center">
+    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12">
+      <Image 
+        src="/assets/hmB.png"
+        alt="Continuous Optimization" 
+        width={600} 
+        height={400} 
+        className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
+      />
+    </div>
+    <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+      <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
+        <Brain className="h-6 w-6 text-white" />
+      </div>
+    </div>
+    <div className="md:w-1/2 md:pl-12 animate-slide-in-right opacity-0">
+      <div className="bg-white p-8 rounded-xl shadow-lg">
+        <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
+          <span className="text-xl font-bold">4</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Mental wellness support</h3>
+        <p className="text-gray-600">
+        Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you're facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
               {/* Step 5 */}
               <div className="relative">
                 <div className="md:flex items-center">
