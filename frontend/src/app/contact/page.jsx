@@ -66,7 +66,7 @@ export default function Contact() {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-sm font-medium text-gray-500">Phone</h3>
-                    <p className="mt-1 text-base font-medium text-gray-900">+94 77 123 4567</p>
+                    <p className="mt-1 text-base font-medium text-gray-900">+94 70 183 0489</p>
                   </div>
                 </div>
                 
@@ -78,7 +78,7 @@ export default function Contact() {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-sm font-medium text-gray-500">Email</h3>
-                    <p className="mt-1 text-base font-medium text-gray-900">info@wellzonelanka.com</p>
+                    <p className="mt-1 text-base font-medium text-gray-900">wellzonelanka@gmail.com</p>
                   </div>
                 </div>
                 
