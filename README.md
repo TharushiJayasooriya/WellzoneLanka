@@ -1,2 +1,2 @@
-Wellcome to WellZone Lanka
-  Health & Fitness tracker
+Wellcome to WellZone Lanka( Health & Fitness tracker).
+
