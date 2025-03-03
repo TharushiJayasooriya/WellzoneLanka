@@ -166,12 +166,12 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
             {[{ 
               icon: <Star size={32} />, 
               title: "Our Mission", 
-              text: "Empowering Sri Lankans to achieve optimal health through accessible, AI-enhanced fitness solutions tailored to individual needs, cultural contexts, and lifestyles." 
+              text: "Our mission is to help people live healthier and happier lives by offering personalized fitness coaching, expert advice, and a supportive community to help them reach their goals." 
             },
             { 
               icon: <Brain size={32} />, 
               title: "Our Vision", 
-              text: "To revolutionize the wellness landscape in Sri Lanka by democratizing access to world-class fitness guidance, making professional coaching available to everyone regardless of location or economic status." 
+              text: "Our vision is to become the top provider of complete fitness solutions in Sri Lanka, inspiring and supporting people of all fitness levels to live healthier and more fulfilling lives." 
             }].map((item, index) => (
               <motion.div 
                 key={index} 
