@@ -34,7 +34,7 @@ def chatbot():
                     break  # Continue to the next step
                 
                 # Check if user asks about how to choose a specialist
-                if re.search(r"how.*choose.*(physiotherapist|gym trainer)", user_confirmation):
+                if re.search(r"how.*choose.*(physiotherapist|gym trainer)","how I do that", user_confirmation):
                     print("🤖 Chatbot: You can choose a physiotherapist or gym trainer through our **WellZone Lanka** website. 🌐")
                     user_confirmation = input("You: ").strip().lower()
                     if user_confirmation in ["okay", "ok", "thank you", "thanks"]:
