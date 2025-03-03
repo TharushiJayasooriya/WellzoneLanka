@@ -6,28 +6,56 @@ import Image from "next/image";
 import { ArrowRight, Heart, Calendar, Video, Star, Bot, Play } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/navbar";
+import { Marquee } from "@/components/magicui/marquee";
+
+const reviews = [
+  { img: "/images/marquee_1.jpeg" },
+  { img: "/images/marquee_2.jpeg" },
+  { img: "/images/marquee_3.jpeg" },
+  { img: "/images/marquee_4.jpeg" },
+  { img: "/images/marquee_5.jpeg" },
+];
+
+const firstRow = reviews.slice(0, Math.ceil(reviews.length / 2));
+const secondRow = reviews.slice(Math.ceil(reviews.length / 2));
+
+const ReviewCard = ({ img }: { img: string }) => (
+  <figure className="relative h-full w-full cursor-pointer overflow-hidden rounded-xl hover:bg-gray-100">
+    <div className="flex flex-col items-center text-center">
+      <Image src={img} alt="Review" width={250} height={220} />
+    </div>
+  </figure>
+);
+
+export function MarqueeDemoVertical() {
+  return (
+    <div className="relative flex h-[500px] w-full flex-row items-center justify-center overflow-hidden mt-11">
+      <Marquee pauseOnHover vertical className="[--duration:22s]">
+        {firstRow.map((review, index) => (
+          <ReviewCard key={index} {...review} />
+        ))}
+      </Marquee>
+      <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+        {secondRow.map((review, index) => (
+          <ReviewCard key={index} {...review} />
+        ))}
+      </Marquee>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-        <Navbar/>
-        
+      <Navbar />
       <section className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
-          >
+          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
             <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
-              Your Journey to
-              <span className="block text-sky-500">Physical Wellness</span>
-              Starts Here
+              Your Journey to <span className="block text-sky-500">Physical Wellness</span> Starts Here
             </h1>
             <p className="text-gray-600 text-lg max-w-xl">
-              Connect with Sri Lanka's leading physiotherapists and wellness experts for personalized care and treatment that transforms lives.
+              Connect with Sri Lanka's leading physiotherapists and wellness experts for personalized care.
             </p>
             <div className="flex items-center gap-6">
               <Link href="/register">
@@ -41,7 +69,9 @@ export default function Home() {
               </Button>
             </div>
           </motion.div>
-
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative">
+            <MarqueeDemoVertical />
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -49,13 +79,13 @@ export default function Home() {
             className="relative"
           >
             <div className="relative h-[600px] w-full " >
-              <Image
+              {/* <Image
                 src="./images/aboutpage.png"
                 alt="Telemedicine Physical Therapy"
                 fill
                 className="object-cover rounded-2xl shadow-2xl bg-gradient-to-b from-white"
                 priority
-              />
+              /> */}
             </div>
             <div className="absolute -z-10 top-1/2 right-0 transform -translate-y-1/2">
               <div className="h-80 w-80 bg-sky-200/50 rounded-full blur-3xl"></div>
@@ -228,5 +258,6 @@ function TestimonialCard({ image, name, text, delay }: { image: string; name: st
       </div>
       <p className="text-gray-600 italic">&quot;{text}&quot;</p>
     </motion.div>
+        
   );
 }
