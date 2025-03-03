@@ -427,7 +427,7 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12">
                     <Image 
-                      src="/assets/hm5.png" 
+                      src="/assets/hmA.png"
                       alt="Community Support" 
                       width={600} 
                       height={400} 
