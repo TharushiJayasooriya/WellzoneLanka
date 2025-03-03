@@ -16,14 +16,14 @@ export default function Trainers() {
   const trainers = [
     {
       id: "trainer-1",
-      name: "",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      specialties: ["Weight Training", "Rehabilitation", "Nutrition"],
-      experience: "8 years",
+      name: "Sanuka Siriwardhana",
+      image: "/assets/Sanuka.png",
+      specialties: ["Weight Training", "Rehabilitation", "Nutrition", "Calisthenics"],
+      experience: "4 years",
       rating: 4.9,
-      reviews: 124,
-      price: "Rs. 2,500/hour",
-      availability: "Mon-Fri, 6AM-8PM"
+      reviews: 254,
+      price: "Rs. 1,500/hour",
+      availability: "Mon-Fri, 6AM-10PM"
     },
     {
       id: "trainer-2",
