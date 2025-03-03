@@ -425,19 +425,14 @@ export default function Home() {
             Join WellZone Lanka for a comprehensive approach to your health and fitness. Our professional team and AI technology are ready to guide you.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <button className="rounded-full bg-white text-cyan-600 px-8 py-4 text-lg font-semibold hover:bg-gray-100 transition-colors shadow-md animate-pop-in opacity-0" style={{ animationDelay: '0.4s' }}>
-              <span className="flex items-center justify-center">
-                Get Started
-                <ArrowRight className="ml-2 h-5 w-5 animate-slide-right" />
-              </span>
-           </button>
+            
            <button 
   className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-cyan-600 transition-colors shadow-md animate-pop-in opacity-0" 
   style={{ animationDelay: '0.7s' }}
   onClick={() => window.location.href = '/services'}
 >
   <span className="flex items-center justify-center">
-    Schedule a Consultation
+    Join Us Now
     <Calendar className="ml-2 h-5 w-5 animate-slide-right" />
   </span>
 </button>
