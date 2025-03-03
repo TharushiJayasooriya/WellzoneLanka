@@ -20,7 +20,7 @@ const firstRow = reviews.slice(0, Math.ceil(reviews.length / 2));
 const secondRow = reviews.slice(Math.ceil(reviews.length / 2));
 
 const ReviewCard = ({ img }: { img: string }) => (
-  <figure className="relative h-full w-full cursor-pointer overflow-hidden rounded-xl hover:bg-gray-100">
+  <figure className="relative h-full w-full cursor-pointer overflow-hidden rounded-xl hover:bg-transparent">
     <div className="flex flex-col items-center text-center">
       <Image src={img} alt="Review" width={250} height={220} />
     </div>
@@ -49,16 +49,16 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <section className="container mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
-            <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight pt-11">
               Your Journey to <span className="block text-sky-500">Physical Wellness</span> Starts Here
             </h1>
             <p className="text-gray-600 text-lg max-w-xl">
               Connect with Sri Lanka's leading physiotherapists and wellness experts for personalized care.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/register">
+              <Link href="/services">
                 <Button className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg">
                   Get Started <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -78,21 +78,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative h-[600px] w-full " >
-              {/* <Image
-                src="./images/aboutpage.png"
-                alt="Telemedicine Physical Therapy"
-                fill
-                className="object-cover rounded-2xl shadow-2xl bg-gradient-to-b from-white"
-                priority
-              /> */}
-            </div>
-            <div className="absolute -z-10 top-1/2 right-0 transform -translate-y-1/2">
-              <div className="h-80 w-80 bg-sky-200/50 rounded-full blur-3xl"></div>
-            </div>
-            <div className="absolute -z-10 bottom-0 left-0">
-              <div className="h-60 w-60 bg-blue-100/50 rounded-full blur-3xl"></div>
-            </div>
+            
           </motion.div>
         </div>
       </section>
@@ -183,7 +169,7 @@ export default function Home() {
           <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
             Join thousands of satisfied patients who have transformed their lives with our expert care and support.
           </p>
-          <Link href="/register">
+          <Link href="/doctors">
             <Button size="lg" className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg">
               Book Your First Session <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
