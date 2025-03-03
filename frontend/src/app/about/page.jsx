@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowRight, Heart, Brain, Activity, Users, Star, Zap, Award } from "lucide-react";
 import Navbar from "../Navbar";
-import { Footer } from "../Footer";
+import { Footer } from '../Footer';
 import { motion } from "framer-motion";
 
 export default function About() {
@@ -92,7 +92,7 @@ export default function About() {
             </motion.div>
           </div>
         </motion.div>
-        
+
         {/* Animated wave divider */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden">
           <svg className="relative block w-full h-[70px]" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -161,16 +161,18 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
               <span className="absolute -bottom-2 left-1/4 w-1/2 h-1 bg-blue-500"></span>
             </span>
           </motion.h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             {[{ 
               icon: <Star size={32} />, 
               title: "Our Mission", 
+              text: "Empowering Sri Lankans to achieve optimal health through accessible, AI-enhanced fitness solutions tailored to individual needs, cultural contexts, and lifestyles." ,
               text: "Our mission is to help people live healthier and happier lives by offering personalized fitness coaching, expert advice, and a supportive community to help them reach their goals." 
             },
             { 
               icon: <Brain size={32} />, 
               title: "Our Vision", 
+              text: "To revolutionize the wellness landscape in Sri Lanka by democratizing access to world-class fitness guidance, making professional coaching available to everyone regardless of location or economic status." ,
               text: "Our vision is to become the top provider of complete fitness solutions in Sri Lanka, inspiring and supporting people of all fitness levels to live healthier and more fulfilling lives." 
             }].map((item, index) => (
               <motion.div 
@@ -207,7 +209,7 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
               Our unique blend of technology and human expertise creates an unparalleled wellness experience
             </p>
           </motion.div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[{ 
               icon: <Zap size={36} />, 
@@ -258,11 +260,11 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
               A seamless path to your health and fitness goals in four simple steps
             </p>
           </motion.div>
-          
+
           <div className="flex flex-col md:flex-row justify-between relative">
             {/* Connection line */}
             <div className="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-blue-200 transform -translate-y-1/2 z-0"></div>
-            
+
             {[
               { 
                 title: "AI Assessment", 
@@ -312,7 +314,7 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
               <div className="absolute top-0 left-0 w-40 h-40 bg-white rounded-full blur-3xl"></div>
               <div className="absolute bottom-0 right-0 w-60 h-60 bg-white rounded-full blur-3xl"></div>
             </div>
-            
+
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 relative z-10">Begin Your Transformation Today</h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-10 relative z-10">
               Join thousands of Sri Lankans who are already experiencing the perfect blend of AI precision and expert coaching to achieve their wellness goals.
@@ -336,5 +338,4 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
 
       <Footer/>
     </div>
-  );
-}
+  );}
