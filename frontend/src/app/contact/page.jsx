@@ -280,23 +280,9 @@ export default function Contact() {
         </div>
       </div>
       
-      {/* Map Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
-          <div className="p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Find Us</h2>
-            <p className="text-gray-600 mb-6">
-              Visit our wellness center in the heart of Colombo for a personalized consultation.
-            </p>
-          </div>
-          <div className="h-64 bg-gray-300 w-full">
-            {/* Replace with actual map component */}
-            <div className="h-full w-full flex items-center justify-center bg-cyan-50">
-              <p className="text-gray-500">Interactive map would be displayed here</p>
-            </div>
-          </div>
-        </div>
-      </div>
+     
+        
+      
       
       {/* CTA Section */}
       <div className="bg-gradient-to-r from-cyan-600 to-blue-600">
