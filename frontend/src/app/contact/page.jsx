@@ -95,29 +95,30 @@ export default function Contact() {
                 </div>
               </div>
               
-              <div className="mt-10 pt-6 border-t border-gray-200">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Connect With Us</h3>
-                <div className="flex space-x-4">
-                  <a href="#" className="text-gray-500 hover:text-cyan-600 transition-colors">
-                    <span className="sr-only">Instagram</span>
-                    <div className="p-2 bg-gray-100 rounded-full hover:bg-cyan-50 transition-colors">
-                      <Instagram className="h-6 w-6" />
+             
+              {/* Added Social Media Links */}
+              <div className="pt-6 mt-5 border-t border-gray-200">
+                    <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
+                    <div className="flex justify-center space-x-6">
+                      {/* Instagram Logo */}
+                      <Link href="https://www.instagram.com" target="_blank">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                          alt="Instagram"
+                          className="h-8 w-8 transition-transform transform hover:scale-110"
+                        />
+                      </Link>
+
+                      {/* YouTube Logo */}
+                      <Link href="https://www.youtube.com" target="_blank">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+                          alt="YouTube"
+                          className="h-8 w-auto transition-transform transform hover:scale-110"
+                        />
+                      </Link>
                     </div>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-cyan-600 transition-colors">
-                    <span className="sr-only">Facebook</span>
-                    <div className="p-2 bg-gray-100 rounded-full hover:bg-cyan-50 transition-colors">
-                      <Facebook className="h-6 w-6" />
-                    </div>
-                  </a>
-                  <a href="#" className="text-gray-500 hover:text-cyan-600 transition-colors">
-                    <span className="sr-only">YouTube</span>
-                    <div className="p-2 bg-gray-100 rounded-full hover:bg-cyan-50 transition-colors">
-                      <Youtube className="h-6 w-6" />
-                    </div>
-                  </a>
-                </div>
-              </div>
+                  </div>
             </div>
             
             <div className="mt-8 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl shadow-md overflow-hidden p-8 text-white">
