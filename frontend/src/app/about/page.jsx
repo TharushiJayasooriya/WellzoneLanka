@@ -321,10 +321,7 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
-              <a href="/signup" className="px-8 py-4 bg-white text-blue-600 hover:bg-blue-50 font-bold rounded-full transition-all duration-300 text-lg inline-flex items-center justify-center shadow-lg">
-                Start Free Assessment
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
+              
               <a href="/contact" className="px-8 py-4 bg-transparent border-2 border-white text-white hover:bg-white/10 font-bold rounded-full transition-all duration-300 text-lg inline-flex items-center justify-center">
                 Contact Our Team
               </a>
