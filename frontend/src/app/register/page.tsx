@@ -27,7 +27,7 @@ export default function Register() {
   
   // Array of fitness-related images for the slideshow
   const images = [
-    "https://lafayettefamilyymca.org/wp-content/uploads/2023/02/190936627_m.jpg",
+    "/assets/login3.png",
     "/assets/login1.png",
     "/assets/login2.png", // Replace with actual image URL
   ];
@@ -101,7 +101,7 @@ export default function Register() {
           {/* Left Side - Professional Image Section (increased size, now 7 columns) */}
           <div className="md:col-span-7 rounded-lg overflow-hidden shadow-xl relative">
             {/* Image slideshow with fade transition - increased height */}
-            <div className="relative w-full" style={{ height: "650px" }}>
+            <div className="relative w-full" style={{ height: "680px" }}>
               {images.map((src, index) => (
                 <div 
                   key={index}
