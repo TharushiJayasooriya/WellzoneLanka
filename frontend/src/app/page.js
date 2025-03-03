@@ -286,9 +286,10 @@ export default function Home() {
                       <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
                         <span className="text-xl font-bold">1</span>
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Initial Assessment</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                      Expert fitness trainers</h3>
                       <p className="text-gray-600">
-                        Complete our comprehensive assessment that analyzes your current fitness level, health history, goals, and preferences. Our AI system processes this data to create your baseline.
+                      Train with skilled fitness experts who create custom workout plans, give professional advice, and keep you motivated. No matter your fitness level, get the right support to reach your goals.
                       </p>
                     </div>
                   </div>
@@ -326,9 +327,10 @@ export default function Home() {
         <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
           <span className="text-xl font-bold">2</span>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">Personalized Plan Creation</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        Customized workout plans</h3>
         <p className="text-gray-600">
-          Our AI technology and expert coaches collaborate to design your custom fitness and nutrition plan. Every aspect is tailored to your unique needs and goals.
+        Get a workout plan made just for you by expert trainers. They design exercises that match your fitness level, goals, and lifestyle. Whether you want to lose weight, build muscle, or stay active, your plan will keep you on track and motivated.
         </p>
       </div>
     </div>
@@ -349,9 +351,9 @@ export default function Home() {
                       <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
                         <span className="text-xl font-bold">3</span>
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Implementation & Coaching</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Nutrition guidance</h3>
                       <p className="text-gray-600">
-                        Begin your program with ongoing support from your dedicated coach. Track your progress through our app while receiving real-time feedback and adjustments.
+                      Get expert nutrition guidance from professionals who create personalized meal plans, offer helpful advice, and support your healthy eating journey. Whether you want to lose weight, build muscle, or improve overall health, get the right nutrition plan to reach your goals.
                       </p>
                     </div>
                   </div>
@@ -381,9 +383,9 @@ export default function Home() {
         <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
           <span className="text-xl font-bold">4</span>
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">Continuous Optimization</h3>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Mental wellness support</h3>
         <p className="text-gray-600">
-          As you progress, our AI system continuously analyzes your results and adapts your plan for optimal results. Regular check-ins with your coach ensure you stay on track.
+        Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you're facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
         </p>
       </div>
     </div>
