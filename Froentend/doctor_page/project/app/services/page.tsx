@@ -2,6 +2,7 @@ import { Activity, Brain,Bot, Dumbbell, Spline as Spine, FileWarning as Running,
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button";
+import Navbar from '@/components/navbar';
 
 
 
@@ -79,36 +80,11 @@ export default function ServicesPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Link href="/about" >
-              <Image 
-                src="/images/icon.png" 
-                alt="Logo" 
-                height={40} 
-                width={40} 
-                
-              />
-              </Link>
-            <Link href="/about" ><span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span></Link>
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-gray-600">
-            <Link href="/" className="hover:text-sky-600 transition-colors">Home</Link>
-            <Link href="/services" className="text-sky-600 border-b-2 border-sky-500">Services</Link>
-            <Link href="/doctors" className="hover:text-sky-600 transition-colors">Doctors</Link>
-            <Link href="/contact" className="hover:text-sky-600 transition-colors">Contact</Link>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" className="text-gray-700 hover:text-sky-600">Sign In</Button>
-            <Button className="bg-sky-500 hover:bg-sky-600 text-white">Register</Button>
-          </div>
-        </div>
-      </nav>
+       <Navbar/>
       {/* Hero Section */}
       <section className="relative py-20 px-4 bg-gradient-to-b from-primary/10 to-background">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Services</h1>
+        <div className="max-w-7xl mx-auto text-center pt-11">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 pt-11">Our Services</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Comprehensive physiotherapy and wellness services tailored to your needs
           </p>
