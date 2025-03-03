@@ -1,5 +1,6 @@
 import re
 
+# Dictionary mapping diseases to common symptoms
 PHYSICAL_DISEASE_SYNONYMS = {
     "back pain": ["back", "lower back", "spine", "lumbar", "stiff back", "aching back", "my back hurts"],
     "neck pain": ["neck", "cervical", "stiff neck", "sore neck", "neck stiffness", "my neck hurts"],
@@ -19,6 +20,7 @@ PHYSICAL_DISEASE_SYNONYMS = {
     "plantar fasciitis": ["plantar", "heel", "foot arch", "sole pain"]
 }
 
+# Mapping of diseases to the recommended specialist
 PHYSIOTHERAPIST_RECOMMENDED = {
     "back pain", "neck pain", "shoulder pain", "knee pain", "joint pain", "sciatica",
     "tendonitis", "carpal tunnel syndrome", "fibromyalgia", "herniated disc",
