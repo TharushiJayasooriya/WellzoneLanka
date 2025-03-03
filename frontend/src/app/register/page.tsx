@@ -165,12 +165,12 @@ export default function Register() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                       
-                        <label  className="text-sm font-medium text-gray-700 mb-1 block">First Name</label>
+                        <label  className="text-sm font-medium text-gray-700 mb-1  block">First Name</label>
                         <div className="relative">
                           <input
                             type="text"
                             disabled={pending}
-                            placeholder="First name"
+                            placeholder="First name" 
                             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
                             value={form.firstName}
                             onChange={(e)=>setForm({...form,firstName:e.target.value})}
@@ -199,7 +199,7 @@ export default function Register() {
 
                   <div>
                   
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
+                    <label className="text-sm font-medium text-gray-700 mb-1 mt-5 block">Email Address</label>
                     <div className="relative">
                       <input
                         type="email"
@@ -216,7 +216,7 @@ export default function Register() {
                   <div>
                   
 
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+                    <label className="text-sm font-medium text-gray-700 mb-1 mt-5 block">Password</label>
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
@@ -239,14 +239,14 @@ export default function Register() {
                         )}
                       </button>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">Password must be at least 8 characters</p>
+                    <p className="text-xs text-gray-500 mt-2">Password must be at least 8 characters</p>
                   
                   </div>
 
                   <div>
                   
 
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Confirm Password</label>
+                    <label className="text-sm font-medium text-gray-700 mb-1 mt-5 block">Confirm Password</label>
                     <div className="relative">
                       <input
                         type={showConfirmPassword ? "text" : "password"}
@@ -273,7 +273,7 @@ export default function Register() {
                   </div>
 
                   <div className="flex items-start">
-                    <div className="flex items-center h-5">
+                    <div className="flex items-center mt-5 h-5">
                       <input
                         id="terms"
                         name="terms"
@@ -281,14 +281,14 @@ export default function Register() {
                         className="h-4 w-4 bg-gray-50 border-gray-300 rounded text-cyan-600 focus:ring-cyan-500"
                       />
                     </div>
-                    <div className="ml-3 text-sm">
-                      <label htmlFor="terms" className="text-gray-700">
-                        I agree to the <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">Terms of Service</a> and <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">Privacy Policy</a>
+                    <div className="ml-3 text-sm mt-5">
+                      <label htmlFor="terms" className="text-gray-700 ">
+                       I agree to the <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">Terms of Service</a> and <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">Privacy Policy</a>
                       </label>
                     </div>
                   </div>
 
-                  <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-md font-medium shadow-sm hover:shadow-md transition-all"
+                  <button className="w-full mt-3 bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2.5 rounded-md font-medium shadow-sm hover:shadow-md transition-all"
                     disabled={pending}
                   >
                     
@@ -296,9 +296,9 @@ export default function Register() {
                   </button>
 
                   <div className="text-center">
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 text-sm mt-5">
                       Already have an account? {" "}
-                      <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                      <a href="#" className="text-cyan-600  hover:text-cyan-700  font-medium">
                         Sign in
                       </a>
                     </p>
@@ -311,13 +311,13 @@ export default function Register() {
                   <div className="absolute inset-0 flex items-center">
                     <div className="w-full border-t border-gray-200" />
                   </div>
-                  <div className="relative flex justify-center text-sm">
+                  <div className="relative mt-3 flex justify-center text-sm">
                     <span className="px-2 bg-white text-gray-500">or sign up with email</span>
                   </div>
                 </div>
                 
                 
-                <div className="w-full">
+                <div className="w-full mt-3">
                   <button className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
                     <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
                     <span className="font-medium text-gray-600">Sign up with Google</span>
