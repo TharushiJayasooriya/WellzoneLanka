@@ -465,20 +465,21 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             
           <button 
-      className="group relative overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-      onClick={() => window.location.href = '/services'}
-    >
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      
-      <span className="flex items-center justify-center relative z-10">
-        <Star className="mr-2 h-5 w-5" />
-        Join Us Now
-        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-      </span>
-      
-      <div className="absolute -top-10 -right-10 w-20 h-20 bg-yellow-300 rounded-full opacity-30 group-hover:scale-150 transition-transform duration-500"></div>
-      <div className="absolute -bottom-10 -left-10 w-16 h-16 bg-purple-400 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
-    </button>
+  className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-teal-500 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+  onClick={() => window.location.href = '/services'}
+>
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+  
+  <span className="flex items-center justify-center relative z-10">
+    <Star className="mr-2 h-5 w-5" />
+    Join Us Now
+    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+  </span>
+  
+  <div className="absolute -top-10 -right-10 w-20 h-20 bg-teal-400 rounded-full opacity-30 group-hover:scale-150 transition-transform duration-500"></div>
+  <div className="absolute -bottom-10 -left-10 w-16 h-16 bg-blue-300 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+</button>
+
 
           </div>
         </div>
