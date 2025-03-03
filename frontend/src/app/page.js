@@ -430,13 +430,17 @@ export default function Home() {
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5 animate-slide-right" />
               </span>
-            </button>
-            <button className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-cyan-600 transition-colors shadow-md animate-pop-in opacity-0" style={{ animationDelay: '0.7s' }}>
-              <span className="flex items-center justify-center">
-                Schedule a Consultation
-                <Calendar className="ml-2 h-5 w-5 animate-slide-right" />
-              </span>
-            </button>
+           </button>
+           <button 
+  className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-cyan-600 transition-colors shadow-md animate-pop-in opacity-0" 
+  style={{ animationDelay: '0.7s' }}
+  onClick={() => window.location.href = '/services'}
+>
+  <span className="flex items-center justify-center">
+    Schedule a Consultation
+    <Calendar className="ml-2 h-5 w-5 animate-slide-right" />
+  </span>
+</button>
           </div>
         </div>
       </div>
