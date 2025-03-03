@@ -177,14 +177,16 @@ export default function ServicesPage() {
         
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
           <div className="max-w-4xl mx-auto slide-up" style={{ animationDelay: '0.2s' }}>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+            <h1 className="text-5xl md:text-6x1 font-bold text-white mb-6 drop-shadow-lg">
               Your Journey to Wellness Starts Here
-            </h1>
-            <p className="text-xl md:text-2xl text-white mb-8 drop-shadow-md max-w-3xl mx-auto">
+            </h1> 
+            </div>
+            <div>
+            <p className="text-xl md:text-2xl text-white mb-8 mt-5 drop-shadow-md max-w-3xl mx-auto">
               WellZone Lanka offers comprehensive wellness solutions to help you achieve optimal health and fitness.
             </p>
             <a href="#services" 
-              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
+              className="mt-7 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('cta-section').scrollIntoView({ behavior: 'smooth' });
