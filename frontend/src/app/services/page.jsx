@@ -165,15 +165,15 @@ export default function ServicesPage() {
       <div className="relative h-screen w-full overflow-hidden">
         <div className="absolute inset-0 w-full h-full bg-black/40 z-10"></div>
         <video 
-          className="absolute inset-0 w-full h-full object-cover"
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-        >
-          <source src="/videos/wellness-background.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+            src="\assets\y.mp4"
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="object-cover w-full h-full absolute"
+          />
+
+
         
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
           <div className="max-w-4xl mx-auto slide-up" style={{ animationDelay: '0.2s' }}>
@@ -225,13 +225,17 @@ export default function ServicesPage() {
   style={{ opacity: isVisible['services-showcase'] ? 1 : 0, transform: isVisible['services-showcase'] ? 'translateY(0)' : 'translateY(20px)' }}
 >
   <div className="relative w-full h-96">
-    <Image
-      src="/api/placeholder/1200/800"
-      alt="WellZone Services Showcase"
-      fill
-      className="object-cover hover-scale"
-      style={{ transition: 'transform 0.6s ease-out' }}
-    />
+  <div style={{ position: 'relative', width: '100%', height: '70vh' }}> {/* Adjust height to be larger */}
+  <Image
+    src="/assets/ser2.png"
+    alt="WellZone Services Showcase"
+    layout="fill"
+    objectFit="cover"  // Keeps the aspect ratio while filling the container
+    className="hover-scale"
+    style={{ transition: 'transform 0.6s ease-out' }}
+  />
+</div>
+
     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
       <div className="p-8 text-white">
         <h3 className="text-3xl font-bold mb-2">Transform Your Life</h3>
