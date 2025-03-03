@@ -96,7 +96,7 @@ export default function Register() {
 
       
       {/* Main Content - Professional Layout */}
-      <div className="relative z-10 max-w-7xl mx-auto pt-6">
+      <div className="relative z-10 max-w-7x1 mx-auto pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
           {/* Left Side - Professional Image Section (increased size, now 7 columns) */}
           <div className="md:col-span-7 rounded-lg overflow-hidden shadow-xl relative">
