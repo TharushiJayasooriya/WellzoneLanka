@@ -12,16 +12,16 @@ export default function LoginPage() {
   
   // Array of fitness-related images for the slideshow
   const images = [
-    "https://lafayettefamilyymca.org/wp-content/uploads/2023/02/190936627_m.jpg",
-    "/api/placeholder/1000/1000", // Replace with actual image URL
-    "/api/placeholder/1000/1000", // Replace with actual image URL
+    "/assets/login3.png",
+    "/assets/login1.png",
+    "/assets/login2.png", // Replace with actual image URL
   ];
   
   // Set up the slideshow effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+    }, 4000); // Change image every 4 seconds
     
     return () => clearInterval(interval);
   }, []);
