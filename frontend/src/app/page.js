@@ -13,13 +13,11 @@ import { IoIosFlash, IoIosFitness, IoIosChatbubbles, IoIosHeart } from 'react-ic
 export default function Home() {
   // Function to handle scroll animations
   useEffect(() => {
-    
+
     const observerOptions = {
       root: null,
       rootMargin: '0px',
       threshold: 0.1,
-     
-      
     };
 
     const JoinUsButton = () => {}
@@ -34,10 +32,10 @@ export default function Home() {
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
+
     // Select all elements with animation classes
     const animatedElements = document.querySelectorAll('.animate-fade-up, .animate-fade-in, .animate-slide-in-right, .animate-slide-in-left, .animate-scale-in, .animate-pop-in');
-    
+
     animatedElements.forEach(el => {
       observer.observe(el);
     });
@@ -120,7 +118,7 @@ export default function Home() {
               Track your fitness journey in real time with detailed workout logs, performance analytics, and personalized insights. Set goals, monitor daily activities, and stay motivated every step of the way.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-               
+
               </div>
             </div>
 
@@ -134,7 +132,7 @@ export default function Home() {
               Achieve your fitness goals with AI-powered workout recommendations tailored to your body, fitness level, and objectives. Our smart system adapts as you progress, providing safe and effective exercises for the best results.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                
+
               </div>
             </div>
 
@@ -148,7 +146,7 @@ export default function Home() {
               Have fitness and health support at your fingertips with our AI-powered chatbot. Get instant answers to workout queries, exercise recommendations, nutrition tips, and general wellness advice—all available 24/7 for your convenience.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                
+
               </div>
             </div>
 
@@ -162,7 +160,7 @@ export default function Home() {
               Get expert fitness coaching from experienced trainers who design personalized workout plans, offer professional advice, and keep you motivated. Whether you're just starting out or a seasoned athlete, you'll get the guidance you need to reach your fitness goals.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
-                
+
               </div>
             </div>
 
@@ -263,7 +261,7 @@ export default function Home() {
         </div>
       </div>
 
-      
+
 
       {/* How It Works Section */}
       <div className="py-24 bg-gray-50">
@@ -281,7 +279,7 @@ export default function Home() {
           <div className="relative">
             {/* Connection line */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-cyan-200 transform -translate-x-1/2"></div>
-            
+
             <div className="space-y-16">
               {/* Step 1 */}
               <div className="relative">
@@ -316,36 +314,36 @@ export default function Home() {
               </div>
 
              {/* Step 2 */}
-<div className="relative">
-  <div className="md:flex items-center">
-    <div className="md:w-1/2 md:pl-12">
-      <Image 
-        src="/assets/hmD.png" 
-        alt="Personalized Plan Creation" 
-        width={600} 
-        height={400} 
-        className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
-      />
-    </div>
-    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 animate-slide-in-right opacity-0">
-      <div className="bg-white p-8 rounded-xl shadow-lg">
-        <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
-          <span className="text-xl font-bold">2</span>
-        </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">
-        Customized workout plans</h3>
-        <p className="text-gray-600">
-        Get a workout plan made just for you by expert trainers. They design exercises that match your fitness level, goals, and lifestyle. Whether you want to lose weight, build muscle, or stay active, your plan will keep you on track and motivated.
-        </p>
-      </div>
-    </div>
-    <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-      <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
-        <Calendar className="h-6 w-6 text-white" />
-      </div>
-    </div>
-  </div>
-</div>
+            <div className="relative">
+              <div className="md:flex items-center">
+                <div className="md:w-1/2 md:pl-12">
+                  <Image 
+                    src="/assets/hmD.png" 
+                    alt="Personalized Plan Creation" 
+                    width={600} 
+                    height={400} 
+                    className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
+                  />
+                </div>
+                <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 animate-slide-in-right opacity-0">
+                  <div className="bg-white p-8 rounded-xl shadow-lg">
+                    <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
+                      <span className="text-xl font-bold">2</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    Customized workout plans</h3>
+                    <p className="text-gray-600">
+                    Get a workout plan made just for you by expert trainers. They design exercises that match your fitness level, goals, and lifestyle. Whether you want to lose weight, build muscle, or stay active, your plan will keep you on track and motivated.
+                    </p>
+                  </div>
+                </div>
+                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
+                    <Calendar className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
               {/* Step 3 */}
@@ -379,37 +377,37 @@ export default function Home() {
                 </div>
               </div>
 
-              
+
               {/* Step 4 */}
-<div className="relative">
-  <div className="md:flex items-center">
-    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 md:order-last animate-slide-in-right opacity-0">
-      <div className="bg-white p-8 rounded-xl shadow-lg">
-        <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
-          <span className="text-xl font-bold">4</span>
-        </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-4">Mental wellness support</h3>
-        <p className="text-gray-600">
-        Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you're facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
-        </p>
-      </div>
-    </div>
-    <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-      <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
-        <Brain className="h-6 w-6 text-white" />
-      </div>
-    </div>
-    <div className="md:w-1/2 md:pl-8 md:ml-0"> {/* Reduced padding and margin */}
-      <Image 
-        src="/assets/hmB.png"
-        alt="Continuous Optimization" 
-        width={600} 
-        height={400} 
-        className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
-      />
-    </div>
-  </div>
-</div>
+            <div className="relative">
+              <div className="md:flex items-center">
+                <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 md:order-last animate-slide-in-right opacity-0">
+                  <div className="bg-white p-8 rounded-xl shadow-lg">
+                    <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
+                      <span className="text-xl font-bold">4</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">Mental wellness support</h3>
+                    <p className="text-gray-600">
+                    Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you're facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
+                    </p>
+                  </div>
+                </div>
+                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                  <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
+                    <Brain className="h-6 w-6 text-white" />
+                  </div>
+                </div>
+                <div className="md:w-1/2 md:pl-8 md:ml-0"> 
+                  <Image 
+                    src="/assets/hmB.png"
+                    alt="Continuous Optimization" 
+                    width={600} 
+                    height={400} 
+                    className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
+                  />
+                </div>
+              </div>
+            </div>
 
               {/* Step 5 */}
               <div className="relative">
@@ -447,8 +445,8 @@ export default function Home() {
         </div>
       </div>
 
-    
-           
+
+
 
       {/* Call to Action - Enhanced with pulse and staggered animations */}
       <div className="bg-cyan-600 py-16">
@@ -463,24 +461,32 @@ export default function Home() {
             Join WellZone Lanka for a comprehensive approach to your health and fitness. Our professional team and AI technology are ready to guide you.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-            
-          <button 
-  className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-teal-500 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-  onClick={() => window.location.href = '/services'}
->
-  <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-  
-  <span className="flex items-center justify-center relative z-10">
-    <Star className="mr-2 h-5 w-5" />
-    Join Us Now
-    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-  </span>
-  
-  <div className="absolute -top-10 -right-10 w-20 h-20 bg-teal-400 rounded-full opacity-30 group-hover:scale-150 transition-transform duration-500"></div>
-  <div className="absolute -bottom-10 -left-10 w-16 h-16 bg-blue-300 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
-</button>
+            {/* Fixed the button tags here */}
+            <button
+              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => window.location.href = '/services'}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <span className="flex items-center justify-center relative z-10">
+                <Star className="mr-2 h-5 w-5" />
+                Join Us Now
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+              </span>
+              
+              <div className="absolute -top-10 -right-10 w-20 h-20 bg-yellow-300 rounded-full opacity-30 group-hover:scale-150 transition-transform duration-500"></div>
+              <div className="absolute -bottom-10 -left-10 w-16 h-16 bg-purple-400 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
+            </button>
 
-
+            <button
+              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-teal-500 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => window.location.href = '/services'}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="flex items-center justify-center relative z-10">
+                Explore Services
+              </span>
+            </button>
           </div>
         </div>
       </div>
@@ -568,5 +574,4 @@ export default function Home() {
         }
       `}</style>
     </div>
-  );
-}
+  )};
