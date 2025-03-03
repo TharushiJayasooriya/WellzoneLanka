@@ -38,13 +38,13 @@ export default function Trainers() {
     },
     {
       id: "trainer-3",
-      name: "Dinesh Fernando",
+      name: "Anjitha Shahasya",
       image: "https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       specialties: ["HIIT", "Functional Training", "Weight Loss"],
-      experience: "10 years",
+      experience: "5 years",
       rating: 4.7,
-      reviews: 156,
-      price: "Rs. 2,800/hour",
+      reviews: 356,
+      price: "Rs. 1,800/hour",
       availability: "Mon-Sat, 5AM-9PM"
     },
     {
