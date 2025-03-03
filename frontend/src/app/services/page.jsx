@@ -196,13 +196,13 @@ export default function ServicesPage() {
             </a>
           </div>
         </div>
-        
-        <div className="absolute bottom-10 left-0 right-0 z-20 flex justify-center">
-          <a href="#services" className="text-white pulse-animation">
-            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </div>
+        <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+          <div className="animate-bounce bg-white p-2 w-10 h-10 ring-1 ring-slate-900/5 shadow-lg rounded-full flex items-center justify-center">
+            <svg className="w-6 h-6 text-cyan-500" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+              <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
-          </a>
+         
         </div>
       </div>
       
