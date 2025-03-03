@@ -15,7 +15,7 @@ export default function Exercises() {
   const exercises = [
     {
       id: "ex-1",
-      name: "Pus",
+      name: "Push-ups",
       category: "Strength",
       target: ["Chest", "Shoulders", "Triceps"],
       difficulty: "Beginner",

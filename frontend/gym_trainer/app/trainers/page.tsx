@@ -23,7 +23,7 @@ export default function Trainers() {
       rating: 4.9,
       reviews: 254,
       price: "Rs. 1,500/hour",
-      availability: "Mon-Fri, 6AM-10PM"
+      availability: "Mon-Fri, 6AM-8PM"
     },
     {
       id: "trainer-2",
