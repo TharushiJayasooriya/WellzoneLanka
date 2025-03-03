@@ -296,12 +296,15 @@ export default function Contact() {
             </p>
             <div className="mt-8 flex justify-center space-x-4">
               
-              <Link 
-                href="/services" 
-                className="inline-flex items-center px-8 py-4 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-blue-600 hover:shadow-lg transition-colors duration-300"
-              >
-                Explore Services
-              </Link>
+            <button
+              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-teal-500 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              onClick={() => window.location.href = '/services'}
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span className="flex items-center justify-center relative z-10">
+              Explore Services
+              </span>
+            </button>
             </div>
           </div>
         </div>
