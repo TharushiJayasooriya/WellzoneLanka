@@ -27,13 +27,13 @@ export default function Trainers() {
     },
     {
       id: "trainer-2",
-      name: "Priya Mendis",
+      name: "Esitha jayasundara",
       image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       specialties: ["Yoga", "Pilates", "Flexibility"],
-      experience: "6 years",
-      rating: 4.8,
-      reviews: 98,
-      price: "Rs. 2,200/hour",
+      experience: "2 years",
+      rating: 4.5,
+      reviews: 100,
+      price: "Rs. 1,700/hour",
       availability: "Tue-Sat, 7AM-7PM"
     },
     {
