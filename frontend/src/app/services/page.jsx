@@ -247,7 +247,52 @@ export default function ServicesPage() {
   </div>
 </div>
 
-
+{/* Call to Action - With background image container */}
+<div 
+  id="cta-section"
+  className="mt-24 text-center animate-on-scroll animate-visible"
+  style={{ opacity: isVisible['cta-section'] ? 1 : 0, transform: isVisible['cta-section'] ? 'translateY(0)' : 'translateY(20px)' }}
+>
+  <h2 className="text-3xl font-bold text-gray-800 mb-6">Ready to Transform Your Wellness Journey?</h2>
+  <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
+    Join WellZone Lanka today and take the first step towards a healthier, more balanced life.
+  </p>
+  
+  {/* Background image container for buttons */}
+  <div 
+    className="relative py-16 px-8 rounded-2xl overflow-hidden mx-auto max-w-5xl my-8"
+    style={{
+      backgroundImage: "url('/assets/wellness-background.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center"
+    }}
+  >
+    {/* Overlay for better text visibility */}
+    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/40 to-blue-500/40"></div>
+    
+    {/* Button container */}
+    <div className="relative z-10 flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+      <button 
+        onClick={() => {
+          setActiveTab('fitness');
+          handleServiceSelection();
+        }}
+        className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale w-64"
+      >
+        Start Your Fitness Journey
+      </button>
+      <button 
+        onClick={() => {
+          setActiveTab('medical');
+          handleServiceSelection();
+        }}
+        className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale w-64"
+      >
+        Explore Health Checkups
+      </button>
+    </div>
+  </div>
+</div>
         
 {/* FAQ Section */}
 <div className="mt-20">
@@ -279,37 +324,7 @@ export default function ServicesPage() {
   </div>
 </div>
 
-{/* Call to Action - Changed text and link */}
-<div 
-  id="cta-section"
-  className="mt-24 text-center animate-on-scroll animate-visible"
-  style={{ opacity: isVisible['cta-section'] ? 1 : 0, transform: isVisible['cta-section'] ? 'translateY(0)' : 'translateY(20px)' }}
->
-  <h2 className="text-3xl font-bold text-gray-800 mb-6">Ready to Transform Your Wellness Journey?</h2>
-  <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-    Join WellZone Lanka today and take the first step towards a healthier, more balanced life.
-  </p>
-  <div className="flex justify-center space-x-4">
-    <button 
-      onClick={() => {
-        setActiveTab('fitness');
-        handleServiceSelection();
-      }}
-      className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
-    >
-      Start Your Fitness Journey
-    </button>
-    <button 
-      onClick={() => {
-        setActiveTab('medical');
-        handleServiceSelection();
-      }}
-      className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
-    >
-      Explore Health Checkups
-    </button>
-  </div>
-</div>
+
      
       </div>
       <Footer />
