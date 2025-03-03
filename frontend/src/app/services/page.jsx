@@ -157,6 +157,80 @@ export default function ServicesPage() {
         .service-card:hover .service-image {
           transform: scale(1.05);
         }
+        
+        /* Enhanced CTA section styles */
+        .cta-video-container {
+          overflow: hidden;
+          border-radius: 12px 0 0 12px;
+          position: relative;
+        }
+        
+        .cta-video {
+          transition: transform 0.8s ease-out, filter 0.5s ease;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        .cta-card:hover .cta-video {
+          transform: scale(1.05);
+          filter: brightness(1.1);
+        }
+        
+        .cta-overlay {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.7) 0%, rgba(6, 182, 212, 0.7) 100%);
+          transition: opacity 0.5s ease;
+        }
+        
+        .cta-card:hover .cta-overlay {
+          opacity: 0.8;
+        }
+        
+        .cta-content {
+          transition: transform 0.4s ease-out;
+        }
+        
+        .cta-card:hover .cta-content {
+          transform: translateY(-5px);
+        }
+        
+        .cta-button {
+          overflow: hidden;
+          position: relative;
+          transition: all 0.3s ease;
+        }
+        
+        .cta-button:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: all 0.6s ease;
+        }
+        
+        .cta-button:hover:after {
+          left: 100%;
+        }
+        
+        .cta-button-icon {
+          transition: transform 0.3s ease;
+        }
+        
+        .cta-button:hover .cta-button-icon {
+          transform: translateX(5px);
+        }
+        
+        .cta-button-text {
+          transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .cta-button:hover .cta-button-text {
+          transform: translateY(-2px);
+          opacity: 0.9;
+        }
       `}</style>
       
       <Navbar />
@@ -185,7 +259,7 @@ export default function ServicesPage() {
             <p className="text-xl md:text-2xl text-white mb-8 mt-5 drop-shadow-md max-w-3xl mx-auto">
               WellZone Lanka offers comprehensive wellness solutions to help you achieve optimal health and fitness.
             </p>
-            <a href="#services" 
+            <a href="#cta-section" 
               className="mt-7 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-8 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale"
               onClick={(e) => {
                 e.preventDefault();
@@ -247,25 +321,25 @@ export default function ServicesPage() {
   </div>
 </div>
 
-{/* Professional Call to Action Section - Enhanced */}
+{/* Enhanced Professional Call to Action Section */}
 <div 
   id="cta-section"
-  className="mt-32 text-center"
+  className="my-32 text-center"
   data-aos="fade-up"
   data-aos-duration="1000"
 >
-  <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl">
+  <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl cta-card">
     <div className="grid md:grid-cols-2">
-      {/* Left side - Video Background */}
-      <div className="relative h-64 md:h-auto overflow-hidden">
+      {/* Left side - Enhanced Video Background */}
+      <div className="relative h-96 md:h-auto overflow-hidden cta-video-container">
         <video 
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover cta-video"
           autoPlay 
           muted 
           loop 
           playsInline
         >
-          <source src="\assets\ser1.mp4" ></source>
+          <source src="\assets\ser1.mp4"></source>
           {/* Fallback image if video doesn't load */}
           <img 
             src="/assets/wellness-background.jpg" 
@@ -273,26 +347,31 @@ export default function ServicesPage() {
             className="w-full h-full object-cover"
           />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-300/50 to-cyan-500/80"></div>
+        <div className="absolute inset-0 cta-overlay"></div>
         <div className="relative p-12 flex items-center justify-center h-full">
-          <div className="text-white" data-aos="fade-right" data-aos-delay="200">
-            <h2 className="text-3xl font-bold mb-4">Transform Your Wellness Journey</h2>
-            <p className="text-lg opacity-90">Join WellZone Lanka today and take the first step towards a healthier, more balanced life.</p>
+          <div className="text-white cta-content" data-aos="fade-right" data-aos-delay="200">
+            <div className="mb-6 inline-block p-3 bg-white bg-opacity-20 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h2 className="text-4xl font-bold mb-4 drop-shadow-md">Transform Your Wellness Journey</h2>
+            <p className="text-xl opacity-90 max-w-md mx-auto">Join WellZone Lanka today and take the first step towards a healthier, more balanced life.</p>
           </div>
         </div>
       </div>
       
-      {/* Right side - CTA buttons */}
+      {/* Right side - Enhanced CTA buttons */}
       <div className="bg-white p-12 flex flex-col justify-center">
         <h3 
-          className="text-2xl font-semibold text-gray-800 mb-8"
+          className="text-2xl font-semibold text-gray-800 mb-8 border-b border-gray-200 pb-4"
           data-aos="fade-up"
           data-aos-delay="300"
         >
           Choose Your Wellness Path
         </h3>
         
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div 
             className="group"
             data-aos="fade-up"
@@ -303,16 +382,23 @@ export default function ServicesPage() {
                 setActiveTab('fitness');
                 handleServiceSelection();
               }}
-              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102"
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102 cta-button"
             >
-              <span>Start Your Fitness Journey</span>
-              <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full transition-transform group-hover:translate-x-1">
+              <span className="cta-button-text">Start Your Fitness Journey</span>
+              <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full cta-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
             </button>
-            <p className="mt-3 text-gray-600 text-left pl-2 transition-all duration-300 group-hover:text-blue-600">Connect with certified gym trainers for personalized workout plans</p>
+            <div className="flex items-center mt-4">
+              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <p className="text-gray-600 text-left transition-all duration-300 group-hover:text-blue-600">Connect with certified gym trainers for personalized workout plans</p>
+            </div>
           </div>
           
           <div 
@@ -325,27 +411,26 @@ export default function ServicesPage() {
                 setActiveTab('medical');
                 handleServiceSelection();
               }}
-              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102"
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102 cta-button"
             >
-              <span>Explore Health Checkups</span>
-              <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full transition-transform group-hover:translate-x-1">
+              <span className="cta-button-text">Explore Health Checkups</span>
+              <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full cta-button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
             </button>
-            <p className="mt-3 text-gray-600 text-left pl-2 transition-all duration-300 group-hover:text-blue-600">Connect with qualified doctors for comprehensive health assessments</p>
+            <div className="flex items-center mt-4">
+              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3 group-hover:bg-blue-200 transition-colors duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <p className="text-gray-600 text-left transition-all duration-300 group-hover:text-blue-600">Connect with qualified doctors for comprehensive health assessments</p>
+            </div>
           </div>
           
-          {/* Added a third option for more variety */}
-          <div 
-            className="group"
-            data-aos="fade-up"
-            data-aos-delay="600"
-          >
-           
-            
-          </div>
+        
         </div>
       </div>
     </div>
