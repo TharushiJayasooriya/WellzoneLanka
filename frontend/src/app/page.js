@@ -1,11 +1,14 @@
 "use client";
 
-import { Activity, Users, Clock, Award, ChevronRight, Heart, Brain, Zap, Star, CheckCircle, ArrowRight } from "lucide-react";
+import { Activity, Users, Clock, Award, ChevronRight, Heart, Brain, Zap, Star, CheckCircle, ArrowRight, Dumbbell, Calendar } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import Navbar from "./Navbar";
 import { Footer } from "./Footer";
 import { useEffect } from "react";
+import { IoIosFlash, IoIosFitness, IoIosChatbubbles, IoIosHeart } from 'react-icons/io';
+
+
 
 export default function Home() {
   // Function to handle scroll animations
@@ -28,7 +31,7 @@ export default function Home() {
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
     
     // Select all elements with animation classes
-    const animatedElements = document.querySelectorAll('.animate-fade-up, .animate-fade-in, .animate-slide-in-right, .animate-slide-in-left, .animate-scale-in');
+    const animatedElements = document.querySelectorAll('.animate-fade-up, .animate-fade-in, .animate-slide-in-right, .animate-slide-in-left, .animate-scale-in, .animate-pop-in');
     
     animatedElements.forEach(el => {
       observer.observe(el);
@@ -88,7 +91,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Features Section with Staggered Pop Animation */}
       <div className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
@@ -101,15 +104,15 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
             {/* Feature 1 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '0.2s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
-                <Heart className="h-8 w-8 text-white" />
+                <Activity className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Personalized Plans</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mt-8">Exercise Tracking</h3>
               <p className="mt-4 text-gray-600">
-              AI-powered fitness and nutrition plans designed to match your body type, goals, and personal preferences.
+              Keep track of your fitness progress with real-time updates, detailed workout logs, and performance analysis. Track your daily activities, set fitness goals, and stay motivated with personalized tips.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                
@@ -117,13 +120,13 @@ export default function Home() {
             </div>
 
             {/* Feature 2 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-up opacity-0" style={{ animationDelay: '0.4s' }}>
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '0.6s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
-                <Brain className="h-8 w-8 text-white" />
+                <Dumbbell className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">AI Technology</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mt-8">AI Powered Exercises</h3>
               <p className="mt-4 text-gray-600">
-                Advanced algorithms that adjust in real-time to your progress, ensuring optimal results every step of the way.
+              Experience customized workouts powered by AI that adapt to your progress and goals. Get real-time form correction, workout suggestions based on your performance data, and intelligent exercise progressions tailored to your fitness level.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 
@@ -131,13 +134,13 @@ export default function Home() {
             </div>
 
             {/* Feature 3 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-up opacity-0" style={{ animationDelay: '0.6s' }}>
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '1s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
-                <Users className="h-8 w-8 text-white" />
+                <IoIosChatbubbles className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Expert Coaches</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mt-8">Chat Bot</h3>
               <p className="mt-4 text-gray-600">
-              Get expert guidance, motivation, and support from certified professionals.
+              Get fitness and health support anytime with our AI-powered chatbot. Get quick answers to workout questions, exercise suggestions, nutrition tips, and general wellness advice—all available 24/7 for your convenience.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 
@@ -145,13 +148,27 @@ export default function Home() {
             </div>
 
             {/* Feature 4 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-fade-up opacity-0" style={{ animationDelay: '0.8s' }}>
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '1.4s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
-                <Zap className="h-8 w-8 text-white" />
+                <IoIosFitness className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Holistic Approach</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mt-8">Gym Trainer Consultation</h3>
               <p className="mt-4 text-gray-600">
-              Complete programs focusing on fitness
+              Get professional fitness coaching from experienced trainers who create personalized workout plans, offer expert advice, and help keep you motivated. Whether you're just starting or you're an experienced athlete, you'll get the support you need to reach your fitness goals.
+              </p>
+              <div className="mt-6 flex items-center text-cyan-600">
+                
+              </div>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '1.8s' }}>
+              <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
+                <IoIosHeart className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mt-8">Physiotherapist Consultation</h3>
+              <p className="mt-4 text-gray-600">
+              Get expert advice from certified physiotherapists to prevent injuries, recover properly, and improve movement. Book online consultations and receive personalized therapy plans to support your health.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
 
@@ -395,19 +412,30 @@ export default function Home() {
     
            
 
-      {/* Call to Action */}
+      {/* Call to Action - Enhanced with pulse and staggered animations */}
       <div className="bg-cyan-600 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6 animate-fade-up opacity-0">Start Your Transformation Today</h2>
+          <h2 className="text-4xl font-bold text-white mb-6 animate-fade-up opacity-0">
+            <span className="relative inline-block">
+              Start Your Transformation Today
+              <span className="absolute -bottom-2 left-0 right-0 h-1 bg-white rounded animate-pulse-width"></span>
+            </span>
+          </h2>
           <p className="text-xl text-cyan-100 mb-10 max-w-3xl mx-auto animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
             Join WellZone Lanka for a comprehensive approach to your health and fitness. Our professional team and AI technology are ready to guide you.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-fade-up opacity-0" style={{ animationDelay: '0.4s' }}>
-            <button className="rounded-full bg-white text-cyan-600 px-8 py-4 text-lg font-semibold hover:bg-gray-100 transition-colors shadow-md">
-              Get Started
+          <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <button className="rounded-full bg-white text-cyan-600 px-8 py-4 text-lg font-semibold hover:bg-gray-100 transition-colors shadow-md animate-pop-in opacity-0" style={{ animationDelay: '0.4s' }}>
+              <span className="flex items-center justify-center">
+                Get Started
+                <ArrowRight className="ml-2 h-5 w-5 animate-slide-right" />
+              </span>
             </button>
-            <button className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-cyan-600 transition-colors shadow-md">
-              Schedule a Consultation
+            <button className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-cyan-600 transition-colors shadow-md animate-pop-in opacity-0" style={{ animationDelay: '0.7s' }}>
+              <span className="flex items-center justify-center">
+                Schedule a Consultation
+                <Calendar className="ml-2 h-5 w-5 animate-slide-right" />
+              </span>
             </button>
           </div>
         </div>
@@ -418,7 +446,7 @@ export default function Home() {
       {/* Add CSS for animations */}
       <style jsx global>{`
         /* Base animation styles */
-        .animate-fade-up, .animate-fade-in, .animate-slide-in-right, .animate-slide-in-left, .animate-scale-in {
+        .animate-fade-up, .animate-fade-in, .animate-slide-in-right, .animate-slide-in-left, .animate-scale-in, .animate-pop-in {
           opacity: 0;
           transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
@@ -448,6 +476,16 @@ export default function Home() {
           transform: scale(1);
         }
         
+        /* Pop-in animation for features */
+        .animate-pop-in {
+          transform: scale(0.6);
+        }
+        
+        .animate-pop-in.animate-in {
+          opacity: 1;
+          transform: scale(1);
+        }
+        
         /* Initial states */
         .animate-fade-up {
           transform: translateY(40px);
@@ -463,6 +501,27 @@ export default function Home() {
         
         .animate-scale-in {
           transform: scale(0.9);
+        }
+        
+        /* Pulse animation for CTA heading underline */
+        @keyframes pulseWidth {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+        
+        .animate-pulse-width {
+          animation: pulseWidth 1.5s ease-in-out forwards;
+        }
+        
+        /* Slide animation for button icons */
+        @keyframes slideRight {
+          0% { transform: translateX(-10px); opacity: 0; }
+          100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        .animate-slide-right {
+          animation: slideRight 0.5s ease-out 0.2s forwards;
+          opacity: 0;
         }
       `}</style>
     </div>
