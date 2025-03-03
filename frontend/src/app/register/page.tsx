@@ -143,7 +143,7 @@ export default function Register() {
           </div>
 
           {/* Right Side - Professional Sign Up Form (7 columns) */}
-          <div className="md:col-span-7">
+          <div className="md:col-span-5">
             <div className="max-w-lg mx-auto bg-white p-10 rounded-lg border border-gray-200 shadow-lg">
               <div className="space-y-6">
                 <div>
