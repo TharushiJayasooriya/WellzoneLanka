@@ -92,7 +92,7 @@ export default function Home() {
       <div className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <h2 className="text-base text-cyan-600 font-semibold tracking-wide uppercase animate-fade-up opacity-0">Features</h2>
+            <h2 className="text-base text-cyan-600 font-semibold tracking-wide uppercase animate-fade-up opacity-0"></h2>
             <p className="mt-2 text-5xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-6xl animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
               Why Choose WellZone Lanka
             </p>
@@ -165,7 +165,7 @@ export default function Home() {
       <div className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-base text-cyan-600 font-semibold tracking-wide uppercase animate-fade-up opacity-0">Testimonials</h2>
+            <h2 className="text-base text-cyan-600 font-semibold tracking-wide uppercase animate-fade-up opacity-0"></h2>
             <p className="mt-2 text-5xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-6xl animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
               Success Stories
             </p>
@@ -292,36 +292,37 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Step 2 */}
-              <div className="relative">
-                <div className="md:flex items-center">
-                  <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 md:order-last animate-slide-in-right opacity-0">
-                    <div className="bg-white p-8 rounded-xl shadow-lg">
-                      <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
-                        <span className="text-xl font-bold">2</span>
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Personalized Plan Creation</h3>
-                      <p className="text-gray-600">
-                        Our AI technology and expert coaches collaborate to design your custom fitness and nutrition plan. Every aspect is tailored to your unique needs and goals.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
-                      <Brain className="h-6 w-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="md:w-1/2 md:pl-12 md:order-first">
-                    <Image 
-                      src="/assets/hm2.png" 
-                      alt="Personalized Plan Creation" 
-                      width={600} 
-                      height={400} 
-                      className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
-                    />
-                  </div>
-                </div>
-              </div>
+             {/* Step 2 */}
+<div className="relative">
+  <div className="md:flex items-center">
+    <div className="md:w-1/2 md:pl-12">
+      <Image 
+        src="/assets/hm2.png" 
+        alt="Personalized Plan Creation" 
+        width={600} 
+        height={400} 
+        className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
+      />
+    </div>
+    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 animate-slide-in-right opacity-0">
+      <div className="bg-white p-8 rounded-xl shadow-lg">
+        <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
+          <span className="text-xl font-bold">2</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Personalized Plan Creation</h3>
+        <p className="text-gray-600">
+          Our AI technology and expert coaches collaborate to design your custom fitness and nutrition plan. Every aspect is tailored to your unique needs and goals.
+        </p>
+      </div>
+    </div>
+    <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
+        <Brain className="h-6 w-6 text-white" />
+      </div>
+    </div>
+  </div>
+</div>
+
 
               {/* Step 3 */}
               <div className="relative">
@@ -354,36 +355,38 @@ export default function Home() {
                 </div>
               </div>
 
+              
               {/* Step 4 */}
-              <div className="relative">
-                <div className="md:flex items-center">
-                  <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 md:order-last animate-slide-in-right opacity-0">
-                    <div className="bg-white p-8 rounded-xl shadow-lg">
-                      <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
-                        <span className="text-xl font-bold">4</span>
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Continuous Optimization</h3>
-                      <p className="text-gray-600">
-                        As you progress, our AI system continuously analyzes your results and adapts your plan for optimal results. Regular check-ins with your coach ensure you stay on track.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
-                      <Zap className="h-6 w-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="md:w-1/2 md:pl-12 md:order-first">
-                    <Image 
-                      src="/assets/hm4.png"
-                      alt="Continuous Optimization" 
-                      width={600} 
-                      height={400} 
-                      className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
-                    />
-                  </div>
-                </div>
-              </div>
+<div className="relative">
+  <div className="md:flex items-center">
+    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 md:order-last animate-slide-in-right opacity-0">
+      <div className="bg-white p-8 rounded-xl shadow-lg">
+        <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
+          <span className="text-xl font-bold">4</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Continuous Optimization</h3>
+        <p className="text-gray-600">
+          As you progress, our AI system continuously analyzes your results and adapts your plan for optimal results. Regular check-ins with your coach ensure you stay on track.
+        </p>
+      </div>
+    </div>
+    <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+      <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
+        <Zap className="h-6 w-6 text-white" />
+      </div>
+    </div>
+    <div className="md:w-1/2 md:pl-8 md:ml-0"> {/* Reduced padding and margin */}
+      <Image 
+        src="/assets/hm4.png"
+        alt="Continuous Optimization" 
+        width={600} 
+        height={400} 
+        className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
+      />
+    </div>
+  </div>
+</div>
+
             </div>
           </div>
         </div>
