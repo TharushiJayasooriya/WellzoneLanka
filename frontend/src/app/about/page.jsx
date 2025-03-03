@@ -85,10 +85,7 @@ export default function About() {
               transition={{ delay: 0.8, duration: 0.5 }}
               className="inline-block"
             >
-              <a href="#learn-more" className="px-8 py-4 bg-blue-500 hover:bg-blue-600 text-white rounded-full font-semibold transition-all duration-300 inline-flex items-center">
-                Discover More
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
+              
             </motion.div>
           </div>
         </motion.div>
