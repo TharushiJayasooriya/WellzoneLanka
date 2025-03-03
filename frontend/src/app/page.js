@@ -416,7 +416,7 @@ export default function Home() {
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 mb-4">Community support</h3>
                       <p className="text-gray-600">
-                        
+                      Join a supportive fitness community where you can connect with others, share your progress, and stay motivated. Whether you're a beginner or experienced, our community helps you stay inspired and achieve your goals together.
                       </p>
                     </div>
                   </div>
