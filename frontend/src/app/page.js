@@ -315,7 +315,7 @@ export default function Home() {
   <div className="md:flex items-center">
     <div className="md:w-1/2 md:pl-12">
       <Image 
-        src="/assets/hm2.png" 
+        src="/assets/hmD.png" 
         alt="Personalized Plan Creation" 
         width={600} 
         height={400} 
