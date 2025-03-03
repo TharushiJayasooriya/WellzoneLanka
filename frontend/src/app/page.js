@@ -112,7 +112,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Exercise Tracking</h3>
               <p className="mt-4 text-gray-600">
-              Keep track of your fitness progress with real-time updates, detailed workout logs, and performance analysis. Track your daily activities, set fitness goals, and stay motivated with personalized tips.
+              Track your fitness journey in real time with detailed workout logs, performance analytics, and personalized insights. Set goals, monitor daily activities, and stay motivated every step of the way.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                
@@ -126,7 +126,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">AI Powered Exercises</h3>
               <p className="mt-4 text-gray-600">
-              Experience customized workouts powered by AI that adapt to your progress and goals. Get real-time form correction, workout suggestions based on your performance data, and intelligent exercise progressions tailored to your fitness level.
+              Achieve your fitness goals with AI-powered workout recommendations tailored to your body, fitness level, and objectives. Our smart system adapts as you progress, providing safe and effective exercises for the best results.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 
@@ -139,8 +139,8 @@ export default function Home() {
                 <IoIosChatbubbles className="h-8 w-8 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Chat Bot</h3>
-              <p className="mt-4 text-gray-600">
-              Get fitness and health support anytime with our AI-powered chatbot. Get quick answers to workout questions, exercise suggestions, nutrition tips, and general wellness advice—all available 24/7 for your convenience.
+              <p className="mt-11 text-gray-600">
+              Have fitness and health support at your fingertips with our AI-powered chatbot. Get instant answers to workout queries, exercise recommendations, nutrition tips, and general wellness advice—all available 24/7 for your convenience.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 
@@ -154,7 +154,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Gym Trainer Consultation</h3>
               <p className="mt-4 text-gray-600">
-              Get professional fitness coaching from experienced trainers who create personalized workout plans, offer expert advice, and help keep you motivated. Whether you're just starting or you're an experienced athlete, you'll get the support you need to reach your fitness goals.
+              Get expert fitness coaching from experienced trainers who design personalized workout plans, offer professional advice, and keep you motivated. Whether you're just starting out or a seasoned athlete, you'll get the guidance you need to reach your fitness goals.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
                 
@@ -168,7 +168,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Physiotherapist Consultation</h3>
               <p className="mt-4 text-gray-600">
-              Get expert advice from certified physiotherapists to prevent injuries, recover properly, and improve movement. Book online consultations and receive personalized therapy plans to support your health.
+              Get expert care from certified physiotherapists to prevent injuries, recover faster, and enhance mobility. Book online consultations and receive personalized therapy plans tailored to support your well-being.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
 
