@@ -247,49 +247,107 @@ export default function ServicesPage() {
   </div>
 </div>
 
-{/* Call to Action - With background image container */}
+{/* Professional Call to Action Section - Enhanced */}
 <div 
   id="cta-section"
-  className="mt-24 text-center animate-on-scroll animate-visible"
-  style={{ opacity: isVisible['cta-section'] ? 1 : 0, transform: isVisible['cta-section'] ? 'translateY(0)' : 'translateY(20px)' }}
+  className="mt-32 text-center"
+  data-aos="fade-up"
+  data-aos-duration="1000"
 >
-  <h2 className="text-3xl font-bold text-gray-800 mb-6">Ready to Transform Your Wellness Journey?</h2>
-  <p className="text-lg text-gray-600 mb-8 max-w-3xl mx-auto">
-    Join WellZone Lanka today and take the first step towards a healthier, more balanced life.
-  </p>
-  
-  {/* Background image container for buttons */}
-  <div 
-    className="relative py-16 px-8 rounded-2xl overflow-hidden mx-auto max-w-5xl my-8"
-    style={{
-      backgroundImage: "url('/assets/wellness-background.jpg')",
-      backgroundSize: "cover",
-      backgroundPosition: "center"
-    }}
-  >
-    {/* Overlay for better text visibility */}
-    <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/40 to-blue-500/40"></div>
-    
-    {/* Button container */}
-    <div className="relative z-10 flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
-      <button 
-        onClick={() => {
-          setActiveTab('fitness');
-          handleServiceSelection();
-        }}
-        className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale w-64"
-      >
-        Start Your Fitness Journey
-      </button>
-      <button 
-        onClick={() => {
-          setActiveTab('medical');
-          handleServiceSelection();
-        }}
-        className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-10 py-4 rounded-full font-medium text-lg inline-block hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover-scale w-64"
-      >
-        Explore Health Checkups
-      </button>
+  <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl">
+    <div className="grid md:grid-cols-2">
+      {/* Left side - Video Background */}
+      <div className="relative h-64 md:h-auto overflow-hidden">
+        <video 
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+        >
+          <source src="/assets/wellness-video.mp4" type="video/mp4" />
+          {/* Fallback image if video doesn't load */}
+          <img 
+            src="/assets/wellness-background.jpg" 
+            alt="Wellness background" 
+            className="w-full h-full object-cover"
+          />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-cyan-500/80"></div>
+        <div className="relative p-12 flex items-center justify-center h-full">
+          <div className="text-white" data-aos="fade-right" data-aos-delay="200">
+            <h2 className="text-3xl font-bold mb-4">Transform Your Wellness Journey</h2>
+            <p className="text-lg opacity-90">Join WellZone Lanka today and take the first step towards a healthier, more balanced life.</p>
+          </div>
+        </div>
+      </div>
+      
+      {/* Right side - CTA buttons */}
+      <div className="bg-white p-12 flex flex-col justify-center">
+        <h3 
+          className="text-2xl font-semibold text-gray-800 mb-8"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          Choose Your Wellness Path
+        </h3>
+        
+        <div className="space-y-6">
+          <div 
+            className="group"
+            data-aos="fade-up"
+            data-aos-delay="400"
+          >
+            <button 
+              onClick={() => {
+                setActiveTab('fitness');
+                handleServiceSelection();
+              }}
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102"
+            >
+              <span>Start Your Fitness Journey</span>
+              <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full transition-transform group-hover:translate-x-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
+            </button>
+            <p className="mt-3 text-gray-600 text-left pl-2 transition-all duration-300 group-hover:text-blue-600">Connect with certified gym trainers for personalized workout plans</p>
+          </div>
+          
+          <div 
+            className="group"
+            data-aos="fade-up"
+            data-aos-delay="500"
+          >
+            <button 
+              onClick={() => {
+                setActiveTab('medical');
+                handleServiceSelection();
+              }}
+              className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102"
+            >
+              <span>Explore Health Checkups</span>
+              <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full transition-transform group-hover:translate-x-1">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </span>
+            </button>
+            <p className="mt-3 text-gray-600 text-left pl-2 transition-all duration-300 group-hover:text-blue-600">Connect with qualified doctors for comprehensive health assessments</p>
+          </div>
+          
+          {/* Added a third option for more variety */}
+          <div 
+            className="group"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+           
+          
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
