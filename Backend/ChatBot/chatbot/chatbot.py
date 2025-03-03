@@ -1,24 +1,47 @@
-# chatbot.py
 import DiseaseRelatedData
 
-def chatbot_response(user_input):
-    """Process user input and return chatbot response."""
-    user_input = user_input.lower()
+def chatbot():
+    print("🤖 Chatbot: Hi! Can I help you?")
     
-    # Check for matching disease
-    for disease, synonyms in DiseaseRelatedData.PHYSICAL_DISEASE_SYNONYMS.items():
-        if any(word in user_input for word in synonyms):
-            return DiseaseRelatedData.recommend_treatment(disease)
-
-    return "I'm not sure about that. Can you describe your symptoms in more detail? 🤔"
-
-# Testing the chatbot interaction
-if __name__ == "__main__":
-    print("🤖 Chatbot: Hello! Describe your pain, and I'll recommend the best treatment.")
     while True:
-        user_input = input("You: ")
-        if user_input.lower() in ["exit", "quit"]:
-            print("🤖 Chatbot: Take care! Goodbye! 👋")
+        user_response = input("You (yes/no): ").strip().lower()
+        
+        if user_response in ["no", "n"]:
+            print("🤖 Chatbot: Okay, stay healthy! 😊")
             break
-        response = chatbot_response(user_input)
-        print(f"🤖 Chatbot: {response}")
+        elif user_response not in ["yes", "y"]:
+            print("🤖 Chatbot: Please enter 'yes' or 'no'.")
+            continue
+        
+        while True:
+            print("🤖 Chatbot: Can you describe your physical illness?")
+            user_input = input("You: ").strip()
+            
+            # Detect disease from the user's input
+            disease = DiseaseRelatedData.identify_disease(user_input)
+            
+            if disease:
+                recommendation = DiseaseRelatedData.recommend_treatment(disease)
+                print(f"🤖 Chatbot: {recommendation}")
+            else:
+                print("🤖 Chatbot: I'm only here to help with **physical illnesses**. Please describe a physical issue.")
+
+            # Wait for a user confirmation before proceeding
+            while True:
+                user_confirmation = input("You: ").strip().lower()
+                if user_confirmation in ["okay", "ok", "okay thank you", "ok thank you", "thanks", "okay thanks"]:
+                    break  # Proceed to next question
+            
+            print("🤖 Chatbot: Do you need any more help? (yes/no)")
+            another_request = input("You (yes/no): ").strip().lower()
+            
+            if another_request in ["no", "n"]:
+                print("🤖 Chatbot: Alright! Stay safe and take care. 😊")
+                return
+            elif another_request in ["yes", "y"]:
+                print("🤖 Chatbot: Describe your other physical illness.")
+            else:
+                print("🤖 Chatbot: Please enter 'yes' or 'no'.")
+
+if __name__ == "__main__":
+    chatbot()
