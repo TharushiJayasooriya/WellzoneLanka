@@ -1,175 +1,101 @@
-import { Heart, Users, Award, Activity, CheckCircle,Bot } from 'lucide-react';
-import Image from 'next/image';
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+"use client";
+
+import { ArrowRight, Heart, Brain, Activity, Users, Star } from "lucide-react";
+import Navbar from "@/components/navbar";
+// import { Footer } from "../Footer";
 
 
-export default function AboutPage() {
+export default function About() {
   return (
-    
-    <div className="min-h-screen bg-background">
-        <nav className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-          <Link href="/about" >
-              <Image 
-                src="/images/icon.png" 
-                alt="Logo" 
-                height={40} 
-                width={40} 
-                
-              />
-              </Link>
-            <Link href="/about" ><span className="text-2xl font-bold text-gray-900">Wellzone Lanka</span></Link>
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-gray-600">
-            <Link href="/" className="text-sky-600 border-b-2 border-sky-500">Home</Link>
-            <Link href="/services" className="hover:text-sky-600 transition-colors">Services</Link>
-            <Link href="/doctors" className="hover:text-sky-600 transition-colors">Doctors</Link>
-            <Link href="/contact" className="hover:text-sky-600 transition-colors">Contact</Link>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" className="text-gray-700 hover:text-sky-600">Sign In</Button>
-            <Button className="bg-sky-500 hover:bg-sky-600 text-white">Register</Button>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-white">
+      <Navbar />
+
       {/* Hero Section */}
-      <section className="relative py-20 px-4 bg-gradient-to-b from-primary/10 to-background">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">About Wellzone Lanka</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Sri Lanka&apos;s premier platform for physical health and wellness, connecting patients with expert physiotherapists and wellness professionals.
-          </p>
+      <div className="relative w-full h-96 bg-[url('/api/placeholder/1600/800')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black opacity-30"></div>
+        <div className="absolute inset-0 flex items-center justify-center text-center px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <h1 className="text-5xl font-bold text-white mb-6">About WellZone Lanka</h1>
+            <p className="text-xl text-white">Sri Lanka's premier AI-powered health and fitness platform</p>
+          </div>
         </div>
-      </section>
-      
+      </div>
 
-      {/* Mission Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-              <p className="text-muted-foreground mb-6">
-                At Wellzone Lanka, we&apos;re dedicated to revolutionizing physical healthcare accessibility in Sri Lanka. Our platform bridges the gap between patients and qualified healthcare professionals, ensuring everyone has access to quality physiotherapy and wellness services.
-              </p>
-              <div className="space-y-4">
-                {[
-                  "Expert physiotherapy care at your fingertips",
-                  "Comprehensive physical health assessments",
-                  "Personalized treatment plans",
-                  "Advanced telehealth solutions"
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-primary mr-2" />
-                    <span>{item}</span>
-                  </div>
-                ))}
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        {/* Introduction Section */}
+        <div className="mb-16 flex flex-col md:flex-row items-center gap-12">
+          <div className="md:w-2/3">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Redefining Wellness in Sri Lanka</h2>
+            <p className="text-lg text-gray-700 mb-6">
+              WellZone Lanka combines AI technology with expert guidance to provide personalized wellness solutions, making fitness accessible and affordable for everyone.
+            </p>
+          </div>
+          <div className="md:w-1/3 flex justify-center">
+            <div className="h-64 w-64 bg-blue-100 rounded-full flex items-center justify-center">
+              <Heart size={80} className="text-blue-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* Mission & Vision */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+          {[{ icon: <Star />, title: "Our Mission", text: "Empowering individuals with AI-driven fitness and expert guidance for a healthier Sri Lanka." },
+            { icon: <Brain />, title: "Our Vision", text: "Revolutionizing fitness by making professional coaching accessible to all." }].map((item, index) => (
+            <div key={index} className="bg-gray-50 p-8 rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-4">
+                <div className="bg-blue-100 p-3 rounded-full mr-4 text-blue-600">{item.icon}</div>
+                <h3 className="text-2xl font-bold text-gray-900">{item.title}</h3>
               </div>
+              <p className="text-gray-700">{item.text}</p>
             </div>
-            <div className="relative">
-                <Image
-                    src="/images/about_image.jpg"  // Path relative to the /public folder
-                    alt="Medical professional"
-                    className="rounded-lg shadow-xl"
-                    width={2000}  // Provide width
-                    height={1333} // Provide height
-                />
-            </div>
+          ))}
+        </div>
 
+        {/* What Makes Us Different */}
+        <div className="mb-16 text-center">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10">What Makes Us Different</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[{ icon: <Activity />, title: "AI-Powered Precision", text: "Adaptive fitness plans that evolve with you." },
+              { icon: <Users />, title: "Expert Human Guidance", text: "Top fitness trainers and physiotherapists support you." },
+              { icon: <Heart />, title: "Holistic Wellness Approach", text: "Complete wellness solutions tailored to Sri Lankan lifestyles." }].map((feature, index) => (
+              <div key={index} className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mb-4 text-blue-600">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <p className="text-gray-700">{feature.text}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-card">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <StatCard
-              icon={<Users className="h-8 w-8" />}
-              number="5000+"
-              label="Satisfied Patients"
-            />
-            <StatCard
-              icon={<Activity className="h-8 w-8" />}
-              number="50+"
-              label="Expert Doctors"
-            />
-            <StatCard
-              icon={<Award className="h-8 w-8" />}
-              number="15+"
-              label="Years Experience"
-            />
-            <StatCard
-              icon={<Heart className="h-8 w-8" />}
-              number="98%"
-              label="Success Rate"
-            />
+        {/* How It Works */}
+        <div className="bg-gray-50 p-10 mb-16 text-center rounded-lg">
+          <h2 className="text-3xl font-bold text-gray-900 mb-10">Your Wellness Journey with WellZone</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {["AI Assessment", "Expert Matching", "Personalized Plan", "Ongoing Support"].map((step, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-blue-600">{`0${index + 1}`}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{step}</h3>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
 
-      {/* Values Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Core Values</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <ValueCard
-              title="Patient-Centered Care"
-              description="We prioritize your unique needs and ensure personalized treatment plans that work best for you."
-            />
-            <ValueCard
-              title="Professional Excellence"
-              description="Our network consists of highly qualified and experienced healthcare professionals."
-            />
-            <ValueCard
-              title="Innovation in Healthcare"
-              description="We leverage technology to make quality healthcare accessible to everyone in Sri Lanka."
-            />
-          </div>
-        </div>
-      </section>
-       {/* Chatbot Icon */}
-      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors justify-center animate-bounce">
-        <Link href="/chat">
-          <Bot className="h-8 w-8 text-white" />
-        </Link>
-      </div>
+        
 
-      {/* CTA Section */}
-      <section className="py-16 px-4 bg-primary text-primary-foreground">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Start Your Wellness Journey Today</h2>
-          <p className="mb-8">
-            Join thousands of satisfied patients who have transformed their lives through Wellzone Lanka&apos;s comprehensive care approach.
+        {/* CTA Section */}
+        <div className="bg-white p-10 text-center shadow-sm border border-gray-200 rounded-lg">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Start Your Wellness Journey Today</h2>
+          <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+            AI-powered precision meets expert coaching. Let’s achieve your fitness goals together.
           </p>
-          <button className="bg-background text-foreground px-8 py-3 rounded-lg font-medium hover:bg-background/90 transition-colors">
-            Book an Appointment
-          </button>
+          <div className="flex justify-center space-x-4">
+          
+           
+          </div>
         </div>
-      </section>
-    </div>
-  );
-}
-
-function StatCard({ icon, number, label }: { icon: React.ReactNode; number: string; label: string }) {
-  return (
-    <div className="text-center">
-      <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-4 text-primary">
-        {icon}
       </div>
-      <div className="text-3xl font-bold mb-2">{number}</div>
-      <div className="text-muted-foreground">{label}</div>
-    </div>
-  );
-}
-
-function ValueCard({ title, description }: { title: string; description: string }) {
-  return (
-    <div className="bg-card p-6 rounded-lg shadow-lg">
-      <h3 className="text-xl font-semibold mb-4">{title}</h3>
-      <p className="text-muted-foreground">{description}</p>
+      {/* <Footer/> */}
     </div>
   );
 }
