@@ -300,7 +300,7 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12">
                     <Image 
-                      src="/assets/hm1.png" 
+                      src="/assets/hmE.png" 
                       alt="Initial Assessment" 
                       width={400} 
                       height={100} 
