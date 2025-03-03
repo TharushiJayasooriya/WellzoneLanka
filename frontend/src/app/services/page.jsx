@@ -265,7 +265,7 @@ export default function ServicesPage() {
           loop 
           playsInline
         >
-          <source src="/assets/wellness-video.mp4" type="video/mp4" />
+          <source src="\assets\ser1.mp4" ></source>
           {/* Fallback image if video doesn't load */}
           <img 
             src="/assets/wellness-background.jpg" 
@@ -273,7 +273,7 @@ export default function ServicesPage() {
             className="w-full h-full object-cover"
           />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-cyan-500/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-300/50 to-cyan-500/80"></div>
         <div className="relative p-12 flex items-center justify-center h-full">
           <div className="text-white" data-aos="fade-right" data-aos-delay="200">
             <h2 className="text-3xl font-bold mb-4">Transform Your Wellness Journey</h2>
@@ -344,7 +344,7 @@ export default function ServicesPage() {
             data-aos-delay="600"
           >
            
-          
+            
           </div>
         </div>
       </div>
