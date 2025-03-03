@@ -121,7 +121,31 @@ export default function Contact() {
                   </div>
             </div>
             
-            
+            <div className="mt-8 bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl shadow-xl overflow-hidden p-8 text-white">
+  <h3 className="text-2xl font-bold mb-6 text-center text-white">Always Available</h3>
+  <div className="mb-8">
+    <div className="flex items-center justify-center bg-white/20 rounded-lg p-4 mb-6">
+      <span className="text-lg font-semibold text-white">Open 24/7 Online</span>
+    </div>
+    
+  </div>
+
+  <div className="space-y-5 text-white border-t border-white/30 pt-6">
+    <div className="flex justify-between items-center">
+      <dt className="font-medium text-lg text-gray-200">Live Chat Support</dt>
+      <dd className="bg-teal-500 px-4 py-2 rounded-full text-sm font-semibold text-white">24/7</dd>
+    </div>
+    <div className="flex justify-between items-center">
+      <dt className="font-medium text-lg text-gray-200">Email Response</dt>
+      <dd className="text-sm text-gray-300">Within 2 hours</dd>
+    </div>
+    <div className="flex justify-between items-center">
+      <dt className="font-medium text-lg text-gray-200">Phone Support</dt>
+      <dd className="text-sm text-gray-300">9:00 AM - 8:00 PM Daily</dd>
+    </div>
+  </div>
+</div>
+
           </div>
           
           {/* Contact Form */}
