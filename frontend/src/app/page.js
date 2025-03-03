@@ -396,7 +396,7 @@ export default function Home() {
     </div>
     <div className="md:w-1/2 md:pl-8 md:ml-0"> {/* Reduced padding and margin */}
       <Image 
-        src="/assets/hm4.png"
+        src="/assets/hmB.png"
         alt="Continuous Optimization" 
         width={600} 
         height={400} 
