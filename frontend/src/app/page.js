@@ -312,38 +312,37 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-
-             {/* Step 2 */}
-            <div className="relative">
-              <div className="md:flex items-center">
-                <div className="md:w-1/2 md:pl-12">
-                  <Image 
-                    src="/assets/hmD.png" 
-                    alt="Personalized Plan Creation" 
-                    width={600} 
-                    height={400} 
-                    className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
-                  />
-                </div>
-                <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12 animate-slide-in-right opacity-0">
-                  <div className="bg-white p-8 rounded-xl shadow-lg">
-                    <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
-                      <span className="text-xl font-bold">2</span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Customized workout plans</h3>
-                    <p className="text-gray-600">
-                    Get a workout plan made just for you by expert trainers. They design exercises that match your fitness level, goals, and lifestyle. Whether you want to lose weight, build muscle, or stay active, your plan will keep you on track and motivated.
-                    </p>
-                  </div>
-                </div>
-                <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
-                    <Calendar className="h-6 w-6 text-white" />
-                  </div>
-                </div>
-              </div>
-            </div>
+{/* Step 2 */}
+<div className="relative">
+  <div className="md:flex items-center">
+    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-12">
+      <Image 
+        src="/assets/hmD.png" 
+        alt="Personalized Plan Creation" 
+        width={600} 
+        height={400} 
+        className="rounded-xl shadow-lg animate-slide-in-left opacity-0"
+      />
+    </div>
+    <div className="hidden md:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="h-12 w-12 rounded-full bg-cyan-500 border-4 border-white shadow-lg flex items-center justify-center">
+        <Calendar className="h-6 w-6 text-white" />
+      </div>
+    </div>
+    <div className="md:w-1/2 md:pl-12 animate-slide-in-right opacity-0">
+      <div className="bg-white p-8 rounded-xl shadow-lg">
+        <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-cyan-100 text-cyan-600 mb-4">
+          <span className="text-xl font-bold">2</span>
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+        Customized workout plans</h3>
+        <p className="text-gray-600">
+        Get a workout plan made just for you by expert trainers. They design exercises that match your fitness level, goals, and lifestyle. Whether you want to lose weight, build muscle, or stay active, your plan will keep you on track and motivated.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 
               {/* Step 3 */}
@@ -462,21 +461,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             {/* Fixed the button tags here */}
-            <button
-              className="group relative overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => window.location.href = '/services'}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
-              <span className="flex items-center justify-center relative z-10">
-                <Star className="mr-2 h-5 w-5" />
-                Join Us Now
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </span>
-              
-              <div className="absolute -top-10 -right-10 w-20 h-20 bg-yellow-300 rounded-full opacity-30 group-hover:scale-150 transition-transform duration-500"></div>
-              <div className="absolute -bottom-10 -left-10 w-16 h-16 bg-purple-400 rounded-full opacity-20 group-hover:scale-150 transition-transform duration-500"></div>
-            </button>
+       
 
             <button
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-teal-500 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
@@ -484,7 +469,7 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <span className="flex items-center justify-center relative z-10">
-                Explore Services
+              Join Us Now
               </span>
             </button>
           </div>
