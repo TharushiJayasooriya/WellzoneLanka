@@ -1,2 +1,10 @@
 *.json
 /Frontend/node_modules
+*.json
+/Froentend/doctor_page/node_modules
+*.json
+*.json
+*.json
+/node_modules
+*.json
+*.json
