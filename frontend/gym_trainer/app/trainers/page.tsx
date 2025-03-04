@@ -17,7 +17,7 @@ export default function Trainers() {
     {
       id: "trainer-1",
       name: "Sanuka Siriwardhana",
-      image: "/assets/Sanuka.png",
+      image: "",
       specialties: ["Weight Training", "Rehabilitation", "Nutrition", "Calisthenics"],
       experience: "4 years",
       rating: 4.9,
@@ -28,7 +28,7 @@ export default function Trainers() {
     {
       id: "trainer-2",
       name: "Esitha jayasundara",
-      image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+      image: "",
       specialties: ["Yoga", "Pilates", "Flexibility"],
       experience: "2 years",
       rating: 4.5,
@@ -39,7 +39,7 @@ export default function Trainers() {
     {
       id: "trainer-3",
       name: "Anjitha Shahasya",
-      image: "https://images.unsplash.com/photo-1534367610401-9f5ed68180aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      image: "",
       specialties: ["HIIT", "Functional Training", "Weight Loss"],
       experience: "5 years",
       rating: 4.7,
@@ -50,7 +50,7 @@ export default function Trainers() {
     {
       id: "trainer-4",
       name: "Lakshmi Rajapaksa",
-      image: "https://images.unsplash.com/photo-1609899537878-88d5ba429bdb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+      image: "",
       specialties: ["Senior Fitness", "Rehabilitation", "Low Impact"],
       experience: "12 years",
       rating: 4.9,
@@ -61,7 +61,7 @@ export default function Trainers() {
     {
       id: "trainer-5",
       name: "Roshan Silva",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      image: "",
       specialties: ["Bodybuilding", "Strength Training", "Nutrition"],
       experience: "9 years",
       rating: 4.6,
@@ -72,7 +72,7 @@ export default function Trainers() {
     {
       id: "trainer-6",
       name: "Nisha Jayawardena",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      image: "",
       specialties: ["Prenatal Fitness", "Postnatal Recovery", "Women's Health"],
       experience: "7 years",
       rating: 4.8,
@@ -83,7 +83,7 @@ export default function Trainers() {
     {
       id: "trainer-7",
       name: "Malik Gunaratne",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+      image: "",
       specialties: ["Sports Performance", "Athletic Training", "Injury Prevention"],
       experience: "11 years",
       rating: 4.7,
@@ -94,7 +94,7 @@ export default function Trainers() {
     {
       id: "trainer-8",
       name: "Tharushi De Silva",
-      image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
+      image: "",
       specialties: ["Dance Fitness", "Aerobics", "Zumba"],
       experience: "5 years",
       rating: 4.8,
