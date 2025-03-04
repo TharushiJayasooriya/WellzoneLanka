@@ -1,2 +1,6 @@
 frontend/src/app/register/page.jsx
 frontend/src/app/register/page.jsx
+*.json
+*.json
+/node_modules
+*.json
