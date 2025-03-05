@@ -371,7 +371,7 @@ export default function Home() {
                   </div>
                   <div className="md:w-1/2 md:pl-12">
                     <Image 
-                      src="/assets/hmC.png" 
+                      src="/assets/hmF.png" 
                       alt="Implementation & Coaching" 
                       width={600} 
                       height={400} 
