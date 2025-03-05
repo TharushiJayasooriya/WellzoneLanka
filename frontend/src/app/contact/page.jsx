@@ -152,7 +152,7 @@ export default function Contact() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-md overflow-hidden p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" style={{paddingBottom: 20}}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -240,13 +240,13 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={6}
+                    rows={10}
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
                     placeholder="Please describe how we can help you..."
                   />
                 </div>
                 
-                <div className="flex items-start">
+                <div className="flex items-start pt-4">
                   <div className="flex items-center h-5">
                     <input
                       id="agreeToTerms"
