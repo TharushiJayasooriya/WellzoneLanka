@@ -76,12 +76,17 @@ export default function Home() {
               Welcome to WellZone Lanka, Unlock a Healthier You with AI Precision
             </p>
             <div className="flex space-x-4 animate-fade-in opacity-0" style={{ animationDelay: '0.8s' }}>
-              <button className="rounded-full bg-cyan-500 text-white px-8 py-4 text-lg font-semibold hover:bg-cyan-600 transition-colors">
-                Get Started
-              </button>
-              <button className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-black transition-colors">
-                Learn More
-              </button>
+            <Link href="/register">
+        <button className="rounded-full bg-cyan-500 text-white px-8 py-4 text-lg font-semibold hover:bg-cyan-600 transition-colors">
+          Get Started
+        </button>
+      </Link>
+
+      <Link href="/about">
+        <button className="rounded-full bg-transparent border-2 border-white text-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-black transition-colors">
+          Learn More
+        </button>
+      </Link>
             </div>
           </div>
         </div>
