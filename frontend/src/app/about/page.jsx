@@ -65,7 +65,7 @@ export default function About() {
             backgroundAttachment: 'fixed'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 to-indigo-900/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,8 +73,8 @@ export default function About() {
           className="absolute inset-0 flex items-center justify-center text-center px-4 sm:px-6 lg:px-8"
         >
           <div className="max-w-4xl">
-            <h1 className="mt-12 text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Transforming <span className="text-blue-300">Wellness</span> in Sri Lanka
+            <h1 className="mt-12 text-5xl md:text-6xl font-bold text-gray-200 mb-6 leading-tight">
+              Transforming <span className="text-white">Wellness</span> in Sri Lanka
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-8">
               Where cutting-edge AI meets expert health guidance
