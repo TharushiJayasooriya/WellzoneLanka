@@ -15,3 +15,7 @@
 *.json
 *.json
 /node_modules
+*.json
+*.json
+Froentend/doctor_page/package-lock.json
+*.json
