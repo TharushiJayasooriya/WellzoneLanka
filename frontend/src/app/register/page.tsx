@@ -7,8 +7,7 @@ import Link from "next/link";
 import Navbar from "../Navbar";
 import { toast } from "sonner";
 import {useRouter} from "next/navigation"
-
-
+import RoleSelectionButtons from "./RoleSelectionButtons"; // Import the new component
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +41,7 @@ export default function Register() {
     return () => clearInterval(interval);
   }, []);
 
+  // Update form.role when RoleSelectionButtons component changes role
   const handleRoleSelection = (role) => {
     setForm({...form, role});
   };
@@ -156,54 +156,10 @@ export default function Register() {
                   <h2 className="text-xl font-medium text-gray-600">Join <span className="text-cyan-600 font-semibold">WellZone Lanka</span> today</h2>
                 </div>
 
-               {/* Account Type Selection */}
+               {/* Account Type Selection - Using the imported component */}
                <div className="mt-6">
                  <label className="text-sm font-medium text-gray-700 mb-3 block">I want to sign up as:</label>
-                 <div className="grid grid-cols-3 gap-3">
-                   <button
-                     type="button"
-                     onClick={() => handleRoleSelection("user")}
-                     className={`flex flex-col items-center justify-center p-4 border rounded-lg ${
-                       form.role === "user" 
-                         ? "bg-cyan-50 border-cyan-500 text-cyan-700" 
-                         : "border-gray-200 hover:bg-gray-50"
-                     }`}
-                   >
-                     <UserPlus className="h-6 w-6 mb-2" />
-                     <span className="text-sm font-medium">User</span>
-                   </button>
-                   
-                   <button
-                     type="button"
-                     onClick={() => handleRoleSelection("trainer")}
-                     className={`flex flex-col items-center justify-center p-4 border rounded-lg ${
-                       form.role === "trainer" 
-                         ? "bg-cyan-50 border-cyan-500 text-cyan-700" 
-                         : "border-gray-200 hover:bg-gray-50"
-                     }`}
-                   >
-                     <Dumbbell className="h-6 w-6 mb-2" />
-                     <span className="text-sm font-medium">Trainer</span>
-                   </button>
-                   
-                   <button
-                     type="button"
-                     onClick={() => handleRoleSelection("doctor")}
-                     className={`flex flex-col items-center justify-center p-4 border rounded-lg ${
-                       form.role === "doctor" 
-                         ? "bg-cyan-50 border-cyan-500 text-cyan-700" 
-                         : "border-gray-200 hover:bg-gray-50"
-                     }`}
-                   >
-                     <Stethoscope className="h-6 w-6 mb-2" />
-                     <span className="text-sm font-medium">Doctor</span>
-                   </button>
-                 </div>
-                 {(form.role === "trainer" || form.role === "doctor") && (
-                   <p className="text-xs text-amber-600 mt-2">
-                     Note: {form.role === "trainer" ? "Trainer" : "Doctor"} accounts require verification after registration.
-                   </p>
-                 )}
+                 <RoleSelectionButtons />
                </div>
                
                 {/* Professional Form Fields */}
