@@ -7,7 +7,7 @@ import Link from "next/link";
 import Navbar from "../Navbar";
 import { toast } from "sonner";
 import {useRouter} from "next/navigation"
-import RoleSelectionButtons from "./RoleSelectionButtons"; // Import the new component
+import RoleSelectionButtons from "./RoleSelectionButtons"; 
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -156,12 +156,14 @@ export default function Register() {
                   <h2 className="text-xl font-medium text-gray-600">Join <span className="text-cyan-600 font-semibold">WellZone Lanka</span> today</h2>
                 </div>
 
-               {/* Account Type Selection - Using the imported component */}
-               <div className="mt-6">
-                 <label className="text-sm font-medium text-gray-700 mb-3 block">I want to sign up as:</label>
-                 <RoleSelectionButtons />
-               </div>
-               
+             {/* Account Type Selection - Using the imported component */}
+<div className="mt-6">
+  <label className="text-sm font-medium text-gray-700 mb-3 block">I want to sign up as:</label>
+  <RoleSelectionButtons 
+    initialRole={form.role} 
+    onChange={handleRoleSelection} 
+  />
+</div>
                 {/* Professional Form Fields */}
                 <div className="space-y-5">
                 {!!error && (
