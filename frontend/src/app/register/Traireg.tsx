@@ -228,4 +228,177 @@ export default function TrainerRegister() {
                     </div>
 
                     <div className="mt-5">
-                      <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
+                      <div className="relative">
+                        <input
+                          type="email"
+                          placeholder="your.email@example.com"
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.email}
+                          onChange={(e)=>setForm({...form,email:e.target.value})}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+                      <div className="relative">
+                        <input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Create a strong password"
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.password}
+                          onChange={(e)=>setForm({...form,password:e.target.value})}
+                          required
+                        />
+                        <button 
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Confirm Password</label>
+                      <div className="relative">
+                        <input
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="Confirm your password"
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.confirmPassword}
+                          onChange={(e)=>setForm({...form,confirmPassword:e.target.value})}
+                          required
+                        />
+                        <button 
+                          type="button"
+                          className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                          {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Specializations</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-2">
+                        {specializationOptions.map((option) => (
+                          <div key={option} className="flex items-center">
+                            <input
+                              type="checkbox"
+                              id={`spec-${option}`}
+                              className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
+                              checked={form.specialization.includes(option)}
+                              onChange={() => handleSpecializationChange(option)}
+                              disabled={pending}
+                            />
+                            <label htmlFor={`spec-${option}`} className="ml-2 block text-sm text-gray-700">
+                              {option}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Certifications</label>
+                      <div className="relative">
+                        <textarea
+                          placeholder="List your relevant certifications"
+                          rows={2}
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.certifications}
+                          onChange={(e)=>setForm({...form,certifications:e.target.value})}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Years of Experience</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="e.g. 5 years"
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.experience}
+                          onChange={(e)=>setForm({...form,experience:e.target.value})}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Gym Affiliation (Optional)</label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          placeholder="Current gym or fitness center"
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.gymAffiliation}
+                          onChange={(e)=>setForm({...form,gymAffiliation:e.target.value})}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <label className="text-sm font-medium text-gray-700 mb-1 block">Bio</label>
+                      <div className="relative">
+                        <textarea
+                          placeholder="Tell us about yourself and your training philosophy"
+                          rows={3}
+                          className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all"
+                          disabled={pending}
+                          value={form.bio}
+                          onChange={(e)=>setForm({...form,bio:e.target.value})}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-8">
+                      <button
+                        type="submit"
+                        disabled={pending}
+                        className="w-full bg-cyan-600 hover:bg-cyan-700 text-white py-3 px-6 rounded-md font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition-all flex items-center justify-center"
+                      >
+                        {pending ? (
+                          <>
+                            <span className="mr-2">Processing...</span>
+                            <div className="h-5 w-5 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
+                          </>
+                        ) : (
+                          <>
+                            <Dumbbell className="mr-2 h-5 w-5" />
+                            Register as a Trainer
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="mt-6 text-center text-sm text-gray-600">
+                      Already have an account?{" "}
+                      <Link href="/login" className="text-cyan-600 hover:text-cyan-700 font-semibold">
+                        Login here
+                      </Link>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
