@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
 const MONGODB_URI = process.env.MONGO;
 if (!MONGODB_URI) {
@@ -11,10 +11,11 @@ async function connectToDatabase() {
     return mongoose;
   }
 
-  const opts={
-    bufferCommands:false,
-  }
-  await mongoose.connect(MONGODB_URI!,opts);
+  const opts: ConnectOptions = {
+    bufferCommands: false,
+  };
+
+  await mongoose.connect(MONGODB_URI, opts);
   return mongoose;
 }
 
