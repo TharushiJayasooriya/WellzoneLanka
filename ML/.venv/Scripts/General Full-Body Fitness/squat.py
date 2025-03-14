@@ -90,108 +90,105 @@ class VideoHandler:
 
     def camvideo(self):
         self.camselect(True)  
+
 def start_posture_correction(cap, detector, feedback_label):
-    cap = cv2.VideoCapture(0)
-    detector = PoseDetector()
-    count = 0
-    direction = 0
-    form = 0
     feedback = "Fix Your Position First"
+    # Thresholds for Squat angles
+    thresholds = {
+        'knee_flexion_min': 60,  # Minimum knee flexion angle for deep squat
+        'knee_flexion_max': 120,  # Maximum knee flexion angle for partial squat
+        'hip_flexion_min': 60,  # Minimum hip flexion angle for deep squat
+        'hip_flexion_max': 120,  # Maximum hip flexion angle for partial squat
+        'ankle_dorsiflexion_min': 60,  # Minimum ankle dorsiflexion angle for deep squat
+        'ankle_dorsiflexion_max': 90,  # Maximum ankle dorsiflexion angle for partial squat
+        'torso_lean_min': 10,  # Minimum torso forward lean angle
+        'torso_lean_max': 30,  # Maximum torso forward lean angle
+    }
 
     while cap.isOpened():
         ret, img = cap.read()
         if not ret:
             break
-            
+
         img = detector.findPose(img, False)
         lmList = detector.findPosition(img, False)
-        
-        if len(lmList) != 0: 
-            left_knee = detector.findAngle(img, 23, 25, 27)  # Left Knee angle
-            right_knee = detector.findAngle(img, 24, 26, 28)  # Right Knee angle
-            left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
-            right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
 
-            # Interpolation ranges for progress bar
-            per = np.interp(min(left_knee, right_knee), (90, 180), (0, 100))
-            bar = np.interp(min(left_knee, right_knee), (90, 180), (380, 50))
+        if len(lmList) != 0:
+            # Squat Angles
+            left_knee = detector.findAngle(img, 23, 25, 27)  # Left knee angle
+            right_knee = detector.findAngle(img, 24, 26, 28)  # Right knee angle
+            left_hip = detector.findAngle(img, 11, 23, 25)  # Left hip angle
+            right_hip = detector.findAngle(img, 12, 24, 26)  # Right hip angle
+            left_ankle = detector.findAngle(img, 25, 27, 31)  # Left ankle angle
+            right_ankle = detector.findAngle(img, 26, 28, 32)  # Right ankle angle
+            torso = detector.findAngle(img, 11, 23, 25)  # Torso lean angle
 
-            # Check form for beginner or expert level
-            if 120 < min(left_knee, right_knee) < 140 and min(left_hip, right_hip) > 100:
-                form = 1  # Beginner form detected
-            elif min(left_knee, right_knee) < 90 and min(left_hip, right_hip) > 170:
-                form = 2  # Expert form detected
+            # Use the average of left and right angles for feedback
+            knee_angle = (left_knee + right_knee) / 2
+            hip_angle = (left_hip + right_hip) / 2
+            ankle_angle = (left_ankle + right_ankle) / 2
 
-            # Beginner Level Logic
-            if form == 1:
-                if 120 < min(left_knee, right_knee) < 140 and min(left_hip, right_hip) > 100:
-                    feedback = "Beginner Level - Up"
-                    per = 100  # 100% when in "Up" position
-                    bar = 50   # Progress bar at the top
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif min(left_knee, right_knee) > 170 and min(left_hip, right_hip) > 170:
-                    feedback = "Beginner Level - Down"
-                    per = 0  # 0% when in "Down" position
-                    bar = 380   # Progress bar at the bottom
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
+            # Initialize feedback messages
+            knee_feedback = ""
+            hip_feedback = ""
+            ankle_feedback = ""
+            torso_feedback = ""
 
-            # Expert Level Logic
-            elif form == 2:
-                if min(left_knee, right_knee) <= 90 and min(left_hip, right_hip) > 90:
-                    feedback = "Expert Level - Up"
-                    per = 100  # 100% when in "Up" position
-                    bar = 50   # Progress bar at the top
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif min(left_knee, right_knee) > 170 and min(left_hip, right_hip) > 170:
-                    feedback = "Expert Level - Down"
-                    per = 0  # 0% when in "Down" position
-                    bar = 380   # Progress bar at the bottom
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
-                    
-            # Draw Progress Bar
-            cv2.rectangle(img, (580, 50), (600, 380), (255, 255, 255), 3)
-            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (255, 0, 0), 2)
-            
-            # Squat counter
-            cv2.rectangle(img, (0, 380), (100, 480), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
-                       (255, 0, 0), 5)
-            
-            # Feedback 
-            cv2.rectangle(img, (500, 0), (640, 40), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2,
-                       (255, 0, 0), 2)
-            
-            # Display angles and feedback
-            
-            cv2.putText(img, f"Hip: {int(left_hip or right_hip)}", (10, 90),
+            # Feedback for Knees
+            if knee_angle < thresholds['knee_flexion_min']:
+                knee_feedback = "Go deeper into the squat"
+            elif knee_angle > thresholds['knee_flexion_max']:
+                knee_feedback = "Don't squat too shallow"
+            else:
+                knee_feedback = "Good knee flexion!"
+
+            # Feedback for Hips
+            if hip_angle < thresholds['hip_flexion_min']:
+                hip_feedback = "Push your hips back more"
+            elif hip_angle > thresholds['hip_flexion_max']:
+                hip_feedback = "Don't hinge your hips too much"
+            else:
+                hip_feedback = "Good hip hinge!"
+
+            # Feedback for Ankles
+            if ankle_angle < thresholds['ankle_dorsiflexion_min']:
+                ankle_feedback = "Keep your heels on the ground"
+            elif ankle_angle > thresholds['ankle_dorsiflexion_max']:
+                ankle_feedback = "Don't let your knees go too far forward"
+            else:
+                ankle_feedback = "Good ankle mobility!"
+
+            # Feedback for Torso
+            if torso < thresholds['torso_lean_min']:
+                torso_feedback = "Lean your torso slightly forward"
+            elif torso > thresholds['torso_lean_max']:
+                torso_feedback = "Don't lean your torso too far forward"
+            else:
+                torso_feedback = "Good torso position!"
+
+            # Display feedback on the OpenCV window
+            cv2.putText(img, f"Knees: {knee_feedback}", (10, 40), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Hips: {hip_feedback}", (10, 70), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Ankles: {ankle_feedback}", (10, 100), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Torso: {torso_feedback}", (10, 130), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+
+            # Display angles on the OpenCV window (for feedback on the video feed)
+            cv2.putText(img, f"Knee: {int(knee_angle)}", (10, 160),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-            cv2.putText(img, f"Knee: {int(left_knee or right_knee)}", (10, 120),
+            cv2.putText(img, f"Hip: {int(hip_angle)}", (10, 190),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-            cv2.putText(img, feedback, (10, 150),
+            cv2.putText(img, f"Ankle: {int(ankle_angle)}", (10, 220),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Torso: {int(torso)}", (10, 250),
                         cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
-        cv2.imshow('Squat Counter', img)
+        # Show the image with feedback on OpenCV window
+        cv2.imshow('Squat Correction', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
-            
+
     cap.release()
     cv2.destroyAllWindows()
-
 
 def main():
     window = Tk()
