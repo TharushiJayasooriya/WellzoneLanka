@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth from "next-auth/next";
 import User from "../../../../models/user";
 import connectToDatabase from "../../../../lib/mongodb";
 import bcrypt from "bcryptjs";
@@ -10,7 +10,7 @@ const handler = NextAuth({
   },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
@@ -34,7 +34,7 @@ const handler = NextAuth({
             throw new Error("Invalid password");
             
           }
-          
+          return user;
 
          
         } catch  {
@@ -63,7 +63,7 @@ const handler = NextAuth({
     },
   },
   pages: {
-    signIn: "../../../register", // Redirect to this page for sign-in
+    signIn: "../../../login", // Redirect to this page for sign-in
   },
   secret: process.env.NEXTAUTH_SECRET, 
 });
