@@ -94,95 +94,68 @@ class VideoHandler:
         self.camselect(True)
 
 def start_posture_correction(cap, detector, feedback_label):
-    cap = cv2.VideoCapture(0)
-    detector = PoseDetector()
-    count = 0
-    direction = 0
-    form = 0
     feedback = "Fix Your Position First"
+    # Thresholds for Push-up angles
+    thresholds = {
+        'elbow_angle_up': 170,  # Minimum elbow angle for the up position (almost fully extended)
+        'elbow_angle_down': 90,  # Maximum elbow angle for the down position (90 degrees)
+        'shoulder_angle_up': 180,  # Shoulder angle for the up position (fully extended)
+        'shoulder_angle_down': 90,  # Shoulder angle for the down position
+        'body_alignment_tolerance': 5,  # Allowed deviation from a straight body line (degrees)
+    }
 
     while cap.isOpened():
         ret, img = cap.read()
         if not ret:
             break
-            
+
         img = detector.findPose(img, False)
         lmList = detector.findPosition(img, False)
-        
-        if len(lmList) != 0: 
-            left_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle
-            right_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle
-            left_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle
-            right_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle
-            left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
-            right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
-            left_knee = detector.findAngle(img, 25, 23, 27)  # Left Knee angle
-            right_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle
-            left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
-            right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
-            
-            per = np.interp((right_elbow or left_elbow), (90, 160), (0, 100))
-            bar = np.interp((right_elbow or left_elbow), (90, 160), (380, 50))
-            
 
-            # Check form for beginner or expert level
-            if (right_elbow or left_elbow) >140 and (right_shoulder or left_shoulder) >30 and  (right_hip or left_hip) >140:
-                form = 1  # Beginner form detected
-            elif (right_elbow or left_elbow)>160 and (right_shoulder or left_shoulder) >40 and (right_hip or left_hip) >160:
-                form = 2  # Expert form detected
+        if len(lmList) != 0:
+            # Push-up Angles
+            left_elbow = detector.findAngle(img, 11, 13, 15)  # Left elbow angle (shoulder, elbow, wrist)
+            right_elbow = detector.findAngle(img, 12, 14, 16)  # Right elbow angle (shoulder, elbow, wrist)
+            left_shoulder = detector.findAngle(img, 13, 11, 23)  # Left shoulder angle (elbow, shoulder, hip)
+            right_shoulder = detector.findAngle(img, 14, 12, 24)  # Right shoulder angle (elbow, shoulder, hip)
+            body_alignment = detector.findAngle(img, 11, 23, 25)  # Body alignment angle (shoulder, hip, knee)
 
-            # Beginner Level Logic
-            if form == 1:
-                if (right_elbow or left_elbow) <=100 and (right_hip or left_hip) >140:
-                    feedback = "Beginner Level - Up"
-                    per = 100  # 100% when in "Up" position
-                    bar = 50   # Progress bar at the top
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif (right_elbow or left_elbow)>140 and (right_shoulder or left_shoulder) >30 and (right_hip or left_hip) >140:
-                    feedback = "Beginner Level - Down"
-                    per = 0  # 0% when in "Down" position
-                    bar = 380   # Progress bar at the bottom
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
+            # Initialize feedback messages
+            elbow_feedback = ""
+            shoulder_feedback = ""
+            alignment_feedback = ""
 
-            # Expert Level Logic
-            elif form == 2:
-                if (right_elbow or left_elbow) <=90 and (right_hip or left_hip) >160:
-                    feedback = "Expert Level - Up"
-                    per = 100  # 100% when in "Up" position
-                    bar = 50   # Progress bar at the top
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif (right_elbow or left_elbow) >160 and  (right_shoulder or left_shoulder) >40 and (right_hip or left_hip) >160:
-                    feedback = "Expert Level - Down"
-                    per = 0  # 0% when in "Down" position
-                    bar = 380   # Progress bar at the bottom
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
-                    
-             # Draw Progress Bar
-            cv2.rectangle(img, (580, 50), (600, 380), (255, 255, 255), 3)
-            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (255, 0, 0), 2)
-            # Pushup counter
-            cv2.rectangle(img, (0, 380), (100, 480), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
-                       (255, 0, 0), 5)
-            
-            # Feedback 
-            cv2.rectangle(img, (500, 0), (640, 40), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2,
-                       (255, 0, 0), 2)
+            # Feedback for Elbow
+            if left_elbow < thresholds['elbow_angle_up'] or right_elbow < thresholds['elbow_angle_up']:
+                elbow_feedback = "Extend your arms fully in the up position."
+            elif left_elbow > thresholds['elbow_angle_down'] or right_elbow > thresholds['elbow_angle_down']:
+                elbow_feedback = "Lower your body until your elbows are at 90 degrees."
+            else:
+                elbow_feedback = "Good elbow position!"
+
+            # Feedback for Shoulder
+            if left_shoulder < thresholds['shoulder_angle_up'] or right_shoulder < thresholds['shoulder_angle_up']:
+                shoulder_feedback = "Fully extend your shoulders in the up position."
+            elif left_shoulder > thresholds['shoulder_angle_down'] or right_shoulder > thresholds['shoulder_angle_down']:
+                shoulder_feedback = "Keep your shoulders stable and aligned in the down position."
+            else:
+                shoulder_feedback = "Good shoulder position!"
+
+            # Feedback for Body Alignment
+            if abs(body_alignment - 180) > thresholds['body_alignment_tolerance']:
+                alignment_feedback = "Keep your body in a straight line. Avoid sagging or arching."
+            else:
+                alignment_feedback = "Good body alignment!"
+
+         # Display feedback on the OpenCV window
+            cv2.putText(img, f"Elbow: {elbow_feedback}", (10, 30), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Shoulder: {shoulder_feedback}", (10, 60), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Alignment: {alignment_feedback}", (10, 90), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+
+            # Display angles on the OpenCV window (for feedback on the video feed)
+            cv2.putText(img, f"Elbow Angle: {int(left_elbow)}", (10, 130), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Shoulder Angle: {int(left_shoulder)}", (10, 160), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Body Alignment: {int(body_alignment)}", (10, 190), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
         cv2.imshow('Pushup Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
