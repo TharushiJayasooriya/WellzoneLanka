@@ -80,7 +80,7 @@ class VideoHandler:
         self.cap = cv2.VideoCapture(0 if cam else file1)
 
     def openVIDEO(self):
-        self.camselect(False, './cat-cow-guide.mp4')
+        self.camselect(False, './cat-cow-guide.mp4')            
         self.video_playing = True
 
     def openfile(self):
