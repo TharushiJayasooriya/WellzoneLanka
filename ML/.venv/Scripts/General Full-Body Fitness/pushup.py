@@ -2,6 +2,9 @@ import cv2
 import mediapipe as mp
 import math
 import numpy as np
+import threading
+from tkinter import filedialog, Label, Frame, Button, Tk, BOTH, LEFT, SUNKEN, GROOVE, RAISED, X, YES, TOP, BOTTOM
+
 
 class PoseDetector:
     def __init__(self, mode=False, complexity=1, smooth_landmarks=True,
@@ -21,6 +24,7 @@ class PoseDetector:
         self.pose = self.mpPose.Pose(self.mode, self.complexity, self.smooth_landmarks,
                                     self.enable_segmentation, self.smooth_segmentation,
                                     self.detectionCon, self.trackCon)
+        self.angle_history = []  # For angle smoothing
         
     def findPose(self, img, draw=True):
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -48,14 +52,19 @@ class PoseDetector:
         x2, y2 = self.lmList[p2][1:]
         x3, y3 = self.lmList[p3][1:]
         
-        angle = math.degrees(math.atan2(y3-y2, x3-x2) - 
-                           math.atan2(y1-y2, x1-x2))
+        angle = math.degrees(math.atan2(y3-y2, x3-x2) - math.atan2(y1-y2, x1-x2))
         if angle < 0:
             angle += 360
             if angle > 180:
                 angle = 360 - angle
         elif angle > 180:
             angle = 360 - angle
+        
+        # Smooth the angle over 5 frames
+        self.angle_history.append(angle)
+        if len(self.angle_history) > 5:
+            self.angle_history.pop(0)
+        smoothed_angle = sum(self.angle_history) / len(self.angle_history)
         
         if draw:
             cv2.line(img, (x1, y1), (x2, y2), (255,255,255), 3)
@@ -68,18 +77,41 @@ class PoseDetector:
             cv2.circle(img, (x3, y3), 5, (0,0,255), cv2.FILLED)
             cv2.circle(img, (x3, y3), 15, (0,0,255), 2)
             
-            cv2.putText(img, str(int(angle)), (x2-50, y2+50), 
+            cv2.putText(img, str(int(smoothed_angle)), (x2-50, y2+50), 
                        cv2.FONT_HERSHEY_PLAIN, 2, (0,0,255), 2)
-        return angle
+        return smoothed_angle
 
-def main():
+
+class VideoHandler:
+    def __init__(self):
+        self.cap = None
+        self.video_playing = False
+
+    def camselect(self, cam=True, file1=None):
+        self.cap = cv2.VideoCapture(0 if cam else file1)
+
+    def openVIDEO(self):
+        self.camselect(False, './cat-cow-guide.mp4')  # Example video path
+        self.video_playing = True
+
+    def openfile(self):
+        file1 = filedialog.askopenfilename()
+        self.camselect(False, file1)
+
+    def camvideo(self):
+        self.camselect(True)
+
+
+def start_posture_correction(cap, detector, feedback_label):
     cap = cv2.VideoCapture(0)
     detector = PoseDetector()
-    count = 0
-    direction = 0
-    form = 0
-    feedback = "Fix Your position first"
-    
+    feedback = "Fix Your Position First"
+    thresholds = {
+        'ELBOW_MIN': 70,  
+        'ELBOW_MAX': 90,  
+        'HIP_MIN': 160,  
+        'SHOULDER_MIN': 160, 
+    }
 
     while cap.isOpened():
         ret, img = cap.read()
@@ -89,80 +121,52 @@ def main():
         img = detector.findPose(img, False)
         lmList = detector.findPosition(img, False)
         
-        if len(lmList) != 0:
+        if len(lmList) != 0: 
             left_elbow = detector.findAngle(img, 11, 13, 15)  # Left Elbow angle
             right_elbow = detector.findAngle(img, 12, 14, 16)  # Right Elbow angle
             left_shoulder = detector.findAngle(img, 13, 11, 23)  # Left Shoulder angle
             right_shoulder = detector.findAngle(img, 14, 12, 24)  # Right Shoulder angle
             left_hip = detector.findAngle(img, 11, 23, 25)  # Left Hip angle
             right_hip = detector.findAngle(img, 12, 24, 26)  # Right Hip angle
-            left_knee = detector.findAngle(img, 25, 23, 27)  # Left Knee angle
-            right_knee = detector.findAngle(img, 26, 24, 28)  # Right Knee angle
-            left_ankle = detector.findAngle(img, 27, 29, 31)  # Left Ankle angle
-            right_ankle = detector.findAngle(img, 28, 30, 32)  # Right Ankle angle
-            
-            per = np.interp((right_elbow or left_elbow), (90, 160), (0, 100))
-            bar = np.interp((right_elbow or left_elbow), (90, 160), (380, 50))
+
+            # Initialize feedback messages
+            feedback_elbow = ""
+            feedback_hip = ""
+            feedback_back = ""
             
 
-            # Check form for beginner or expert level
-            if (right_elbow or left_elbow) >140 and (right_shoulder or left_shoulder) >30 and  (right_hip or left_hip) >140:
-                form = 1  # Beginner form detected
-            elif (right_elbow or left_elbow)>160 and (right_shoulder or left_shoulder) >40 and (right_hip or left_hip) >160:
-                form = 2  # Expert form detected
+            # Feedback for Elbow
+            if left_elbow < thresholds["ELBOW_MIN"] or right_elbow < thresholds["ELBOW_MIN"]:
+                feedback_elbow = "Elbows are flaring out too much. Keep them closer to your body."
+            elif left_elbow > thresholds["ELBOW_MAX"] or right_elbow > thresholds["ELBOW_MAX"]:
+                feedback_elbow = "You're not going low enough. Aim for a 90-degree angle at the elbows."
+            else:
+                feedback_elbow = "Elbow form is good. Keep it up!"
 
-            # Beginner Level Logic
-            if form == 1:
-                if (right_elbow or left_elbow) <=100 and (right_hip or left_hip) >140:
-                    feedback = "Beginner Level - Up"
-                    per = 100  # 100% when in "Up" position
-                    bar = 50   # Progress bar at the top
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif (right_elbow or left_elbow)>140 and (right_shoulder or left_shoulder) >30 and (right_hip or left_hip) >140:
-                    feedback = "Beginner Level - Down"
-                    per = 0  # 0% when in "Down" position
-                    bar = 380   # Progress bar at the bottom
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
+            # Feedback for Hip
+            if left_hip < thresholds["HIP_MIN"] or right_hip < thresholds["HIP_MIN"]:
+                feedback_hip = "Hips are sagging. Engage your core and keep your body straight."
+            else:
+                feedback_hip = "Hip alignment is good. Maintain a straight body line."
 
-            # Expert Level Logic
-            elif form == 2:
-                if (right_elbow or left_elbow) <=90 and (right_hip or left_hip) >160:
-                    feedback = "Expert Level - Up"
-                    per = 100  # 100% when in "Up" position
-                    bar = 50   # Progress bar at the top
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif (right_elbow or left_elbow) >160 and  (right_shoulder or left_shoulder) >40 and (right_hip or left_hip) >160:
-                    feedback = "Expert Level - Down"
-                    per = 0  # 0% when in "Down" position
-                    bar = 380   # Progress bar at the bottom
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
-                    
-             # Draw Progress Bar
-            cv2.rectangle(img, (580, 50), (600, 380), (255, 255, 255), 3)
-            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                        (255, 0, 0), 2)
-            # Pushup counter
-            cv2.rectangle(img, (0, 380), (100, 480), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5,
-                       (255, 0, 0), 5)
-            
-            # Feedback 
-            cv2.rectangle(img, (500, 0), (640, 40), (0, 0, 0), cv2.FILLED)
-            cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2,
-                       (255, 0, 0), 2)
+            # Feedback for Back (Shoulder Alignment)
+            if left_shoulder < thresholds["SHOULDER_MIN"] or right_shoulder < thresholds["SHOULDER_MIN"]:
+                feedback_back = "Your back is arching. Keep your shoulders stable and aligned with your hips."
+            else:
+                feedback_back = "Back alignment is good. Maintain a neutral spine."
+
+            # Display feedback on the OpenCV window
+            cv2.putText(img, f"Elbow: {feedback_elbow}", (10, 40), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Hip: {feedback_hip}", (10, 70), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Back: {feedback_back}", (10, 100), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+
+            # Display angles on the OpenCV window
+            cv2.putText(img, f"Elbow Angle: {int(left_elbow or right_elbow)}", (10, 130),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Hip Angle: {int(left_hip or right_hip)}", (10, 160),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
+            cv2.putText(img, f"Shoulder Angle: {int(left_shoulder or right_shoulder)}", (10, 190),
+                        cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
 
         cv2.imshow('Pushup Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
@@ -170,6 +174,78 @@ def main():
             
     cap.release()
     cv2.destroyAllWindows()
+
+
+def main():
+    window = Tk()
+    window.title("PushUp Exercise Guide")
+
+    feedback_label = Label(window, text="Select an action", font=("Arial", 20, "bold"), bg="white", fg="black")
+    feedback_label.pack(side=TOP, fill=X)
+
+    video_handler = VideoHandler()
+    detector = PoseDetector()
+    
+    def on_posture_correction():
+        video_handler.camvideo()  # Start webcam for posture correction
+        start_posture_correction(video_handler.cap, detector, feedback_label)
+
+    def on_video_guide():
+        video_handler.openVIDEO()  # Start the video file for the guide
+        
+        while video_handler.cap.isOpened():
+            ret, frame = video_handler.cap.read()
+            if not ret:
+                break
+            
+            # Show the guide video in an OpenCV window
+            cv2.imshow('Guide Video', frame)
+            
+            # Handle closing the video window
+            if cv2.waitKey(10) & 0xFF == ord('q'):
+                break
+
+        video_handler.cap.release()
+        cv2.destroyAllWindows()
+
+    def start_video_in_thread():
+        # This runs the video in a separate thread so that it does not block Tkinter
+        video_thread = threading.Thread(target=on_video_guide)
+        video_thread.start()
+
+    def on_video_guide_button():
+        start_video_in_thread()  
+
+    def on_exit():
+        window.quit()
+    
+
+    # Create a frame to hold the buttons and apply padding and styling
+    button_frame = Frame(window, bg="lightblue", padx=20, pady=20)
+    button_frame.pack(side=BOTTOM, fill=X)
+
+    # Create custom styles for buttons
+    button_style = {
+        "font": ("Arial", 14, "bold"),
+        "bg": "#4CAF50",  # Green background
+        "fg": "white",    # White text color
+        "relief": RAISED,  # Raised button style
+        "bd": 3,          # Border thickness
+        "width": 20,      # Button width
+        "height": 2       # Button height
+    }
+
+    # Posture Correction Button
+    Button(button_frame, text="Posture Correction", command=on_posture_correction, **button_style).pack(side=LEFT, padx=20)
+
+    # Guide Video Button
+    Button(button_frame, text="Guide Video", command=on_video_guide_button, **button_style).pack(side=LEFT, padx=20)
+
+    # Exit Button
+    Button(button_frame, text="Exit", command=on_exit, font=("Arial", 14, "bold"), bg="#f44336", fg="white", relief=RAISED, bd=3, width=20, height=2).pack(side=LEFT, padx=20)
+    
+    window.mainloop()
+
 
 if __name__ == "__main__":
     main()
