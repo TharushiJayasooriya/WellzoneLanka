@@ -4,3 +4,6 @@ frontend/src/app/register/page.jsx
 *.json
 /node_modules
 *.json
+frontend/package-lock.json
+*.json
+frontend/package.json

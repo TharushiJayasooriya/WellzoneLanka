@@ -10,7 +10,6 @@ import {useRouter} from "next/navigation"
 import RoleSelectionButtons from "./RoleSelectionButtons"; 
 
 
-
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -73,7 +72,7 @@ export default function Register() {
       if (res.ok) {
         setPending(false);
         toast.success(data.message); // Show success message
-        router.push("../services"); // Redirect to sign-in page
+        router.push("../login"); 
       } else if (res.status === 400) {
         setError(data.message); // Set error message for 400 status
         setPending(false);
