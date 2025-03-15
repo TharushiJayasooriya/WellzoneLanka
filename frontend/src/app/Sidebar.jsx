@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { 
   MessageCircle, 
   User, 
@@ -84,8 +85,14 @@ const Sidebar = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-cyan-500/80"></div>
           <div className="relative p-8 z-10">
             <div className="flex items-center mb-4">
-              <div className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mr-3 shadow-lg border border-white/30">
-                <span className="text-xl font-bold">W</span>
+              <div className="mr-3">
+                <Image 
+                  src="/assets/lgo.png" 
+                  alt="Logo" 
+                  width={60} 
+                  height={60} 
+                  className="hover:scale-105 transition-transform duration-300" 
+                />
               </div>
               <div className="text-2xl font-bold tracking-tight">WellZone Lanka</div>
             </div>
