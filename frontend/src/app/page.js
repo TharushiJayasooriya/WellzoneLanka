@@ -7,6 +7,7 @@ import Navbar from "./Navbar";
 import { Footer } from "./Footer";
 import { useEffect } from "react";
 import { IoIosFlash, IoIosFitness, IoIosChatbubbles, IoIosHeart } from 'react-icons/io';
+import Sidebar from "./Sidebar";
 
 
 
@@ -52,7 +53,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Bar - Kept exactly as original */}
+      <Sidebar/>
       <Navbar/>
+      
 
       {/* Improved Hero Section */}
       <div className="relative h-screen">

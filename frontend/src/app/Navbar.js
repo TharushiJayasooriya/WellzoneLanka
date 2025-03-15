@@ -6,7 +6,7 @@ export default function Navbar() {
     const [servicesOpen, setServicesOpen] = useState(false);
 
     return (
-        <nav className="shadow-sm fixed w-full z-50 py-3 px-1 bg-opacity-25 bg-black">
+        <nav className="shadow-sm fixed w-full z-30 py-3 px-1 bg-opacity-25 bg-black">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white rounded-[3rem] shadow-lg">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex items-center">
