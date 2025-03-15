@@ -165,7 +165,7 @@ export default function Home() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mt-8">Gym Trainer Consultation</h3>
               <p className="mt-4 text-gray-600">
-              Get expert fitness coaching from experienced trainers who design personalized workout plans, offer professional advice, and keep you motivated. Whether you're just starting out or a seasoned athlete, you'll get the guidance you need to reach your fitness goals.
+              Get expert fitness coaching from experienced trainers who design personalized workout plans, offer professional advice, and keep you motivated. Whether you&apos;re just starting out or a seasoned athlete, you&apos;ll get the guidance you need to reach your fitness goals.
               </p>
               <div className="mt-6 flex items-center text-cyan-600">
 
@@ -220,7 +220,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-gray-700 italic">
-              "WellZone Lanka changed how I do fitness. The AI gave great advice, and my coach kept me motivated."
+              &quot;WellZone Lanka changed how I do fitness. The AI gave great advice, and my coach kept me motivated.&quot;
               </p>
             </div>
 
@@ -241,7 +241,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-gray-700 italic">
-              "I had a hard time gaining weight, but the custom nutrition plan changed everything. The coaches knew my goals and helped me succeed."
+              &quot;I had a hard time gaining weight, but the custom nutrition plan changed everything. The coaches knew my goals and helped me succeed.&quot;
               </p>
             </div>
 
@@ -262,7 +262,7 @@ export default function Home() {
                 ))}
               </div>
               <p className="text-gray-700 italic">
-              "WellZone Lanka not only improved my fitness but also helped me sleep better and feel less stressed. Their complete approach really improved my well-being."
+              &quot;WellZone Lanka not only improved my fitness but also helped me sleep better and feel less stressed. Their complete approach really improved my well-being.&quot;
               </p>
             </div>
           </div>
@@ -409,7 +409,7 @@ export default function Home() {
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-4">Mental wellness support</h3>
         <p className="text-gray-600">
-        Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you're facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
+        Get support for your mental well-being from experts who provide guidance, stress management tips, and mindfulness techniques. Whether you&apos;re facing daily stress or looking to improve your overall mindset, get the help you need to feel your best.
         </p>
       </div>
     </div>
@@ -425,7 +425,7 @@ export default function Home() {
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 mb-4">Community support</h3>
                       <p className="text-gray-600">
-                      Join a supportive fitness community where you can connect with others, share your progress, and stay motivated. Whether you're a beginner or experienced, our community helps you stay inspired and achieve your goals together.
+                      Join a supportive fitness community where you can connect with others, share your progress, and stay motivated. Whether you&apos;re a beginner or experienced, our community helps you stay inspired and achieve your goals together.
                       </p>
                     </div>
                   </div>
