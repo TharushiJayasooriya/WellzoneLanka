@@ -9,6 +9,8 @@ import { toast } from "sonner";
 import {useRouter} from "next/navigation"
 import RoleSelectionButtons from "./RoleSelectionButtons"; 
 
+
+
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -326,6 +328,8 @@ export default function Register() {
                     <span className="px-2 bg-white text-gray-500">or sign up with email</span>
                   </div>
                 </div>
+                {/* Replace this line in the Register.jsx file, around line 325 */}
+
                 
                 
                 <div className="w-full mt-3">
