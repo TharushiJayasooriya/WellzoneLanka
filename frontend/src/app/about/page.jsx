@@ -5,6 +5,7 @@ import { ArrowRight, Heart, Brain, Activity, Users, Star, Zap, Award } from "luc
 import Navbar from "../Navbar";
 import { Footer } from '../Footer';
 import { motion } from "framer-motion";
+import Sidebar from '../Sidebar';
 
 export default function About() {
   const [isVisible, setIsVisible] = useState({
@@ -55,6 +56,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50">
       <Navbar />
+      <Sidebar/>
 
       {/* Hero Section with Parallax Effect */}
       <div className="relative w-full h-[70vh] overflow-hidden">

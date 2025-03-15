@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../Navbar";
 import { Footer } from "../Footer";
+import Sidebar from "../Sidebar";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -36,6 +37,7 @@ export default function Contact() {
     <div className="min-h-screen bg-gray-50">
       {/* Navigation */}
             <Navbar/>
+            <Sidebar/>
 
       {/* Hero Section */}
       <div className="pt-20 bg-gradient-to-b from-cyan-50 to-white">
