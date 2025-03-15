@@ -310,7 +310,15 @@ export default function Register() {
                   <div className="text-center">
                     <p className="text-gray-600 text-sm mt-5">
                       Already have an account? {" "}
-                      <a href="#" className="text-cyan-600  hover:text-cyan-700  font-medium">
+                      <a href="<a 
+      href=" 
+      onClick={(e) => {
+        e.preventDefault();
+        window.location.href = '/login';
+        // or use navigation from your framework
+        // navigate('/login');
+      }} 
+       className="text-cyan-600  hover:text-cyan-700  font-medium">
                         Sign in
                       </a>
                     </p>
