@@ -1,7 +1,9 @@
+"use client"; 
+
 import { Geist, Geist_Mono } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "../components/ui/sonner.tsx";
 import "./globals.css";
-import { icons } from "lucide-react";
-import { Toaster } from "../components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,25 +15,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "WellZone Lanka",
-  description: "Healthcare website",
-  icons: {
-    icon: "/assets/lgo.png"
-  }
-};
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        
-
-        
-        {children}
-        <Toaster/>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <SessionProvider>
+          {children}
+        </SessionProvider>
+        <Toaster />
       </body>
     </html>
   );
