@@ -2,35 +2,43 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { 
   Activity, 
-  Users, 
   MessageCircle, 
-  Award, 
   Settings, 
   HelpCircle, 
-  CreditCard, 
   User, 
   LogOut,
-  PlusCircle,
-  Calendar,
-  Heart,
   Search
 } from "lucide-react";
 import { IoIosFitness, IoIosHeart } from 'react-icons/io';
 
-const Sidebar = ({ isOpen, setIsOpen }) => {
+const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [recentPages, setRecentPages] = useState([
     "Create Exercise Plan",
-    "Book Trainer Consultation",
-    "View Health Progress",
-    "Nutrition Calculator",
-    "Wellness Assessment"
+    "Book Trainer",
+    "Health Progress",
+    "Nutrition"
   ]);
 
-  // Close sidebar when clicking outside (for mobile)
+  // Handle mouse position to open sidebar when cursor is in the corner
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      // Check if mouse is in the top-left corner (within 50px)
+      if (e.clientX <= 50 && e.clientY <= 50) {
+        setIsOpen(true);
+      }
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  // Close sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       const sidebar = document.getElementById("wellzone-sidebar");
@@ -43,33 +51,39 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, setIsOpen]);
+  }, [isOpen]);
 
   return (
-    <div className="Z-50">
-      {/* Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden transition-opacity duration-300"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+    <>
+      {/* Main content blur overlay */}
+      <div 
+        className={`fixed inset-0 bg-white/50 backdrop-blur-sm z-30 transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsOpen(false)}
+      />
 
       {/* Sidebar */}
       <div 
         id="wellzone-sidebar"
-        className={`fixed top-0 left-0 h-full bg-gray-900 text-white w-64 z-40 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        className={`fixed top-0 left-0 h-full bg-gray-900 text-white w-64 z-40 transform transition-transform duration-300 ease-in-out shadow-lg ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
+        {/* Welcome Banner */}
+        <div className="p-4 bg-gradient-to-r from-cyan-600 to-blue-700">
+          <div className="text-xl font-bold">Hi, Welcome to WellZone!</div>
+          <div className="text-sm opacity-80">Your personal wellness companion</div>
+        </div>
+
         {/* Logo */}
         <div className="p-4 flex items-center">
-          <div className="text-2xl font-bold text-cyan-400">WellZone Lanka</div>
+          <div className="text-xl font-bold text-cyan-400">WellZone Lanka</div>
         </div>
 
         {/* New Chat Button */}
         <div className="px-4 mb-4">
-          <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white rounded-md py-2 px-4 flex items-center justify-center transition-colors">
+          <button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white rounded-md py-2 px-4 flex items-center justify-center">
             <MessageCircle className="h-5 w-5 mr-2" />
             <span>Start new chat</span>
           </button>
@@ -95,7 +109,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
           <div className="space-y-1">
             {recentPages.map((page, index) => (
               <Link href="#" key={index}>
-                <div className="py-2 px-2 hover:bg-gray-800 rounded cursor-pointer transition-colors">
+                <div className="py-2 px-2 hover:bg-gray-800 rounded cursor-pointer">
                   {page}
                 </div>
               </Link>
@@ -105,23 +119,13 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
         <div className="border-t border-gray-700 my-4"></div>
 
-        {/* Main Menu Items */}
+        {/* Main Menu Items - Simplified */}
         <div className="px-4">
-          <NavItem icon={<Activity className="h-5 w-5" />} text="Exercise Tracking" />
+          <NavItem icon={<Activity className="h-5 w-5" />} text="Exercise" />
           <NavItem icon={<IoIosFitness className="h-5 w-5" />} text="Workouts" />
-          <NavItem icon={<IoIosHeart className="h-5 w-5" />} text="Health Stats" />
-          <NavItem icon={<Calendar className="h-5 w-5" />} text="Appointments" />
-          <NavItem icon={<Award className="h-5 w-5" />} text="Achievements" />
-          <NavItem icon={<Users className="h-5 w-5" />} text="Community" />
-        </div>
-
-        <div className="border-t border-gray-700 my-4"></div>
-
-        {/* Bottom Menu */}
-        <div className="px-4 mt-auto">
+          <NavItem icon={<IoIosHeart className="h-5 w-5" />} text="Health" />
           <NavItem icon={<Settings className="h-5 w-5" />} text="Settings" />
-          <NavItem icon={<HelpCircle className="h-5 w-5" />} text="Help Center" /> 
-          <NavItem icon={<CreditCard className="h-5 w-5" />} text="My Subscription" />
+          <NavItem icon={<HelpCircle className="h-5 w-5" />} text="Help" />
           <NavItem icon={<LogOut className="h-5 w-5" />} text="Sign Out" />
         </div>
 
@@ -133,20 +137,29 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             </div>
             <div>
               <div className="font-medium">WellZone User</div>
-              <div className="text-sm text-gray-400">Premium Plan</div>
+              <div className="text-sm text-gray-400">Premium</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      
+      {/* Corner trigger indicator with hamburger icon */}
+<div className="fixed top-5 left-0 w-12 h-12 flex items-center justify-center z-20 cursor-pointer" onClick={() => setIsOpen(true)}>
+  <div className="flex flex-col space-y-1">
+    <div className="w-6 h-0.5 bg-white rounded-full shadow-sm"></div>
+    <div className="w-6 h-0.5 bg-white rounded-full shadow-sm"></div>
+    <div className="w-6 h-0.5 bg-white rounded-full shadow-sm"></div>
+  </div>
+</div>
+    </>
   );
 };
 
-// Navigation Item Component
+// Navigation Item Component - Simplified
 const NavItem = ({ icon, text, onClick }) => {
   return (
     <div 
-      className="flex items-center py-2 px-2 rounded-md hover:bg-gray-800 cursor-pointer transition-colors"
+      className="flex items-center py-2 px-2 rounded-md hover:bg-gray-800 cursor-pointer"
       onClick={onClick}
     >
       <div className="mr-3 text-gray-400">{icon}</div>
