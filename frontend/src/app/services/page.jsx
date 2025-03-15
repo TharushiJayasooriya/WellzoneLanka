@@ -324,6 +324,7 @@ export default function ServicesPage() {
   </div>
 </div>
 <div id='Trainer'></div>
+<div id='Doctor'></div>
 {/* Enhanced Professional Call to Action Section */}
 <div 
   id="cta-section"

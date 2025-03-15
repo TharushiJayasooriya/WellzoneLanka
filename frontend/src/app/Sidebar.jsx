@@ -79,7 +79,7 @@ const Sidebar = () => {
   };
 
   const navigateToDoctor = () => {
-    router.push('/services#doctor');
+    router.push('/services#Doctor');
     setIsOpen(false);
   };
 
