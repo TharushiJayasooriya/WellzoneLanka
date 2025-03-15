@@ -21,6 +21,7 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const sidebarRef = useRef(null);
+  const triggerRef = useRef(null);
 
   // Auto-hide sidebar when mouse leaves the sidebar area
   useEffect(() => {
@@ -42,7 +43,8 @@ const Sidebar = () => {
   // Close sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+      if (isOpen && sidebarRef.current && !sidebarRef.current.contains(event.target) && 
+          !triggerRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
@@ -52,6 +54,23 @@ const Sidebar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  // Add event listener for trigger hover
+  useEffect(() => {
+    const handleTriggerHover = () => {
+      setIsOpen(true);
+    };
+
+    if (triggerRef.current) {
+      triggerRef.current.addEventListener("mouseenter", handleTriggerHover);
+    }
+
+    return () => {
+      if (triggerRef.current) {
+        triggerRef.current.removeEventListener("mouseenter", handleTriggerHover);
+      }
+    };
+  }, [triggerRef]);
 
   // Navigate to service page with specific section
   const navigateToTrainer = () => {
@@ -180,8 +199,9 @@ const Sidebar = () => {
         </div>
       </div>
       
-      {/* Sidebar indicator tab */}
+      {/* Sidebar indicator tab - Modified to use ref and detect hover */}
       <div 
+        ref={triggerRef}
         className={`fixed top-1/2 left-0 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-cyan-500 h-24 w-6 rounded-r-lg cursor-pointer z-30 shadow-lg flex items-center justify-center transition-all duration-300 ${
           isOpen ? "opacity-0" : "opacity-90 hover:opacity-100 hover:w-8"
         }`}
