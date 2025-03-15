@@ -53,8 +53,9 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navigation Bar - Kept exactly as original */}
-      <Sidebar/>
+      
       <Navbar/>
+      <Sidebar/>
       
 
       {/* Improved Hero Section */}
