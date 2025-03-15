@@ -283,7 +283,7 @@ export default function ServicesPage() {
       </div>
       
       {/* Services Section */}
-      <div id="services" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div id="services" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 " >
         <div 
           id="services-heading" 
           className="text-center mb-16 animate-on-scroll animate-visible"
@@ -314,15 +314,16 @@ export default function ServicesPage() {
   />
 </div>
 
-    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end" >
       <div className="p-8 text-white">
         <h3 className="text-3xl font-bold mb-2">Transform Your Life</h3>
         <p className="text-xl">Expert guidance for your wellness journey</p>
+        
       </div>
     </div>
   </div>
 </div>
-
+<div id='Trainer'></div>
 {/* Enhanced Professional Call to Action Section */}
 <div 
   id="cta-section"
@@ -330,7 +331,8 @@ export default function ServicesPage() {
   data-aos="fade-up"
   data-aos-duration="1000"
 >
-  <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl cta-card">
+
+  <div  className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-500 hover:shadow-2xl cta-card" >
     <div className="grid md:grid-cols-2">
       {/* Left side - Enhanced Video Background */}
       <div className="relative h-96 md:h-auto overflow-hidden cta-video-container">
@@ -349,7 +351,7 @@ export default function ServicesPage() {
             className="w-full h-full object-cover"
           />
         </video>
-        <div className="absolute inset-0 cta-overlay"></div>
+        <div className="absolute inset-0 cta-overlay" ></div>
         <div className="relative p-12 flex items-center justify-center h-full">
           <div className="text-white cta-content" data-aos="fade-right" data-aos-delay="200">
             <div className="mb-6 inline-block p-3 bg-white bg-opacity-20 rounded-full">
@@ -364,7 +366,7 @@ export default function ServicesPage() {
       </div>
       
       {/* Right side - Enhanced CTA buttons */}
-      <div className="bg-white p-12 flex flex-col justify-center">
+      <div className="bg-white p-12 flex flex-col justify-center" >
         <h3 
           className="text-2xl font-semibold text-gray-800 mb-8 border-b border-gray-200 pb-4"
           data-aos="fade-up"
@@ -373,7 +375,7 @@ export default function ServicesPage() {
           Choose Your Wellness Path
         </h3>
         
-        <div className="space-y-8">
+        <div className ="space-y-8" >
           <div 
             className="group"
             data-aos="fade-up"

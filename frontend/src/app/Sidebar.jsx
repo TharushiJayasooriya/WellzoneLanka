@@ -74,7 +74,7 @@ const Sidebar = () => {
 
   // Navigate to service page with specific section
   const navigateToTrainer = () => {
-    router.push('/services#trainer');
+    router.push('/services#Trainer');
     setIsOpen(false);
   };
 
