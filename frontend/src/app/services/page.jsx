@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from "../Footer";
+import Sidebar from '../Sidebar';
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState('fitness');
@@ -234,6 +235,7 @@ export default function ServicesPage() {
       `}</style>
       
       <Navbar />
+      <Sidebar/>
       
       {/* Hero Section with Background Video */}
       <div className="relative h-screen w-full overflow-hidden">
