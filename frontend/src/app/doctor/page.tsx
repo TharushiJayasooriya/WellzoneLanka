@@ -413,28 +413,22 @@ export default function DoctorRegister() {
                     <div className="text-center mt-5">
                       <p className="text-gray-600 text-sm">
                         Already have an account? {" "}
-                        <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                          Sign in
+                        <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                        Login here
                         </a>
                       </p>
                       <p className="text-gray-600 text-sm mt-2">
                         Not a doctor? {" "}
-                        <a href="#" className="text-gray-800 hover:text-black font-medium">
+                        <a href="/register" className="text-gray-800 hover:text-black font-medium">
                           Register as Patient
                         </a> or {" "}
-                        <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                        <a href="/trainer" className="text-cyan-600 hover:text-cyan-700 font-medium">
                           Register as Trainer
                         </a>
                       </p>
                     </div>
 
-                    <div className="pt-6 mt-6 border-t border-gray-200">
-                      <p className="text-center text-sm text-gray-500">After registration, your credentials will be verified before approval</p>
-                      <p className="text-center text-sm text-gray-500 mt-1">
-                        <Clipboard className="inline-block h-4 w-4 mr-1" />
-                        <span>You can track your application status after submission</span>
-                      </p>
-                    </div>
+                  
                   </form>
                 </div>
               </div>

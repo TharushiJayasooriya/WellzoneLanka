@@ -391,6 +391,24 @@ export default function TrainerRegister() {
                       <Link href="/login" className="text-cyan-600 hover:text-cyan-700 font-semibold">
                         Login here
                       </Link>
+                      <div className="text-center mt-5">
+                      <p className="text-gray-600 text-sm">
+                         {" "}
+                        <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                        
+                        </a>
+                      </p>
+                      <p className="text-gray-600 text-sm mt-2">
+                        Not a trainer? {" "}
+                        <a href="/register" className="text-gray-800 hover:text-black font-medium">
+                          Register as Patient
+                        </a> or {" "}
+                        <a href="/doctor" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                          Register as Doctor
+                        </a>
+                      </p>
+                      
+                    </div>
                     </div>
                   </form>
                 </div>
