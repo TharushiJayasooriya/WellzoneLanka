@@ -84,11 +84,6 @@ const Sidebar = () => {
     setIsOpen(false);
   };
 
-  // Toggle sidebar
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <>
       {/* Main content blur overlay */}
@@ -99,7 +94,7 @@ const Sidebar = () => {
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Sidebar - moved more inside */}
+      {/* Sidebar - fully hidden until opened */}
       <div 
         ref={sidebarRef}
         className={`fixed top-12 left-2 h-[calc(100%-4rem)] bg-gradient-to-b from-gray-900/90 via-gray-800/90 to-gray-900/90 text-white w-64 z-40 transform transition-all duration-500 ease-in-out shadow-xl flex flex-col rounded-2xl backdrop-blur-md ${
@@ -200,18 +195,14 @@ const Sidebar = () => {
         </div>
       </div>
       
-      {/* Sidebar indicator tab - Modified to use ref and detect hover */}
+      {/* Sidebar indicator - Only showing chevron icon */}
       <div 
         ref={triggerRef}
-        className={`fixed top-1/2 left-0 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-cyan-500 h-24 w-6 rounded-r-lg cursor-pointer z-30 shadow-lg flex items-center justify-center transition-all duration-300 ${
-          isOpen ? "opacity-0" : "opacity-90 hover:opacity-100 hover:w-8"
-        }`}
-        onClick={toggleSidebar}
-        style={{
-          boxShadow: "0 4px 12px rgba(0, 120, 255, 0.3)",
-        }}
+        className="fixed top-1/2 left-0 transform -translate-y-1/2 h-10 w-6 z-30 flex items-center justify-center transition-all duration-300 cursor-pointer"
       >
-        <ChevronRight className="h-5 w-5 text-white animate-pulse" />
+        <div className="bg-gradient-to-r from-blue-600 to-cyan-500 h-10 w-6 rounded-r-lg flex items-center justify-center transition-all duration-300 hover:w-8 opacity-60 hover:opacity-100">
+          <ChevronRight className="h-5 w-5 text-white" />
+        </div>
       </div>
     </>
   );

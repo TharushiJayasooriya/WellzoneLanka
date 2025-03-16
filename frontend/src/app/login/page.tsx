@@ -8,6 +8,7 @@ import Navbar from "../Navbar";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import FloatingBackButton from "../backbutton/page";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -86,6 +87,7 @@ const LoginPage = () => {
       </div>
 
       <Navbar />
+            
 
       {/* Main Content - Professional Layout */}
       <div className="relative z-10 max-w-7xl mx-auto pt-6">

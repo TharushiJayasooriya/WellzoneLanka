@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from "../Footer";
 import Sidebar from '../Sidebar';
+import FloatingBackButton from '../backbutton/page';
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState('fitness');
@@ -236,6 +237,7 @@ export default function ServicesPage() {
       
       <Navbar />
       <Sidebar/>
+      
       
       {/* Hero Section with Background Video */}
       <div className="relative h-screen w-full overflow-hidden">

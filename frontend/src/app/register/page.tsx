@@ -8,6 +8,7 @@ import Navbar from "../Navbar";
 import { toast } from "sonner";
 import {useRouter} from "next/navigation"
 import RoleSelectionButtons from "./RoleSelectionButtons"; 
+import FloatingBackButton from "../backbutton/page";
 
 
 export default function Register() {
@@ -99,6 +100,7 @@ export default function Register() {
       </div>
 
       <Navbar/>
+            
 
       
       {/* Main Content - Professional Layout */}

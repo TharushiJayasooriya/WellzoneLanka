@@ -7,6 +7,7 @@ import Link from "next/link";
 import Navbar from "../Navbar";
 import { toast } from "sonner";
 import {useRouter} from "next/navigation";
+import FloatingBackButton from "../backbutton/page";
 
 export default function TrainerRegister() {
   const [showPassword, setShowPassword] = useState(false);
@@ -130,6 +131,7 @@ export default function TrainerRegister() {
       </div>
 
       <Navbar/>
+           
       
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto pt-6">

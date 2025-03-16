@@ -8,6 +8,7 @@ import Navbar from "../Navbar";
 import { Footer } from "../Footer";
 import Sidebar from "../Sidebar";
 
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -38,6 +39,7 @@ export default function Contact() {
       {/* Navigation */}
             <Navbar/>
             <Sidebar/>
+            
 
       {/* Hero Section */}
       <div className="pt-20 bg-gradient-to-b from-cyan-50 to-white">
