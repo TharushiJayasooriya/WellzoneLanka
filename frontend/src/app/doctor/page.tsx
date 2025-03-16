@@ -101,7 +101,7 @@ export default function DoctorRegister() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
           {/* Left Side - Image Section */}
           <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
-            <div className="relative w-full" style={{ height: "680px" }}>
+            <div className="relative w-full" style={{ height: "1100px",}}>
               {images.map((src, index) => (
                 <div 
                   key={index}

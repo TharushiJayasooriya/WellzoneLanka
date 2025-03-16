@@ -30,9 +30,9 @@ export default function TrainerRegister() {
   
   // Array of trainer-related images for the slideshow
   const images = [
-    "/assets/trainer1.png",
-    "/assets/trainer2.png",
-    "/assets/trainer3.png",
+    "/assets/tr1.png",
+    "/assets/tr2.png",
+    "/assets/tr3.png",
   ];
   
   // Specialization options for trainers
@@ -136,7 +136,7 @@ export default function TrainerRegister() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
           {/* Left Side - Image Section */}
           <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
-            <div className="relative w-full" style={{ height: "680px" }}>
+            <div className="relative w-full" style={{ height: "1100px" }}>
               {images.map((src, index) => (
                 <div 
                   key={index}
