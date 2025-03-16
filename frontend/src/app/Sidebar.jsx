@@ -17,6 +17,7 @@ import {
   ChevronLeft
 } from "lucide-react";
 
+
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();

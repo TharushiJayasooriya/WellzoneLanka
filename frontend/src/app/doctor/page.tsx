@@ -30,9 +30,9 @@ export default function DoctorRegister() {
   
   // Array of doctor-related images for the slideshow
   const images = [
-    "/assets/doctor1.png",
-    "/assets/doctor2.png",
-    "/assets/doctor3.png",
+    "/assets/dr1.png",
+    "/assets/dr2.png",
+    "/assets/dr3.png",
   ];
   
   // Set up the slideshow effect
