@@ -8,6 +8,7 @@ Frontend/gym_trainer/components/ui/navbar.tsx
 *.md
 Frontend/gym_trainer/components/ui/mode-toggle.tsx
 frontend/gym_trainer/package-lock.json
+node_modules/.bin/autoprefixer
 node_modules/.bin/browserslist
 node_modules/.bin/nanoid
 node_modules/.bin/update-browserslist-db
