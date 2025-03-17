@@ -7,6 +7,7 @@ import Link from "next/link";
 import Navbar from "../Navbar";
 import { toast } from "sonner";
 import {useRouter} from "next/navigation";
+import FloatingBackButton from "../backbutton/page";
 
 export default function TrainerRegister() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,9 +31,9 @@ export default function TrainerRegister() {
   
   // Array of trainer-related images for the slideshow
   const images = [
-    "/assets/trainer1.png",
-    "/assets/trainer2.png",
-    "/assets/trainer3.png",
+    "/assets/tr1.png",
+    "/assets/tr2.png",
+    "/assets/tr3.png",
   ];
   
   // Specialization options for trainers
@@ -130,13 +131,14 @@ export default function TrainerRegister() {
       </div>
 
       <Navbar/>
+           
       
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
           {/* Left Side - Image Section */}
           <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
-            <div className="relative w-full" style={{ height: "680px" }}>
+            <div className="relative w-full" style={{ height: "1100px" }}>
               {images.map((src, index) => (
                 <div 
                   key={index}
@@ -391,6 +393,24 @@ export default function TrainerRegister() {
                       <Link href="/login" className="text-cyan-600 hover:text-cyan-700 font-semibold">
                         Login here
                       </Link>
+                      <div className="text-center mt-5">
+                      <p className="text-gray-600 text-sm">
+                         {" "}
+                        <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                        
+                        </a>
+                      </p>
+                      <p className="text-gray-600 text-sm mt-2">
+                        Not a trainer? {" "}
+                        <a href="/register" className="text-gray-800 hover:text-black font-medium">
+                          Register as Patient
+                        </a> or {" "}
+                        <a href="/doctor" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                          Register as Doctor
+                        </a>
+                      </p>
+                      
+                    </div>
                     </div>
                   </form>
                 </div>

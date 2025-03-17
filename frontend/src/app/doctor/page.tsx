@@ -7,6 +7,7 @@ import Link from "next/link";
 import Navbar from "../Navbar";
 import { toast } from "sonner";
 import {useRouter} from "next/navigation";
+import FloatingBackButton from "../backbutton/page";
 
 export default function DoctorRegister() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,9 +31,9 @@ export default function DoctorRegister() {
   
   // Array of doctor-related images for the slideshow
   const images = [
-    "/assets/doctor1.png",
-    "/assets/doctor2.png",
-    "/assets/doctor3.png",
+    "/assets/dr1.png",
+    "/assets/dr2.png",
+    "/assets/dr3.png",
   ];
   
   // Set up the slideshow effect
@@ -95,13 +96,14 @@ export default function DoctorRegister() {
       </div>
 
       <Navbar/>
+            
       
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{paddingTop: "120px"}}>
           {/* Left Side - Image Section */}
           <div className="md:col-span-5 rounded-lg overflow-hidden shadow-xl relative">
-            <div className="relative w-full" style={{ height: "680px" }}>
+            <div className="relative w-full" style={{ height: "1100px",}}>
               {images.map((src, index) => (
                 <div 
                   key={index}
@@ -413,28 +415,22 @@ export default function DoctorRegister() {
                     <div className="text-center mt-5">
                       <p className="text-gray-600 text-sm">
                         Already have an account? {" "}
-                        <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
-                          Sign in
+                        <a href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+                        Login here
                         </a>
                       </p>
                       <p className="text-gray-600 text-sm mt-2">
                         Not a doctor? {" "}
-                        <a href="#" className="text-gray-800 hover:text-black font-medium">
+                        <a href="/register" className="text-gray-800 hover:text-black font-medium">
                           Register as Patient
                         </a> or {" "}
-                        <a href="#" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                        <a href="/trainer" className="text-cyan-600 hover:text-cyan-700 font-medium">
                           Register as Trainer
                         </a>
                       </p>
                     </div>
 
-                    <div className="pt-6 mt-6 border-t border-gray-200">
-                      <p className="text-center text-sm text-gray-500">After registration, your credentials will be verified before approval</p>
-                      <p className="text-center text-sm text-gray-500 mt-1">
-                        <Clipboard className="inline-block h-4 w-4 mr-1" />
-                        <span>You can track your application status after submission</span>
-                      </p>
-                    </div>
+                  
                   </form>
                 </div>
               </div>

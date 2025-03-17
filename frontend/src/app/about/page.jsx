@@ -57,6 +57,7 @@ export default function About() {
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50">
       <Navbar />
       <Sidebar/>
+      
 
       {/* Hero Section with Parallax Effect */}
       <div className="relative w-full h-[70vh] overflow-hidden">
