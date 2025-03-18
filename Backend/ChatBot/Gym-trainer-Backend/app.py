@@ -139,3 +139,44 @@ def cancel_appointment(appointment_id):
         'message': 'Appointment cancelled successfully'
     })
 
+
+@app.route('/api/video-sessions', methods=['POST'])
+def create_video_session():
+    data = request.json
+    required_fields = ['appointment_id', 'host_id']
+    
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'error': f'Missing required field: {field}'}), 400
+    
+    # Create video session
+    session_id = video_sessions.insert_one({
+        'appointment_id': data['appointment_id'],
+        'host_id': data['host_id'],
+        'participants': data.get('participants', []),
+        'status': 'created',
+        'created_at': datetime.now()
+    }).inserted_id
+    
+    # In a real app, this would integrate with a video service API
+    # to create the actual video session and get connection details
+    
+    return jsonify({
+        'success': True,
+        'session_id': str(session_id),
+        'join_url': f'/video-session/{session_id}',
+        'token': 'mock-token-' + str(session_id)
+    }), 201
+
+@app.route('/api/video-sessions/<session_id>', methods=['GET'])
+def get_video_session(session_id):
+    session = video_sessions.find_one({'_id': ObjectId(session_id)})
+    
+    if not session:
+        return jsonify({'error': 'Video session not found'}), 404
+    
+    return jsonify({
+        'session': json.loads(json.dumps(session, default=json_serialize))
+    })
+
+
