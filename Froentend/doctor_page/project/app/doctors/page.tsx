@@ -185,11 +185,6 @@ export default function DoctorsPage() {
                   >
                     Book Appointment
                   </button>
-
-                  <button className="flex items-center justify-center bg-secondary text-secondary-foreground rounded-md py-2 px-4 text-sm font-medium hover:bg-secondary/80 transition-colors">
-                    <Video className="h-4 w-4 mr-2" />
-                    Video Call
-                  </button>
                 </div>
               </div>
             </motion.div>
@@ -215,7 +210,7 @@ export default function DoctorsPage() {
       )}
 
       {/* Chatbot Icon */}
-      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors">
+      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors animate-bounce">
         <Link href="/chat">
           <Bot className="h-8 w-8 text-white" />
         </Link>
