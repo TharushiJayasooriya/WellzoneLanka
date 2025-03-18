@@ -63,3 +63,44 @@ def create_user():
         'success': True,
         'user_id': str(user_id)
     }), 201
+
+
+
+@app.route('/api/appointments', methods=['GET'])
+def get_appointments():
+    user_id = request.args.get('user_id')
+    query = {}
+    
+    if user_id:
+        query['user_id'] = user_id
+    
+    appointment_list = list(appointments.find(query))
+    return jsonify({
+        'appointments': json.loads(json.dumps(appointment_list, default=json_serialize))
+    })
+
+@app.route('/api/appointments', methods=['POST'])
+def create_appointment():
+    data = request.json
+    required_fields = ['user_id', 'trainer_id', 'date', 'time']
+    
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'error': f'Missing required field: {field}'}), 400
+    
+    # Create appointment
+    appointment_id = appointments.insert_one({
+        'user_id': data['user_id'],
+        'trainer_id': data['trainer_id'],
+        'date': data['date'],
+        'time': data['time'],
+        'notes': data.get('notes', ''),
+        'status': 'pending',
+        'created_at': datetime.now()
+    }).inserted_id
+    
+    return jsonify({
+        'success': True,
+        'appointment_id': str(appointment_id)
+    }), 201
+
