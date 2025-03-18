@@ -104,3 +104,38 @@ def create_appointment():
         'appointment_id': str(appointment_id)
     }), 201
 
+
+@app.route('/api/appointments/<appointment_id>', methods=['PATCH'])
+def update_appointment(appointment_id):
+    data = request.json
+    
+    # Update appointment
+    result = appointments.update_one(
+        {'_id': ObjectId(appointment_id)},
+        {'$set': data}
+    )
+    
+    if result.modified_count == 0:
+        return jsonify({'error': 'Appointment not found or no changes made'}), 404
+    
+    return jsonify({
+        'success': True,
+        'message': 'Appointment updated successfully'
+    })
+
+@app.route('/api/appointments/<appointment_id>', methods=['DELETE'])
+def cancel_appointment(appointment_id):
+    # Cancel appointment (soft delete by updating status)
+    result = appointments.update_one(
+        {'_id': ObjectId(appointment_id)},
+        {'$set': {'status': 'cancelled'}}
+    )
+    
+    if result.modified_count == 0:
+        return jsonify({'error': 'Appointment not found or already cancelled'}), 404
+    
+    return jsonify({
+        'success': True,
+        'message': 'Appointment cancelled successfully'
+    })
+
