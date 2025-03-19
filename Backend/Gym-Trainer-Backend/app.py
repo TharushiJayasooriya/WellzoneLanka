@@ -14,3 +14,9 @@ mongo_uri = os.environ.get('MONGO_URI', 'mongodb://localhost:27017/wellzone')
 client = MongoClient(mongo_uri)
 db = client.get_database('wellzone')
 
+# Collections
+users = db.users
+appointments = db.appointments
+video_sessions = db.video_sessions
+
+
