@@ -77,7 +77,7 @@ export default function Home() {
               Health And Fitness Coach
             </h1>
             <p className="text-2xl text-gray-100 mb-8 animate-fade-in opacity-0" style={{ animationDelay: '0.5s' }}>
-              Welcome to WellZone Lanka, Unlock a Healthier You with AI Precision
+            Welcome to WellZone Lanka, Unlock a Healthier You with Expert Guidance
             </p>
             <div className="flex space-x-4 animate-fade-in opacity-0" style={{ animationDelay: '0.8s' }}>
             <Link href="/register">
@@ -103,8 +103,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Features Section with Staggered Pop Animation */}
-      <div className="py-24 bg-white">
+{/* Features Section with Staggered Pop Animation */}
+<div className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <h2 className="text-base text-cyan-600 font-semibold tracking-wide uppercase animate-fade-up opacity-0"></h2>
@@ -112,78 +112,60 @@ export default function Home() {
               Why Choose WellZone Lanka
             </p>
             <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto animate-fade-up opacity-0" style={{ animationDelay: '0.4s' }}>
-              Our comprehensive approach combines cutting-edge AI technology with expert human coaching
+              Our comprehensive approach combines cutting-edge technology with expert human coaching
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {/* Feature 1 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '0.2s' }}>
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0 flex flex-col h-full" style={{ animationDelay: '0.2s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
                 <Activity className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Exercise Tracking</h3>
-              <p className="mt-4 text-gray-600">
-              Track your fitness journey in real time with detailed workout logs, performance analytics, and personalized insights. Set goals, monitor daily activities, and stay motivated every step of the way.
+              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Exercise Tracking</h3>
+              <p className="text-gray-600 flex-grow">
+                Track your fitness journey in real time with detailed workout logs, performance analytics, and personalized insights. Set goals, monitor daily activities, and stay motivated every step of the way.
               </p>
-              <div className="mt-6 flex items-center text-cyan-600">
-
+              <div className="mt-4 flex items-center text-cyan-600">
               </div>
             </div>
 
-            {/* Feature 2 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '0.6s' }}>
-              <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
-                <Dumbbell className="h-8 w-8 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">AI Powered Exercises</h3>
-              <p className="mt-4 text-gray-600">
-              Achieve your fitness goals with AI-powered workout recommendations tailored to your body, fitness level, and objectives. Our smart system adapts as you progress, providing safe and effective exercises for the best results.
-              </p>
-              <div className="mt-6 flex items-center text-cyan-600">
-
-              </div>
-            </div>
-
-            {/* Feature 3 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '1s' }}>
+            {/* Feature 2 - Chat Bot */}
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0 flex flex-col h-full" style={{ animationDelay: '0.6s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
                 <IoIosChatbubbles className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Chat Bot</h3>
-              <p className="mt-11 text-gray-600">
-              Have fitness and health support at your fingertips with our AI-powered chatbot. Get instant answers to workout queries, exercise recommendations, nutrition tips, and general wellness advice—all available 24/7 for your convenience.
+              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Chat Bot</h3>
+              <p className="text-gray-600 flex-grow">
+                Have fitness and health support at your fingertips with our AI-powered chatbot. Get instant answers to workout queries, exercise recommendations, nutrition tips, and general wellness advice—all available 24/7 for your convenience.
               </p>
-              <div className="mt-6 flex items-center text-cyan-600">
-
+              <div className="mt-4 flex items-center text-cyan-600">
               </div>
             </div>
 
-            {/* Feature 4 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '1.4s' }}>
+            {/* Feature 3 - Gym Trainer */}
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0 flex flex-col h-full" style={{ animationDelay: '1s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
                 <IoIosFitness className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Gym Trainer Consultation</h3>
-              <p className="mt-4 text-gray-600">
-              Get expert fitness coaching from experienced trainers who design personalized workout plans, offer professional advice, and keep you motivated. Whether you&apos;re just starting out or a seasoned athlete, you&apos;ll get the guidance you need to reach your fitness goals.
+              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Gym Trainer Consultation</h3>
+              <p className="text-gray-600 flex-grow">
+                Get expert fitness coaching from experienced trainers who design personalized workout plans, offer professional advice, and keep you motivated. Whether you&apos;re just starting out or a seasoned athlete, you&apos;ll get the guidance you need to reach your fitness goals.
               </p>
-              <div className="mt-6 flex items-center text-cyan-600">
-
+              <div className="mt-4 flex items-center text-cyan-600">
               </div>
             </div>
 
-            {/* Feature 5 */}
-            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0" style={{ animationDelay: '1.8s' }}>
+            {/* Feature 4 - Physiotherapist */}
+            <div className="relative p-8 bg-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 animate-pop-in opacity-0 flex flex-col h-full" style={{ animationDelay: '1.4s' }}>
               <div className="absolute -top-4 -right-4 bg-cyan-500 rounded-full p-4">
                 <IoIosHeart className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mt-8">Physiotherapist Consultation</h3>
-              <p className="mt-4 text-gray-600">
-              Get expert care from certified physiotherapists to prevent injuries, recover faster, and enhance mobility. Book online consultations and receive personalized therapy plans tailored to support your well-being.
+              <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Physiotherapist Consultation</h3>
+              <p className="text-gray-600 flex-grow">
+                Get expert care from certified physiotherapists to prevent injuries, recover faster, and enhance mobility. Book online consultations and receive personalized therapy plans tailored to support your well-being.
               </p>
-              <div className="mt-6 flex items-center text-cyan-600">
-
+              <div className="mt-4 flex items-center text-cyan-600">
               </div>
             </div>
           </div>
@@ -473,7 +455,7 @@ export default function Home() {
 
             <button
               className="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-teal-500 border-2 border-white text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              onClick={() => window.location.href = '/services'}
+              onClick={() => window.location.href = '/register'}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <span className="flex items-center justify-center relative z-10">

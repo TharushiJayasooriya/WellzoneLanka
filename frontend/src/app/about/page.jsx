@@ -68,7 +68,7 @@ export default function About() {
             backgroundAttachment: 'fixed'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-sky-500 to-blue-600"></div>
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -124,7 +124,7 @@ export default function About() {
               At <span className="font-semibold text-blue-600">WellZone Lanka</span>,
               we focus on improving your overall well-being with a complete approach to fitness. Our aim is to help you achieve more than just physical fitness—it's about creating a balanced lifestyle that boosts your health and happiness. We provide personalized coaching, expert advice, and a supportive community to keep you motivated. Whether it's improving your fitness, getting better sleep, or reducing stress, we focus on making positive changes that last.  
 
-With WellZone Lanka, you’re not just working on fitness goals, but building a lifestyle that helps you feel better and live a healthier life.
+With WellZone Lanka, you're not just working on fitness goals, but building a lifestyle that helps you feel better and live a healthier life.
             </p>
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
               Our innovative approach breaks down barriers to fitness, making expert guidance accessible and affordable for everyone across the island. Whether you're in Colombo or Jaffna, Galle or Trincomalee, WellZone brings world-class wellness solutions directly to you.
@@ -166,13 +166,11 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
             {[{ 
               icon: <Star size={32} />, 
               title: "Our Mission", 
-              text: "Empowering Sri Lankans to achieve optimal health through accessible, AI-enhanced fitness solutions tailored to individual needs, cultural contexts, and lifestyles." ,
               text: "Our mission is to help people live healthier and happier lives by offering personalized fitness coaching, expert advice, and a supportive community to help them reach their goals." 
             },
             { 
               icon: <Brain size={32} />, 
               title: "Our Vision", 
-              text: "To revolutionize the wellness landscape in Sri Lanka by democratizing access to world-class fitness guidance, making professional coaching available to everyone regardless of location or economic status." ,
               text: "Our vision is to become the top provider of complete fitness solutions in Sri Lanka, inspiring and supporting people of all fitness levels to live healthier and more fulfilling lives." 
             }].map((item, index) => (
               <motion.div 
@@ -335,4 +333,5 @@ With WellZone Lanka, you’re not just working on fitness goals, but building a 
 
       <Footer/>
     </div>
-  );}
+  );
+}
