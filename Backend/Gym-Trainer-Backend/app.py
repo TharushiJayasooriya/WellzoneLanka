@@ -30,4 +30,43 @@ def json_serialize(obj):
 
 
 
+# Routes
+@app.route('/api/users', methods=['GET'])
+def get_users():
+    user_list = list(users.find())
+    return jsonify({
+        'users': json.loads(json.dumps(user_list, default=json_serialize))
+    })
+
+@app.route('/api/users', methods=['POST'])
+def create_user():
+    data = request.json
+    required_fields = ['name', 'email', 'password', 'role']
+    
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'error': f'Missing required field: {field}'}), 400
+    
+    # Check if user already exists
+    if users.find_one({'email': data['email']}):
+        return jsonify({'error': 'User with this email already exists'}), 409
+    
+    # Create user
+    user_id = users.insert_one({
+        'name': data['name'],
+        'email': data['email'],
+        'password': data['password'],  # In production, hash this password
+        'role': data['role'],
+        'created_at': datetime.now()
+    }).inserted_id
+    
+    return jsonify({
+        'success': True,
+        'user_id': str(user_id)
+    }), 201
+
+
+
+
+
 
