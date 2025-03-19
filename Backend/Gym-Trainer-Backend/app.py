@@ -20,3 +20,14 @@ appointments = db.appointments
 video_sessions = db.video_sessions
 
 
+# Helper function to convert ObjectId to string
+def json_serialize(obj):
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
+
+
+
+
