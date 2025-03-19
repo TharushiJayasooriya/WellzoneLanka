@@ -50,3 +50,41 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Failed to create video session" }, { status: 500 })
   }
 }
+
+export async function GET(request: NextRequest) {
+    try {
+      const sessionId = request.nextUrl.searchParams.get("sessionId")
+  
+      if (!sessionId) {
+        return NextResponse.json({ error: "Session ID is required" }, { status: 400 })
+      }
+  
+      const { db } = await connectToDatabase()
+  
+      // Fetch session from MongoDB
+      const session = await db.collection("videoSessions").findOne({
+        _id: new ObjectId(sessionId),
+      })
+  
+      if (!session) {
+        return NextResponse.json({ error: "Video session not found" }, { status: 404 })
+      }
+  
+      // Fetch appointment details
+      const appointment = await db.collection("appointments").findOne({
+        _id: new ObjectId(session.appointmentId),
+      })
+  
+      return NextResponse.json({
+        session: {
+          ...convertDocToJSON(session),
+          appointment: appointment ? convertDocToJSON(appointment) : null,
+        },
+      })
+    } catch (error) {
+      console.error("Error fetching video session:", error)
+      return NextResponse.json({ error: "Failed to fetch video session" }, { status: 500 })
+    }
+  }
+  
+  
