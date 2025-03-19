@@ -65,6 +65,78 @@ def create_user():
         'user_id': str(user_id)
     }), 201
 
+@app.route('/api/appointments', methods=['GET'])
+def get_appointments():
+    user_id = request.args.get('user_id')
+    query = {}
+    
+    if user_id:
+        query['user_id'] = user_id
+    
+    appointment_list = list(appointments.find(query))
+    return jsonify({
+        'appointments': json.loads(json.dumps(appointment_list, default=json_serialize))
+    })
+
+@app.route('/api/appointments', methods=['POST'])
+def create_appointment():
+    data = request.json
+    required_fields = ['user_id', 'trainer_id', 'date', 'time']
+    
+    for field in required_fields:
+        if field not in data:
+            return jsonify({'error': f'Missing required field: {field}'}), 400
+    
+    # Create appointment
+    appointment_id = appointments.insert_one({
+        'user_id': data['user_id'],
+        'trainer_id': data['trainer_id'],
+        'date': data['date'],
+        'time': data['time'],
+        'notes': data.get('notes', ''),
+        'status': 'pending',
+        'created_at': datetime.now()
+    }).inserted_id
+    
+    return jsonify({
+        'success': True,
+        'appointment_id': str(appointment_id)
+    }), 201
+
+@app.route('/api/appointments/<appointment_id>', methods=['PATCH'])
+def update_appointment(appointment_id):
+    data = request.json
+    
+    # Update appointment
+    result = appointments.update_one(
+        {'_id': ObjectId(appointment_id)},
+        {'$set': data}
+    )
+    
+    if result.modified_count == 0:
+        return jsonify({'error': 'Appointment not found or no changes made'}), 404
+    
+    return jsonify({
+        'success': True,
+        'message': 'Appointment updated successfully'
+    })
+
+@app.route('/api/appointments/<appointment_id>', methods=['DELETE'])
+def cancel_appointment(appointment_id):
+    # Cancel appointment (soft delete by updating status)
+    result = appointments.update_one(
+        {'_id': ObjectId(appointment_id)},
+        {'$set': {'status': 'cancelled'}}
+    )
+    
+    if result.modified_count == 0:
+        return jsonify({'error': 'Appointment not found or already cancelled'}), 404
+    
+    return jsonify({
+        'success': True,
+        'message': 'Appointment cancelled successfully'
+    })
+
 
 
 
