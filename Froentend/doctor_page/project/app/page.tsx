@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -7,6 +7,9 @@ import { ArrowRight, Heart, Calendar, Video, Star, Bot, Play } from "lucide-reac
 import { motion } from "framer-motion";
 import Navbar from "@/components/navbar";
 import { Marquee } from "@/components/magicui/marquee";
+import { useState } from 'react';
+import { ChatDialog } from '@/components/chatbot/ChatDialog';
+import { ChatButton } from '@/components/chatbot/ChatButton';
 
 const reviews = [
   { img: "/images/marquee_1.jpeg" },
@@ -45,6 +48,8 @@ export function MarqueeDemoVertical() {
 }
 
 export default function Home() {
+  const [chatOpen, setChatOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -71,14 +76,6 @@ export default function Home() {
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative">
             <MarqueeDemoVertical />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative"
-          >
-            
           </motion.div>
         </div>
       </section>
@@ -182,12 +179,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Chatbot Icon */}
-      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors justify-center animate-bounce">
-        <Link href="/chat">
-          <Bot className="h-8 w-8 text-white" />
-        </Link>
-      </div>
+      <ChatButton onClick={() => setChatOpen(true)} />
+      <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
 
       {/* Floating Elements */}
       <div className="absolute top-20 left-10">
@@ -244,6 +237,5 @@ function TestimonialCard({ image, name, text, delay }: { image: string; name: st
       </div>
       <p className="text-gray-600 italic">&quot;{text}&quot;</p>
     </motion.div>
-        
   );
 }

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { ChatDialog } from '@/components/chatbot/ChatDialog';
+import { ChatButton } from '@/components/chatbot/ChatButton';
 import {
   Select,
   SelectContent,
@@ -88,6 +90,8 @@ export default function DoctorsPage() {
       ? allDoctors
       : allDoctors.filter((doctor) => doctor.category === selectedCategory);
 
+  const [chatOpen, setChatOpen] = useState(false);
+  
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -210,11 +214,8 @@ export default function DoctorsPage() {
       )}
 
       {/* Chatbot Icon */}
-      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors animate-bounce">
-        <Link href="/chat">
-          <Bot className="h-8 w-8 text-white" />
-        </Link>
-      </div>
+      <ChatButton onClick={() => setChatOpen(true)} />
+      <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
     </div>
   );
 }

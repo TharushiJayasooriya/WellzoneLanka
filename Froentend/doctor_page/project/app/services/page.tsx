@@ -2,10 +2,11 @@
 
 import { Activity, Brain, Bot, Dumbbell, Spline as Spine, FileWarning as Running, Baby, Armchair as Wheelchair, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { Button } from "@/components/ui/button";
 import Navbar from '@/components/navbar';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { ChatDialog } from '@/components/chatbot/ChatDialog';
+import { ChatButton } from '@/components/chatbot/ChatButton';
 
 export default function ServicesPage() {
   const services = [
@@ -132,6 +133,8 @@ export default function ServicesPage() {
       }
     }
   };
+
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -325,11 +328,8 @@ export default function ServicesPage() {
       </section>
       
       {/* Chatbot Icon */}
-      <div className="fixed right-4 bottom-10 transform -translate-y-1/2 z-50 bg-sky-500 p-4 rounded-full shadow-lg hover:bg-sky-600 transition-colors justify-center animate-bounce">
-        <Link href="/chat">
-          <Bot className="h-8 w-8 text-white" />
-        </Link>
-      </div>
+      <ChatButton onClick={() => setChatOpen(true)} />
+      <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
 
       {/* CTA Section */}
       <motion.section 
