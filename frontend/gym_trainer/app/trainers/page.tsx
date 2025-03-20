@@ -17,9 +17,9 @@ export default function Trainers() {
     {
       id: "trainer-1",
       name: "Sanuka Siriwardhana",
-      image: "",
+      image: "https://well-zone-assets.netlify.app/Sanuka.png",
       specialties: ["Weight Training", "Rehabilitation", "Nutrition", "Calisthenics"],
-      experience: "4 years",
+      experience: "8 years",
       rating: 4.9,
       reviews: 254,
       price: "Rs. 1,500/hour",
@@ -27,81 +27,37 @@ export default function Trainers() {
     },
     {
       id: "trainer-2",
-      name: "Esitha jayasundara",
+      name: "Kaveen Adesh",
       image: "",
       specialties: ["Yoga", "Pilates", "Flexibility"],
-      experience: "2 years",
+      experience: "5 years",
       rating: 4.5,
-      reviews: 100,
+      reviews: 220,
       price: "Rs. 1,700/hour",
       availability: "Tue-Sat, 7AM-7PM"
     },
     {
       id: "trainer-3",
-      name: "Anjitha Shahasya",
+      name: "Sylvester Silva",
       image: "",
       specialties: ["HIIT", "Functional Training", "Weight Loss"],
-      experience: "5 years",
-      rating: 4.7,
-      reviews: 356,
-      price: "Rs. 1,800/hour",
+      experience: "15 years",
+      rating: 5,
+      reviews: 450,
+      price: "Rs. 2,500/hour",
       availability: "Mon-Sat, 5AM-9PM"
     },
     {
       id: "trainer-4",
-      name: "Lakshmi Rajapaksa",
+      name: "Malinda Amarasinghe",
       image: "",
       specialties: ["Senior Fitness", "Rehabilitation", "Low Impact"],
       experience: "12 years",
       rating: 4.9,
-      reviews: 210,
-      price: "Rs. 3,000/hour",
+      reviews: 350,
+      price: "Rs. 2,500/hour",
       availability: "Mon-Fri, 8AM-6PM"
     },
-    {
-      id: "trainer-5",
-      name: "Roshan Silva",
-      image: "",
-      specialties: ["Bodybuilding", "Strength Training", "Nutrition"],
-      experience: "9 years",
-      rating: 4.6,
-      reviews: 132,
-      price: "Rs. 2,700/hour",
-      availability: "Wed-Sun, 6AM-8PM"
-    },
-    {
-      id: "trainer-6",
-      name: "Nisha Jayawardena",
-      image: "",
-      specialties: ["Prenatal Fitness", "Postnatal Recovery", "Women's Health"],
-      experience: "7 years",
-      rating: 4.8,
-      reviews: 89,
-      price: "Rs. 2,400/hour",
-      availability: "Mon-Fri, 9AM-5PM"
-    },
-    {
-      id: "trainer-7",
-      name: "Malik Gunaratne",
-      image: "",
-      specialties: ["Sports Performance", "Athletic Training", "Injury Prevention"],
-      experience: "11 years",
-      rating: 4.7,
-      reviews: 145,
-      price: "Rs. 2,900/hour",
-      availability: "Tue-Sun, 7AM-9PM"
-    },
-    {
-      id: "trainer-8",
-      name: "Tharushi De Silva",
-      image: "",
-      specialties: ["Dance Fitness", "Aerobics", "Zumba"],
-      experience: "5 years",
-      rating: 4.8,
-      reviews: 76,
-      price: "Rs. 2,100/hour",
-      availability: "Mon-Sat, 10AM-8PM"
-    }
   ];
 
   return (
