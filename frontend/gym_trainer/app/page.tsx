@@ -134,19 +134,19 @@ export default function Home() {
             {
               name: "Priya Mendis",
               role: "Office Worker",
-              image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+              image: "",
               quote: "The pain management exercises helped me overcome my chronic back pain. I can now work comfortably for longer hours."
             },
             {
               name: "Ashan Fernando",
               role: "Software Engineer",
-              image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
+              image: "",
               quote: "Connecting with a trainer online has been a game-changer. I get professional guidance without leaving my home."
             },
             {
               name: "Dilini Perera",
               role: "Teacher",
-              image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+              image: "",
               quote: "The form tracking feature ensures I'm doing exercises correctly. It's like having a personal trainer watching over me."
             }
           ].map((testimonial, index) => (

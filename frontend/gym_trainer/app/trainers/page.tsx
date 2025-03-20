@@ -17,7 +17,7 @@ export default function Trainers() {
     {
       id: "trainer-1",
       name: "Sanuka Siriwardhana",
-      image: "https://well-zone-assets.netlify.app/Sanuka.png",
+      image: "https://well-zone-assets.netlify.app/Sanuka%20Siriwardhana.png",
       specialties: ["Weight Training", "Rehabilitation", "Nutrition", "Calisthenics"],
       experience: "8 years",
       rating: 4.9,
@@ -28,7 +28,7 @@ export default function Trainers() {
     {
       id: "trainer-2",
       name: "Kaveen Adesh",
-      image: "",
+      image: "https://well-zone-assets.netlify.app/Kaveen%20Adesh.png",
       specialties: ["Yoga", "Pilates", "Flexibility"],
       experience: "5 years",
       rating: 4.5,
@@ -39,7 +39,7 @@ export default function Trainers() {
     {
       id: "trainer-3",
       name: "Sylvester Silva",
-      image: "",
+      image: "https://well-zone-assets.netlify.app/Sylvester%20Silva.png",
       specialties: ["HIIT", "Functional Training", "Weight Loss"],
       experience: "15 years",
       rating: 5,
@@ -50,7 +50,7 @@ export default function Trainers() {
     {
       id: "trainer-4",
       name: "Malinda Amarasinghe",
-      image: "",
+      image: "https://well-zone-assets.netlify.app/Malinda%20Amarasinghe.png",
       specialties: ["Senior Fitness", "Rehabilitation", "Low Impact"],
       experience: "12 years",
       rating: 4.9,
@@ -107,7 +107,7 @@ export default function Trainers() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {trainers.map((trainer) => (
             <Card key={trainer.id} className="wellzone-card overflow-hidden">
-              <div className="relative h-48">
+              <div className="relative h-48" style={{height:"300px"}}>
                 <img 
                   src={trainer.image} 
                   alt={trainer.name} 
@@ -143,9 +143,6 @@ export default function Trainers() {
                   <Link href={`/trainers/${trainer.id}`}>
                     View Profile <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
-                </Button>
-                <Button variant="outline" className="w-full">
-                  <MessageSquare className="mr-2 h-4 w-4" /> Message
                 </Button>
               </CardFooter>
             </Card>
