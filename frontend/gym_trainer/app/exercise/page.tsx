@@ -9,6 +9,7 @@ import {
   Search, 
   Filter
 } from "lucide-react";
+import { url } from "inspector";
 
 export default function Exercises() {
   // Mock data for exercises
@@ -20,8 +21,9 @@ export default function Exercises() {
       target: ["Chest", "Shoulders", "Triceps"],
       difficulty: "Beginner",
       duration: "5-10 minutes",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "A classic bodyweight exercise that targets the chest, shoulders, and triceps."
+      image: "https://well-zone-assets.netlify.app/Push-up.png",
+      description: "A classic bodyweight exercise that targets the chest, shoulders, and triceps.",
+      url: "https://www.youtube.com/embed/IODxDxX7oi4?si=TgTQg0AdXA_Uy-Wd"
     },
     {
       id: "ex-2",
@@ -30,8 +32,9 @@ export default function Exercises() {
       target: ["Quadriceps", "Hamstrings", "Glutes"],
       difficulty: "Beginner",
       duration: "5-10 minutes",
-      image: "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-      description: "A fundamental lower body exercise that strengthens the legs and glutes."
+      image: "https://well-zone-assets.netlify.app/Squats.png",
+      description: "A fundamental lower body exercise that strengthens the legs and glutes.",
+      url: "https://youtu.be/gsNoPYwWXeM"
     },
     {
       id: "ex-3",
@@ -40,8 +43,9 @@ export default function Exercises() {
       target: ["Abs", "Lower Back", "Shoulders"],
       difficulty: "Beginner",
       duration: "1-3 minutes",
-      image: "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "An isometric core exercise that improves stability and posture."
+      image: "https://well-zone-assets.netlify.app/Plank.png",
+      description: "An isometric core exercise that improves stability and posture.",
+      url:"https://youtu.be/kL_NJAkCQBg?si=6uSJy3ZbuVxeYZLe"
     },
     {
       id: "ex-4",
@@ -50,89 +54,10 @@ export default function Exercises() {
       target: ["Quadriceps", "Hamstrings", "Glutes"],
       difficulty: "Beginner",
       duration: "5-10 minutes",
-      image: "https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "A unilateral exercise that targets the legs and improves balance."
+      image: "https://well-zone-assets.netlify.app/Lunges.png",
+      description: "A unilateral exercise that targets the legs and improves balance.",
+      url:"https://youtube.com/shorts/nvRONn4vV6E?si=YaPYIcIXVG3eV-ld"
     },
-    {
-      id: "ex-5",
-      name: "Mountain Climbers",
-      category: "Cardio",
-      target: ["Core", "Shoulders", "Cardiovascular System"],
-      difficulty: "Intermediate",
-      duration: "1-3 minutes",
-      image: "https://images.unsplash.com/photo-1434608519344-49d77a699e1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "A dynamic exercise that combines cardio and core strengthening."
-    },
-    {
-      id: "ex-6",
-      name: "Burpees",
-      category: "Cardio",
-      target: ["Full Body", "Cardiovascular System"],
-      difficulty: "Advanced",
-      duration: "5-10 minutes",
-      image: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-      description: "A high-intensity exercise that works the entire body and boosts cardio fitness."
-    },
-    {
-      id: "ex-7",
-      name: "Bicycle Crunches",
-      category: "Core",
-      target: ["Abs", "Obliques"],
-      difficulty: "Intermediate",
-      duration: "3-5 minutes",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "A dynamic core exercise that targets the abdominals and obliques."
-    },
-    {
-      id: "ex-8",
-      name: "Glute Bridges",
-      category: "Strength",
-      target: ["Glutes", "Lower Back", "Hamstrings"],
-      difficulty: "Beginner",
-      duration: "5-8 minutes",
-      image: "https://images.unsplash.com/photo-1574680178050-55c6a6a96e0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-      description: "An exercise that strengthens the glutes and improves hip mobility."
-    },
-    {
-      id: "ex-9",
-      name: "Jumping Jacks",
-      category: "Cardio",
-      target: ["Cardiovascular System", "Full Body"],
-      difficulty: "Beginner",
-      duration: "3-5 minutes",
-      image: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-      description: "A classic cardio exercise that increases heart rate and improves coordination."
-    },
-    {
-      id: "ex-10",
-      name: "Russian Twists",
-      category: "Core",
-      target: ["Obliques", "Abs"],
-      difficulty: "Intermediate",
-      duration: "3-5 minutes",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "A rotational exercise that targets the obliques and improves core stability."
-    },
-    {
-      id: "ex-11",
-      name: "Tricep Dips",
-      category: "Strength",
-      target: ["Triceps", "Shoulders"],
-      difficulty: "Beginner",
-      duration: "5-8 minutes",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-      description: "An upper body exercise that targets the triceps using body weight."
-    },
-    {
-      id: "ex-12",
-      name: "High Knees",
-      category: "Cardio",
-      target: ["Cardiovascular System", "Core", "Legs"],
-      difficulty: "Beginner",
-      duration: "1-3 minutes",
-      image: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-      description: "A dynamic cardio exercise that elevates heart rate and engages the core."
-    }
   ];
 
   return (
@@ -183,7 +108,7 @@ export default function Exercises() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {exercises.map((exercise) => (
             <Card key={exercise.id} className="wellzone-card overflow-hidden">
-              <div className="relative h-48">
+              <div className="relative h-48" style={{height:"300px"}}>
                 <img 
                   src={exercise.image} 
                   alt={exercise.name} 
@@ -217,90 +142,13 @@ export default function Exercises() {
               </CardContent>
               <CardFooter>
                 <Button asChild className="w-full">
-                  <Link href={`/exercises/${exercise.id}`}>
+                  <Link href={`${exercise.url}`}>
                     View Exercise <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </CardFooter>
             </Card>
           ))}
-        </div>
-      </section>
-
-      {/* Workout Plans Section */}
-      <section className="wellzone-section bg-muted">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold">Workout Plans</h2>
-            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-              Follow our structured workout plans designed by fitness professionals to achieve specific goals.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Beginner Full Body",
-                image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                description: "Perfect for beginners looking to build a foundation of strength and fitness.",
-                duration: "4 weeks",
-                sessions: "3 sessions/week",
-                level: "Beginner"
-              },
-              {
-                title: "Weight Loss Challenge",
-                image: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80",
-                description: "High-intensity workouts designed to maximize calorie burn and fat loss.",
-                duration: "6 weeks",
-                sessions: "4-5 sessions/week",
-                level: "Intermediate"
-              },
-              {
-                title: "Core Strength Builder",
-                image: "https://images.unsplash.com/photo-1566241142559-40e1dab266c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-                description: "Focus on building a strong core for better posture and performance.",
-                duration: "4 weeks",
-                sessions: "3 sessions/week",
-                level: "All levels"
-              }
-            ].map((plan, index) => (
-              <Card key={index} className="wellzone-card overflow-hidden">
-                <div className="relative h-48">
-                  <img 
-                    src={plan.image} 
-                    alt={plan.title} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-semibold mb-2">{plan.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Duration:</span>
-                      <span>{plan.duration}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Frequency:</span>
-                      <span>{plan.sessions}</span>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Level:</span>
-                      <span>{plan.level}</span>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full">
-                    <Link href={`/workout-plans/${index + 1}`}>
-                      View Plan <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
     </div>
