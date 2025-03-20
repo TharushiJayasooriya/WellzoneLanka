@@ -22,6 +22,11 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background:linear-gradient(120deg,rgb(0, 129, 194),blue);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.wellzone-section{
+  margin-top:30px;
+  margin-bottom: 30px;
 }
