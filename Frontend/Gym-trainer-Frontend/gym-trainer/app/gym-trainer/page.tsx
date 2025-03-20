@@ -30,7 +30,7 @@ export default function GymTrainerPage() {
           details="Book appointments with available trainers based on your schedule and fitness goals."
           icon={<Calendar className="h-10 w-10 text-sky-500" />}
           buttonText="Book Now"
-          href="/gym-trainer/book-appointment"
+          href="/gym-trainer/book-appointments"
         />
 
         <ServiceCard
