@@ -447,7 +447,7 @@ export default function Home() {
             </span>
           </h2>
           <p className="text-xl text-cyan-100 mb-10 max-w-3xl mx-auto animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
-            Join WellZone Lanka for a comprehensive approach to your health and fitness. Our professional team and AI technology are ready to guide you.
+          Join WellZone Lanka for a holistic approach to your health and fitness. Our expert team provides personalized guidance to help you achieve your wellness goals.
           </p>
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
             {/* Fixed the button tags here */}

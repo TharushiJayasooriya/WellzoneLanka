@@ -73,11 +73,11 @@ export default function ForgotPassword() {
       className="min-h-screen flex items-center justify-center p-4"
       style={{ 
         background: "url('/assets/fgpw.png') center center no-repeat",
-        backgroundSize: "cover", // Changed to cover the entire container
-        backgroundColor: "#e6f2f7" // Light blue fallback color that matches the image
+        backgroundSize: "cover",
+        backgroundColor: "#e6f2f7"
       }}
     >
-      <div className="max-w-md w-full bg-white/40 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden p-8">
+      <div className="max-w-md w-full bg-white/50 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden p-8">
         <div className="text-center mb-8">
           {/* WellZone Lanka Logo with Black Line */}
           <div className="flex flex-col items-center mb-4">
@@ -117,7 +117,7 @@ export default function ForgotPassword() {
               <input
                 type="email"
                 placeholder="Enter your email address"
-                className="w-full pl-4 pr-10 py-3 bg-gray-50/60 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                className="w-full pl-4 pr-10 py-3 bg-gray-50/70 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
                 disabled={pending}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
