@@ -1,7 +1,7 @@
 import type React from "react";
 import Link from "next/link";
 import { Stethoscope, User, Dumbbell } from "lucide-react";
-import { BackgroundVideo } from "@/app/components/background-video";
+import { BackgroundVideo } from "./components/background-video";
 
 export default function Home() {
   return (

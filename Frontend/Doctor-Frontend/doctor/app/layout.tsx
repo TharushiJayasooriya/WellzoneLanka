@@ -1,6 +1,6 @@
 import type React from "react";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/app/components/theme-provider";
+import { ThemeProvider } from "./components/theme-provider";
 import { Navbar } from "./components/navbar";
 import "./globals.css";
 
