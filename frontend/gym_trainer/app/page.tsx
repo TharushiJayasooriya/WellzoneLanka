@@ -60,25 +60,6 @@ export default function Home() {
           <Card className="wellzone-card">
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-full bg-primary/10 mb-4">
-                  <Activity className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Pain Management</h3>
-                <p className="text-muted-foreground">
-                  Identify pain points and get personalized exercise recommendations to reduce discomfort and improve mobility.
-                </p>
-                <Button asChild variant="link" className="mt-4">
-                  <Link href="/pain-management" className="flex items-center">
-                    Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="wellzone-card">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-secondary/10 mb-4">
                   <Dumbbell className="h-8 w-8 text-secondary" />
                 </div>
@@ -87,7 +68,7 @@ export default function Home() {
                   Access a comprehensive library of exercises with detailed instructions and video demonstrations.
                 </p>
                 <Button asChild variant="link" className="mt-4">
-                  <Link href="/exercises" className="flex items-center">
+                  <Link href="/exercise" className="flex items-center">
                     Explore Exercises <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
@@ -114,24 +95,6 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card className="wellzone-card">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-full bg-primary/10 mb-4">
-                  <MessageSquare className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Fitness Chatbot</h3>
-                <p className="text-muted-foreground">
-                  Get instant answers to your fitness questions and receive guidance from our AI-powered chatbot.
-                </p>
-                <Button asChild variant="link" className="mt-4">
-                  <Link href="/chat" className="flex items-center">
-                    Start Chatting <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
 
           <Card className="wellzone-card">
             <CardContent className="pt-6">
@@ -139,7 +102,7 @@ export default function Home() {
                 <div className="p-3 rounded-full bg-secondary/10 mb-4">
                   <Camera className="h-8 w-8 text-secondary" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Form Tracking</h3>
+                <h3 className="text-xl font-semibold mb-2">Exercise Form Tracking</h3>
                 <p className="text-muted-foreground">
                   Use your camera to track and analyze your exercise form, ensuring safe and effective workouts.
                 </p>
@@ -152,30 +115,14 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          <Card className="wellzone-card">
-            <CardContent className="pt-6">
-              <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-full bg-accent/10 mb-4">
-                  <Activity className="h-8 w-8 text-accent" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">Progress Tracking</h3>
-                <p className="text-muted-foreground">
-                  Monitor your fitness journey with detailed progress tracking and personalized insights.
-                </p>
-                <Button asChild variant="link" className="mt-4">
-                  <Link href="/progress" className="flex items-center">
-                    Track Progress <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </section>
 
       {/* Testimonials Section */}
       <section className="wellzone-section bg-muted">
         <div className="text-center mb-16">
+          <br />
+          <br />
           <h2 className="text-3xl font-bold">What Our Users Say</h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
             Hear from people who have transformed their fitness journey with WellZone Lanka.
@@ -226,6 +173,8 @@ export default function Home() {
       {/* CTA Section */}
       <section className="wellzone-section bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20">
         <div className="max-w-3xl mx-auto text-center">
+          <br />
+          <br />
           <h2 className="text-3xl font-bold">Ready to Transform Your Fitness Journey?</h2>
           <p className="mt-4 text-muted-foreground">
             Join WellZone Lanka today and experience the future of home fitness with professional guidance.
