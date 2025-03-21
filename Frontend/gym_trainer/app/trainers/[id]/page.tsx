@@ -159,7 +159,7 @@ export default function TrainerProfile() {
       </div>
 
       {/* Profile Section */}
-      <section className="wellzone-section -mt-20 relative z-10">
+      <section className="wellzone-section -mt-20 relative z-10" id="comments">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Sidebar */}
