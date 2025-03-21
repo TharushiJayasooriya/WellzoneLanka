@@ -51,7 +51,7 @@ export default function Trainers() {
       id: "trainer-4",
       name: "Malinda Amarasinghe",
       image: "https://well-zone-assets.netlify.app/Malinda%20Amarasinghe.png",
-      specialties: ["Senior Fitness", "Rehabilitation", "Low Impact"],
+      specialties: ["Senior Fitness", "Rehabilitation", "Low Impact Training"],
       experience: "12 years",
       rating: 4.9,
       reviews: 350,

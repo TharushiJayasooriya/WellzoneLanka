@@ -15,7 +15,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto" id="header">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -27,10 +27,10 @@ export default function Home() {
                 AI-powered platform.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
-                <Button asChild size="lg">
+                <Button asChild size="lg" className="exercise-button">
                   <Link href="/exercises">Explore Exercises</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button asChild variant="outline" size="lg" className="trainer-button">
                   <Link href="/trainers">Find a Trainer</Link>
                 </Button>
               </div>
@@ -61,7 +61,7 @@ export default function Home() {
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-secondary/10 mb-4">
-                  <Dumbbell className="h-8 w-8 text-secondary" />
+                  <Dumbbell className="h-8 w-8 text-secondary" style={{color:"rgb(0,150,250)"}}/>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Exercise Library</h3>
                 <p className="text-muted-foreground">
@@ -80,7 +80,7 @@ export default function Home() {
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-accent/10 mb-4">
-                  <Users className="h-8 w-8 text-accent" />
+                  <Users className="h-8 w-8 text-accent" style={{color:"green"}} />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Online Trainers</h3>
                 <p className="text-muted-foreground">
@@ -100,7 +100,7 @@ export default function Home() {
             <CardContent className="pt-6">
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-secondary/10 mb-4">
-                  <Camera className="h-8 w-8 text-secondary" />
+                  <Camera className="h-8 w-8 text-secondary" style={{color:"orangered"}}/>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Exercise Form Tracking</h3>
                 <p className="text-muted-foreground">
@@ -108,7 +108,7 @@ export default function Home() {
                 </p>
                 <Button asChild variant="link" className="mt-4">
                   <Link href="/exercise-tracking" className="flex items-center">
-                    Try Form Tracking <ArrowRight className="ml-2 h-4 w-4" />
+                  Position Detection <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -134,19 +134,19 @@ export default function Home() {
             {
               name: "Priya Mendis",
               role: "Office Worker",
-              image: "",
+              image: "https://well-zone-assets.netlify.app/Priya%20Mendis.jpeg",
               quote: "The pain management exercises helped me overcome my chronic back pain. I can now work comfortably for longer hours."
             },
             {
               name: "Ashan Fernando",
               role: "Software Engineer",
-              image: "",
+              image: "https://well-zone-assets.netlify.app/Ashan%20Fernando.jpeg",
               quote: "Connecting with a trainer online has been a game-changer. I get professional guidance without leaving my home."
             },
             {
               name: "Dilini Perera",
               role: "Teacher",
-              image: "",
+              image: "https://well-zone-assets.netlify.app/Dilini%20Perera.jpeg",
               quote: "The form tracking feature ensures I'm doing exercises correctly. It's like having a personal trainer watching over me."
             }
           ].map((testimonial, index) => (
