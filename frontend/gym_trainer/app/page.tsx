@@ -28,7 +28,7 @@ export default function Home() {
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
                 <Button asChild size="lg" className="exercise-button">
-                  <Link href="/exercises">Explore Exercises</Link>
+                  <Link href="/exercise">Explore Exercises</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="trainer-button">
                   <Link href="/trainers">Find a Trainer</Link>
