@@ -40,3 +40,35 @@ venv/
 .DS_Store
 *.swp
 *.swo
+
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment folder (if you're using venv or virtualenv)
+venv/
+ENV/
+env/
+
+# Distribution / packaging
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Flask-specific ignores
+instance/
+.webassets-cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# mypy
+.mypy_cache/
+
+# VS Code / IDE-specific
+.vscode/
+.idea/
