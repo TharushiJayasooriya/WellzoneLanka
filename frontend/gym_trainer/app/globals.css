@@ -89,5 +89,17 @@ body {
 align-self: center;
 width: 100%;
 padding: 30px;
-border-radius: 10px;
+border-radius: 10px;
+}
+
+.wellzone-card{
+
+  cursor: pointer;
+  transition: 0.4s;
+  
+  }
+
+.wellzone-card:hover{
+
+  box-shadow: 0 0 20px whitesmoke;
 }
