@@ -11,6 +11,14 @@ export default function BookAppointmentPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [submittedData, setSubmittedData] = useState({
+    name: "",
+    email: "",
+    date: "",
+    timeSlot: "",
+    trainer: "",
+    notes: "",
+  });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,6 +45,9 @@ export default function BookAppointmentPage() {
 
     try {
       await bookAppointment(formData);
+
+      // Save the submitted data before resetting the form
+      setSubmittedData({ ...formData });
 
       // Show toast notification
       toast({
@@ -236,7 +247,7 @@ export default function BookAppointmentPage() {
 
       {/* Success Dialog */}
       {showSuccessDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full">
             <div className="flex items-center gap-2 mb-4">
               <CheckCircle className="h-6 w-6 text-green-500" />
@@ -251,23 +262,27 @@ export default function BookAppointmentPage() {
             <div className="grid gap-4 mb-6">
               <div className="grid grid-cols-4 items-center gap-4">
                 <p className="text-right font-medium col-span-1">Name:</p>
-                <p className="col-span-3">{formData.name || "Not provided"}</p>
+                <p className="col-span-3">
+                  {submittedData.name || "Not provided"}
+                </p>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <p className="text-right font-medium col-span-1">Date:</p>
-                <p className="col-span-3">{formData.date || "Not provided"}</p>
+                <p className="col-span-3">
+                  {submittedData.date || "Not provided"}
+                </p>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <p className="text-right font-medium col-span-1">Time:</p>
                 <p className="col-span-3">
-                  {formData.timeSlot || "Not provided"}
+                  {submittedData.timeSlot || "Not provided"}
                 </p>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <p className="text-right font-medium col-span-1">Trainer:</p>
                 <p className="col-span-3">
-                  {formData.trainer
-                    ? formData.trainer
+                  {submittedData.trainer
+                    ? submittedData.trainer
                         .split("-")
                         .map(
                           (word) => word.charAt(0).toUpperCase() + word.slice(1)
