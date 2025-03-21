@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="wellzone-section">
+      <section className="wellzone-section" id="comments">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold">Our Services</h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
