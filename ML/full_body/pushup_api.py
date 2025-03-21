@@ -96,31 +96,36 @@ def video_feed():
             lmList = detector.findPosition(img, False)
 
             if lmList:
-                # Get angles for push-up logic
-                left_elbow= detector.findAngle(img, 11, 13, 15)
-                right_elbow=detector.findAngle(img, 12, 14, 16)
+                left_elbow = detector.findAngle(img, 11, 13, 15)
+                right_elbow = detector.findAngle(img, 12, 14, 16)
                 left_shoulder = detector.findAngle(img, 13, 11, 23)
                 right_shoulder = detector.findAngle(img, 14, 12, 24)
                 left_hip = detector.findAngle(img, 11, 23, 25)
                 right_hip = detector.findAngle(img, 12, 24, 26)
-                left_knee=detector.findAngle(img, 23, 25, 27)
-                right_knee=detector.findAngle(img, 24, 26, 28)
+                left_knee = detector.findAngle(img, 23, 25, 27)
+                right_knee = detector.findAngle(img, 24, 26, 28)
+                left_ankle = detector.findAngle(img, 25, 27, 29)
+                right_ankle = detector.findAngle(img, 26, 28, 30)
+
+                elbow= (left_elbow and right_elbow) 
+                shoulder = (left_shoulder and right_shoulder)
+                hip = (left_hip and right_hip)
                 
 
-                per = np.interp((left_elbow and right_elbow), (90, 160), (0, 100))
-                bar = np.interp((left_elbow and right_elbow), (90, 160), (380, 50))
+                per = np.interp(elbow, (90, 160), (0, 100))
+                bar = np.interp(elbow, (90, 160), (380, 50))
 
-                if (left_elbow and right_elbow) > 160 and (left_shoulder and right_shoulder) > 40 and (left_hip and right_hip) > 160:
+                if elbow > 160 and shoulder > 40 and hip > 160:
                     form = 1
 
                 if form == 1:
-                    if (left_elbow and right_elbow) <= 90 and (left_hip and right_hip) > 160:
-                        feedback = "Up"
+                    if elbow <= 90 and hip > 160:
+                        feedback = "Down"
                         if direction == 0:
                             count += 0.5
                             direction = 1
-                    elif (left_elbow and right_elbow)> 160 and (left_shoulder and right_shoulder) > 40 and (left_hip and right_hip)  > 160:
-                        feedback = "Down"
+                    elif elbow > 160 and shoulder > 40 and hip > 160:
+                        feedback = "Up"
                         if direction == 1:
                             count += 0.5
                             direction = 0
