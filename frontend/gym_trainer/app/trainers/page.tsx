@@ -63,7 +63,9 @@ export default function Trainers() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20">
+      <br />
+      <br />
+      <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20" id="start">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight text-foreground">
@@ -151,7 +153,7 @@ export default function Trainers() {
       </section>
 
       {/* Become a Trainer Section */}
-      <section className="wellzone-section bg-muted">
+      <section className="wellzone-section bg-muted" id="comments">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2">
@@ -160,7 +162,7 @@ export default function Trainers() {
                 Are you a certified fitness professional? Join our platform to connect with clients,
                 expand your reach, and grow your online training business.
               </p>
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="trainer-button">
                 <Link href="/trainers/apply">
                   <Users className="mr-2 h-5 w-5" /> Apply as a Trainer
                 </Link>

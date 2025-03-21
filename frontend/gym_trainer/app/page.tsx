@@ -119,7 +119,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="wellzone-section bg-muted">
+      <section className="wellzone-section bg-muted" id="comments">
         <div className="text-center mb-16">
           <br />
           <br />
@@ -171,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="wellzone-section bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20">
+      <section className="wellzone-section bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20" id="start">
         <div className="max-w-3xl mx-auto text-center">
           <br />
           <br />
@@ -180,10 +180,10 @@ export default function Home() {
             Join WellZone Lanka today and experience the future of home fitness with professional guidance.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="exercise-button">
               <Link href="/signup">Get Started</Link>
             </Button>
-            <Button asChild variant="outline" size="lg">
+            <Button asChild variant="outline" size="lg" className="trainer-button">
               <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
