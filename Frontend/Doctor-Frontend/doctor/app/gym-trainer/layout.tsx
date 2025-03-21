@@ -4,8 +4,8 @@ import type React from "react";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getSession } from "@/lib/auth";
-import { useToast } from "@/app/hooks/use-toast";
+import { getSession } from "../../lib/auth"; 
+import { useToast } from "../hooks/use-toast";
 
 export default function GymTrainerLayout({
   children,

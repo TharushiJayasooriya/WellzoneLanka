@@ -1,15 +1,14 @@
 "use client";
 
-import type React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useToast } from "@/app/hooks/use-toast";
-import { login, register } from "@/lib/auth";
+import { useToast } from "../hooks/use-toast";
+import { login, register } from "../../lib/auth";
 import { Eye, EyeOff } from "lucide-react";
-import { AuthContainer } from "@/app/components/auth-container";
+import { AuthContainer } from "../components/auth-container";
 
-export default function GymTrainerAuthPage() {
+export default function AuthPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +52,7 @@ export default function GymTrainerAuthPage() {
           title: "Login Successful",
           description: "You have been logged in successfully.",
         });
-        router.push("/gym-trainer");
+        router.push("/dashboard"); // Redirect to a generic dashboard
       } else {
         toast({
           title: "Login Failed",
@@ -97,7 +96,7 @@ export default function GymTrainerAuthPage() {
       if (result.success) {
         toast({
           title: "Registration Successful",
-          description: "Your trainer account has been created successfully.",
+          description: "Your account has been created successfully.",
         });
 
         // Auto login after registration
@@ -107,7 +106,7 @@ export default function GymTrainerAuthPage() {
         });
 
         if (loginResult.success) {
-          router.push("/gym-trainer");
+          router.push("/dashboard");
         } else {
           router.push("/login");
         }
@@ -132,11 +131,11 @@ export default function GymTrainerAuthPage() {
 
   return (
     <AuthContainer imageSrc="/trainer.jpg" imageAlt="Gym Trainer">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+      <main className="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="text-center p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold">Gym Trainer Access</h2>
+          <h2 className="text-2xl font-bold">Access Your Account</h2>
           <p className="text-gray-600">
-            Login or create an account to access trainer features
+            Login or create an account to access features
           </p>
         </div>
         <div className="p-6">
@@ -150,6 +149,7 @@ export default function GymTrainerAuthPage() {
                     ? "bg-sky-500 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
+                aria-label="Switch to Login Tab"
               >
                 Login
               </button>
@@ -160,6 +160,7 @@ export default function GymTrainerAuthPage() {
                     ? "bg-sky-500 text-white"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
+                aria-label="Switch to Register Tab"
               >
                 Register
               </button>
@@ -208,6 +209,7 @@ export default function GymTrainerAuthPage() {
                       type="button"
                       onClick={() => setShowLoginPassword(!showLoginPassword)}
                       className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-gray-100 rounded-r-lg"
+                      aria-label="Toggle Password Visibility"
                     >
                       {showLoginPassword ? (
                         <EyeOff className="h-4 w-4 text-gray-500" />
@@ -224,16 +226,6 @@ export default function GymTrainerAuthPage() {
                 >
                   {isLoading ? "Logging in..." : "Login"}
                 </button>
-                <div className="text-center text-sm mt-4">
-                  Don&apos;t have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("register")}
-                    className="text-sky-500 hover:underline font-bold"
-                  >
-                    Register
-                  </button>
-                </div>
               </form>
             )}
 
@@ -350,16 +342,6 @@ export default function GymTrainerAuthPage() {
                 >
                   {isLoading ? "Creating Account..." : "Register"}
                 </button>
-                <div className="text-center text-sm mt-4">
-                  Already have an account?{" "}
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("login")}
-                    className="text-sky-500 hover:underline font-bold"
-                  >
-                    Login
-                  </button>
-                </div>
               </form>
             )}
           </div>
@@ -368,11 +350,12 @@ export default function GymTrainerAuthPage() {
           <Link
             href="/"
             className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-label="Back to Home"
           >
             Back to Home
           </Link>
         </div>
-      </div>
+      </main>
     </AuthContainer>
   );
 }

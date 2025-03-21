@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { connectToDatabase, convertDocToJSON } from "@/lib/api/mongodb"
+import { connectToDatabase, convertDocToJSON } from "../../../../lib/api/mongodb"
 import { ObjectId } from "mongodb"
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
@@ -82,5 +82,4 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       return NextResponse.json({ error: "Failed to cancel appointment" }, { status: 500 })
     }
   }
-  
-  
+

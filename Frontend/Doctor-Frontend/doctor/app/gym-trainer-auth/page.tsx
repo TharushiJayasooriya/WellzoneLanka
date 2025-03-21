@@ -4,10 +4,10 @@ import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useToast } from "@/app/hooks/use-toast";
-import { login, register } from "@/lib/auth";
+import { useToast } from "../hooks/use-toast";
+import { login, register } from "../../lib/auth";
 import { Eye, EyeOff } from "lucide-react";
-import { AuthContainer } from "@/app/components/auth-container";
+import { AuthContainer } from "../components/auth-container";
 
 export default function GymTrainerAuthPage() {
   const router = useRouter();

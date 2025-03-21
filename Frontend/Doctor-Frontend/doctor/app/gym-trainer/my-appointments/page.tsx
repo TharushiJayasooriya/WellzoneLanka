@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Calendar, Clock, User, Video, X } from "lucide-react";
-import { getAppointments, cancelAppointment } from "@/lib/actions";
-import { useToast } from "@/app/hooks/use-toast";
+import { getAppointments, cancelAppointment } from "../../../lib/actions";
+import { toast } from "react-toastify";
 
 interface Appointment {
   id: string;
@@ -16,7 +16,6 @@ interface Appointment {
 }
 
 export default function MyAppointmentsPage() {
-  const { toast } = useToast();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAppointment, setSelectedAppointment] =
@@ -25,41 +24,29 @@ export default function MyAppointmentsPage() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        // In a real app, this would fetch from the API
         const data = await getAppointments();
         setAppointments(data);
       } catch (error) {
-        toast({
-          title: "Error",
-          description: "Failed to load appointments",
-          variant: "destructive",
-        });
+        toast.error("Failed to load appointments");
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchAppointments();
-  }, [toast]);
+  }, []);
 
   const handleCancelAppointment = async (id: string) => {
     try {
       await cancelAppointment(id);
-      setAppointments(
-        appointments.map((app) =>
+      setAppointments((prevAppointments) =>
+        prevAppointments.map((app) =>
           app.id === id ? { ...app, status: "cancelled" } : app
         )
       );
-      toast({
-        title: "Appointment Cancelled",
-        description: "Your appointment has been cancelled successfully.",
-      });
+      toast.success("Your appointment has been cancelled successfully.");
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to cancel appointment",
-        variant: "destructive",
-      });
+      toast.error("Failed to cancel appointment");
     }
   };
 

@@ -4,8 +4,8 @@ import type React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { register } from "@/lib/auth";
-import { useToast } from "@/app/hooks/use-toast";
+import { register } from "../../lib/auth";
+import { useToast } from "../hooks/use-toast";
 
 export default function RegisterPage() {
   const router = useRouter();

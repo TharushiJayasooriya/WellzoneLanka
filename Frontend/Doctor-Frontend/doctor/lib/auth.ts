@@ -1,7 +1,7 @@
 "use server"
 
 import { cookies } from "next/headers"
-import { connectToDatabase } from "@/lib/api/mongodb"
+import { connectToDatabase } from "./api/mongodb"
 import { redirect } from "next/navigation"
 
 interface LoginData {

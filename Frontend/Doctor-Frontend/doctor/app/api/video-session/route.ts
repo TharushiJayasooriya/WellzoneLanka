@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { connectToDatabase, convertDocToJSON } from "@/lib/api/mongodb"
+import { connectToDatabase, convertDocToJSON } from "../../../lib/api/mongodb"
 import { ObjectId } from "mongodb"
 
 export async function POST(request: NextRequest) {

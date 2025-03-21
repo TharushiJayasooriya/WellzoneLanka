@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { connectToDatabase } from "@/lib/api/mongodb"
+import { connectToDatabase } from "./api/mongodb"
 import { ObjectId } from "mongodb"
 
 interface AppointmentData {
