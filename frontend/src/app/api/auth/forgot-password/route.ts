@@ -8,21 +8,27 @@ export const POST = async (request: any) => {
   try {
     const { email } = await request.json();
 
-    await connectToDatabase();
-    const existingUser = await User.findOne({ email });
+    if (!email) {
+      return new NextResponse(
+          JSON.stringify({ message: "Email is required" }),
+          { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+  }
+  await connectToDatabase();
 
-    if (!existingUser) {
-      return NextResponse.json({ message: "Email does not exist." }, { status: 400 });
-    }
+        const user = await User.findOne({ email });
+        if (!user) {
+            return new NextResponse(
+                JSON.stringify({ message: "Email not found" }),
+                { status: 400, headers: { "Content-Type": "application/json" } }
+            );
+        }
 
     // Generate reset token
-    const resetToken = crypto.randomBytes(20).toString("hex");
-    const passwordResetToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-    const passwordResetExpires = new Date(Date.now() + 3600000); // 1 hour
-
-    // Store in DB (not saving yet)
-    existingUser.resetToken = passwordResetToken;
-    existingUser.resetTokenExpiry = passwordResetExpires;
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.resetToken = resetToken;
+    user.resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour
+    await user.save();
 
     const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
     console.log("Reset URL:", resetUrl);
@@ -40,7 +46,7 @@ export const POST = async (request: any) => {
       await sgMail.send(msg);
       
       // Save only if email is sent successfully
-      await existingUser.save();
+      await user.save();
       
       return NextResponse.json({ message: "Reset password email has been sent." }, { status: 200 });
     } catch (emailError) {

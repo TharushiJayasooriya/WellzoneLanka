@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
-import { TriangleAlert, Lock, Eye, EyeOff } from "lucide-react";
+import { TriangleAlert, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -59,7 +59,7 @@ const ResetPasswordPage = () => {
   // ✅ Redirect if already logged in
   useEffect(() => {
     if (sessionStatus === "authenticated") {
-      router.replace("/sidebar");
+      router.replace("../../login");
     }
   }, [sessionStatus, router]);
 
@@ -88,7 +88,7 @@ const ResetPasswordPage = () => {
       const res = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, password, email }),
+        body: JSON.stringify({ token, password }),
       });
 
       if (!res.ok) {

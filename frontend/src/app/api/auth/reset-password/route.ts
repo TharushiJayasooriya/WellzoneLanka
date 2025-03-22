@@ -1,26 +1,55 @@
 import { NextResponse } from "next/server";
 import User from "../../../../models/user";
 import connectToDatabase from "../../../../lib/mongodb";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcryptjs";
 
 export const POST = async (request: any) => {
- 
-    const { password,email } = await request.json();
+    try {
+        const { token, password } = await request.json();
 
-    await connectToDatabase();
+        if (!token || !password) {
+            console.log("Token or password missing");
+            return new NextResponse(
+                JSON.stringify({ message: "Token and new password are required" }),
+                { status: 400, headers: { "Content-Type": "application/json" } }
+            );
+        }
 
-    const existingUser=await User.findOne((email));
+        console.log("Received token:", token);
+        console.log("Received password:", password);
 
-    const hashedPassword= await bcrypt.hash(password,5);
-    existingUser.password=hashedPassword;
+        await connectToDatabase();
 
-    existingUser.resetToken=undefined;
-    existingUser.resetTokenExpiry=undefined;
+        const user = await User.findOne({
+            resetToken: token,
+            resetTokenExpiry: { $gt: Date.now() },
+        });
 
-    try{
-        await existingUser.save();
-        return new NextResponse("User's password is updated",{status:200});
-    }catch(error:any){
-        return new NextResponse(error,{status:500});
+        console.log("User found:", user);
+
+        if (!user) {
+            return new NextResponse(
+                JSON.stringify({ message: "Invalid or expired token" }),
+                { status: 400, headers: { "Content-Type": "application/json" } }
+            );
+        }
+
+        user.password = await bcrypt.hash(password, 10);
+        user.resetToken = undefined;
+        user.resetTokenExpiry = undefined;
+        await user.save();
+
+        console.log("Password reset successful for user:", user.email);
+
+        return new NextResponse(
+            JSON.stringify({ message: "Password reset successful" }),
+            { status: 200, headers: { "Content-Type": "application/json" } }
+        );
+    } catch (error) {
+        console.error("Error resetting password:", error);
+        return new NextResponse(
+            JSON.stringify({ message: "Server error" }),
+            { status: 500, headers: { "Content-Type": "application/json" } }
+        );
     }
-}
+};

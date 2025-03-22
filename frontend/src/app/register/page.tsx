@@ -41,7 +41,7 @@ export default function Register() {
     }, 4000); // Change image every 4 seconds
     
     return () => clearInterval(interval);
-  }, []);
+  }, [images.length]);
 
   // Update form.role when RoleSelectionButtons component changes role
   const handleRoleSelection = (role) => {
