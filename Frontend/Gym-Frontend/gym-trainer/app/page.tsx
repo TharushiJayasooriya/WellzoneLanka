@@ -20,7 +20,7 @@ export default function Home() {
             description="Connect with healthcare professionals"
             details="Get medical consultations, prescriptions, and health advice from certified doctors."
             icon={<Stethoscope className="h-12 w-12 text-primary" />}
-            href="/doctor"
+            href="/doctor-auth"
           />
 
           <UserPhaseCard
