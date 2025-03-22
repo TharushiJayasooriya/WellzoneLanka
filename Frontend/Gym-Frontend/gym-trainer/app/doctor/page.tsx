@@ -21,7 +21,7 @@ export default function DoctorPage() {
           details="Join live video sessions with your doctor for real-time guidance and feedback."
           icon={<Video className="h-10 w-10 text-sky-500" />}
           buttonText="Join Session"
-          href="/gym-trainer/video-session"
+          href="/doctor/video-session"
         />
 
         <ServiceCard
@@ -30,7 +30,7 @@ export default function DoctorPage() {
           details="Book appointments with available doctors based on your schedule and health services."
           icon={<Calendar className="h-10 w-10 text-sky-500" />}
           buttonText="Book Now"
-          href="/gym-trainer/book-appointment"
+          href="/doctor/book-appointment"
         />
 
         <ServiceCard
@@ -39,7 +39,7 @@ export default function DoctorPage() {
           details="View, reschedule, or cancel your upcoming appointments with doctors."
           icon={<ClipboardList className="h-10 w-10 text-sky-500" />}
           buttonText="View Appointments"
-          href="/gym-trainer/my-appointments"
+          href="/doctor/my-appointments"
         />
       </div>
     </div>
