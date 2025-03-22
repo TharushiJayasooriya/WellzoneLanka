@@ -92,7 +92,7 @@ export default function BookAppointmentPage() {
 
       <div className="bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold">Schedule a Doctor consultation</h2>
+          <h2 className="text-2xl font-bold">Schedule a Gym trainer session</h2>
           <p className="text-gray-600">
             Fill out the form below to request an appointment with one of our
             doctors.
