@@ -50,7 +50,7 @@ const ForgotPasswordPage = () => {
     <div 
       className="min-h-screen flex items-center justify-center p-4"
       style={{ 
-        background: "url('/assets/regpw.png') center center no-repeat",
+        background: "url('/assets/fgpw.png') center center no-repeat",
         backgroundSize: "cover",
         backgroundColor: "#e6f2f7"
       }}
