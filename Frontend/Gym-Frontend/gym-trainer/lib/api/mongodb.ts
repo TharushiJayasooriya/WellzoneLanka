@@ -55,6 +55,13 @@ export async function ensureCollections() {
       await db.collection("appointments").createIndex({ email: 1 })
       await db.collection("appointments").createIndex({ trainerId: 1 })
     }
+    if (!collectionNames.includes("doctorAppointments")) {
+      console.log("Creating doctorAppointments collection")
+      await db.createCollection("doctorAppointments")
+      // Create indexes for doctorAppointments collection
+      await db.collection("doctorAppointments").createIndex({ email: 1 })
+      await db.collection("doctorAppointments").createIndex({ doctorId: 1 })
+    }
 
     if (!collectionNames.includes("videoSessions")) {
       await db.createCollection("videoSessions")
