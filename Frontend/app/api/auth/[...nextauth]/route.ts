@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "../../../../models/user";
-import connectToDatabase from "../../../../lib/mongodb";
+import connectToDatabase from "../../../../lib/db";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -48,7 +48,7 @@ const handler = NextAuth({
 
           await connectToDatabase();
 
-          const user = await User.findOne({ email: credentials?.email }).exec();
+          const user = await User.findOne({ email: credentials?.email }).exec() as { _id: string; email: string; firstName: string; lastName: string; password: string };
           console.log("User found:", user);
 
           if (!user) {
@@ -90,8 +90,8 @@ const handler = NextAuth({
     async session({ session, token }) {
       session.user = {
         id: token.id,
-        email: token.email,
-        name: token.name,
+        email: token.email ?? undefined,
+        name: token.name ?? undefined,
       };
       console.log("Session:", session);
       return session;

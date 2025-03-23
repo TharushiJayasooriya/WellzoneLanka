@@ -21,7 +21,7 @@ import { ChatButton } from "@/components/chatbot/ChatButton";
 export default function ServicesPage() {
   const services = [
     {
-      icon: <Spine className="h-12 w-12" />,
+      icon: <Spine className="h-12 w-12 text-black" />,
       title: "Orthopedic Physiotherapy",
       description:
         "Expert treatment for musculoskeletal conditions, joint pain, and post-surgical rehabilitation.",
@@ -33,7 +33,7 @@ export default function ServicesPage() {
       ],
     },
     {
-      icon: <Brain className="h-12 w-12" />,
+      icon: <Brain className="h-12 w-12 text-black" />,
       title: "Neurological Rehabilitation",
       description:
         "Specialized care for neurological conditions and movement disorders.",
@@ -45,7 +45,7 @@ export default function ServicesPage() {
       ],
     },
     {
-      icon: <Running className="h-12 w-12" />,
+      icon: <Running className="h-12 w-12 text-black" />,
       title: "Sports Physiotherapy",
       description: "Comprehensive care for athletes and sports enthusiasts.",
       features: [
@@ -56,7 +56,7 @@ export default function ServicesPage() {
       ],
     },
     {
-      icon: <Baby className="h-12 w-12" />,
+      icon: <Baby className="h-12 w-12 text-black" />,
       title: "Pediatric Physiotherapy",
       description: "Specialized physical therapy for children and adolescents.",
       features: [
@@ -67,7 +67,7 @@ export default function ServicesPage() {
       ],
     },
     {
-      icon: <Wheelchair className="h-12 w-12" />,
+      icon: <Wheelchair className="h-12 w-12 text-black" />,
       title: "Geriatric Physiotherapy",
       description:
         "Tailored care for elderly patients focusing on mobility and independence.",
@@ -79,7 +79,7 @@ export default function ServicesPage() {
       ],
     },
     {
-      icon: <Dumbbell className="h-12 w-12" />,
+      icon: <Dumbbell className="h-12 w-12 text-black" />,
       title: "Exercise Therapy",
       description:
         "Customized exercise programs for various conditions and fitness goals.",
@@ -152,21 +152,21 @@ export default function ServicesPage() {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Navbar />
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative py-20 px-4 bg-gradient-to-b from-primary/10 to-background"
+        className="relative py-20 px-4 bg-gradient-to-b from-primary/5 to-white"
       >
         <div className="max-w-7xl mx-auto text-center pt-11">
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-4xl md:text-5xl font-bold mb-6 pt-11"
+            className="text-4xl md:text-5xl font-bold mb-6 pt-11 text-black"
           >
             Our Services
           </motion.h1>
@@ -174,7 +174,7 @@ export default function ServicesPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="text-lg text-black max-w-2xl mx-auto"
           >
             Comprehensive physiotherapy and wellness services tailored to your
             needs
@@ -183,7 +183,7 @@ export default function ServicesPage() {
       </motion.section>
 
       {/* Services Grid */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -195,18 +195,15 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <motion.div
                 key={index}
-                className="bg-card rounded-lg p-6 shadow-lg transition-shadow"
+                className="bg-white rounded-lg p-6 shadow-lg border border-gray-100 transition-shadow"
                 variants={cardVariants}
                 whileHover="hover"
               >
-                <motion.div
-                  className="text-primary mb-6"
-                  variants={iconVariants}
-                >
+                <motion.div className="mb-6" variants={iconVariants}>
                   {service.icon}
                 </motion.div>
                 <motion.h3
-                  className="text-2xl font-semibold mb-4"
+                  className="text-2xl font-semibold mb-4 text-black"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 + index * 0.1 }}
@@ -214,7 +211,7 @@ export default function ServicesPage() {
                   {service.title}
                 </motion.h3>
                 <motion.p
-                  className="text-muted-foreground mb-6"
+                  className="text-black mb-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 + index * 0.1 }}
@@ -230,12 +227,12 @@ export default function ServicesPage() {
                   {service.features.map((feature, idx) => (
                     <motion.li
                       key={idx}
-                      className="flex items-center text-sm"
+                      className="flex items-center text-sm text-black"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.5 + idx * 0.1 }}
                     >
-                      <Activity className="h-4 w-4 text-primary mr-2" />
+                      <Activity className="h-4 w-4 text-black mr-2" />
                       <span>{feature}</span>
                     </motion.li>
                   ))}
@@ -248,10 +245,10 @@ export default function ServicesPage() {
                 >
                   <Link
                     href="/doctors"
-                    className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
+                    className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors font-semibold"
                   >
                     Book Service
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-2 h-4 w-4 text-blue-600" />
                   </Link>
                 </motion.div>
               </motion.div>
@@ -261,14 +258,14 @@ export default function ServicesPage() {
       </section>
 
       {/* Treatment Process */}
-      <section className="py-16 px-4 bg-card">
+      <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="text-3xl font-bold text-center mb-12"
+            className="text-3xl font-bold text-center mb-12 text-black"
           >
             Our Treatment Process
           </motion.h2>
@@ -306,7 +303,7 @@ export default function ServicesPage() {
             ].map((step, index) => (
               <motion.div
                 key={index}
-                className="text-center"
+                className="text-center bg-white p-6 rounded-lg shadow-sm"
                 variants={processStepVariants}
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -326,7 +323,7 @@ export default function ServicesPage() {
                   {step.number}
                 </motion.div>
                 <motion.h3
-                  className="text-xl font-semibold mb-2"
+                  className="text-xl font-semibold mb-2 text-black"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.2 + index * 0.2 }}
@@ -335,7 +332,7 @@ export default function ServicesPage() {
                   {step.title}
                 </motion.h3>
                 <motion.p
-                  className="text-muted-foreground"
+                  className="text-black"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ delay: 0.3 + index * 0.2 }}
@@ -355,7 +352,7 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <motion.section
-        className="py-16 px-4"
+        className="py-16 px-4 bg-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -363,7 +360,7 @@ export default function ServicesPage() {
       >
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
-            className="bg-primary text-primary-foreground rounded-lg p-8"
+            className="bg-primary text-white rounded-lg p-8"
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{
@@ -382,7 +379,7 @@ export default function ServicesPage() {
             }}
           >
             <motion.h2
-              className="text-3xl font-bold mb-4"
+              className="text-3xl font-bold mb-4 text-white"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
@@ -391,7 +388,7 @@ export default function ServicesPage() {
               Ready to Start Your Recovery Journey?
             </motion.h2>
             <motion.p
-              className="mb-8"
+              className="mb-8 text-white"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
@@ -407,8 +404,8 @@ export default function ServicesPage() {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <Link href="/doctors">
-                <button className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg rounded-lg font-medium hover:bg-background/90 transition-colors">
+              <Link href="/doc-appointment">
+                <button className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg rounded-lg font-medium transition-colors">
                   Book an Appointment
                 </button>
               </Link>

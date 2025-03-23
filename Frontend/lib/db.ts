@@ -52,7 +52,7 @@ async function connectToDatabase() {
     return mongoose;
   }
 
-  await mongoose.connect(MONGODB_URI, {
+  await mongoose.connect(MONGODB_URI as string, {
     bufferCommands: false,
   });
 

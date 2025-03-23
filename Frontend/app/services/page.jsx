@@ -397,7 +397,7 @@ export default function ServicesPage() {
                 
                 className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-full font-medium text-lg flex items-center justify-between transition-all duration-300 hover:shadow-lg group-hover:from-blue-700 group-hover:to-cyan-600 transform hover:scale-102 cta-button"
               >
-                <Link href="../../../../gym_trainer/app/page.tsx">
+                <Link href="/trainers">
                 <span className="cta-button-text">Start Your Fitness Journey</span></Link>
                 <span className="h-10 w-10 flex items-center justify-center bg-white bg-opacity-30 rounded-full cta-button-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -422,7 +422,7 @@ export default function ServicesPage() {
             data-aos="fade-up"
             data-aos-delay="500"
           >
-            <Link href="/doctor/app">
+            <Link href="/doctors">
               <button 
                 onClick={() => {
                   setActiveTab('medical');
