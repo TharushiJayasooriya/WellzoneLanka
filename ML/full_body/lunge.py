@@ -91,47 +91,55 @@ def main():
         lmList = detector.findPosition(img, False)
 
         if lmList:
-            hip = detector.findAngle(img, 11, 23, 25)
-            knee = detector.findAngle(img, 23, 25, 27)
-            ankle = detector.findAngle(img, 25, 27, 29)  # Optional for depth accuracy
+            left_hip = detector.findAngle(img, 11, 23, 25)
+            right_hip = detector.findAngle(img, 12, 24, 26)
+            left_knee = detector.findAngle(img, 23, 25, 27)
+            right_knee = detector.findAngle(img, 24, 26, 28)
+
+            front_knee = left_knee if left_knee < right_knee else right_knee
+            back_knee = right_knee if left_knee < right_knee else left_knee
+
+            hip = (left_hip and right_hip)
 
             # Mapping knee angle to progress percentage
-            per = np.interp(knee, (60, 170), (0, 100))
-            bar = np.interp(knee, (60, 170), (380, 50))
+            per = np.interp(front_knee, (50, 170), (0, 100))
+            bar = np.interp(front_knee, (50, 170), (380, 50))
 
-            # Checking if the squat position is correct
-            if knee > 160 and hip > 160:
-                form = 1  # Ready to squat
+            # Checking if the lunge position is correct
+            if front_knee > 160 and hip > 160:
+                form = 1  # Ready to lunge
 
             if form == 1:
-                if knee <= 90 and hip < 140:  # Deep squat position
-                    feedback = "Up"
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif knee > 160 and hip > 160:  # Standing position
-                    feedback = "Down"
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
+                if front_knee <= 90 and back_knee > 100 and direction == 0:  # Forward lunge position
+                    feedback = "Forward Lunge"
+                    direction = 1  # Mark forward lunge complete
+
+                elif front_knee > 160 and hip > 160 and direction == 1:  # Backward return position
+                    feedback = "Backward Return"
+                    count += 1  # Count only full forward + backward rep
+                    direction = 0  # Reset for next lunge
+
                 else:
                     feedback = "Fix Form"
 
+            # Only full forward + backward lunge cycles are counted
+            full_count = count
 
-                        # Draw Bar
-                cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
-                cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
-                cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
+            # Draw Bar
+            cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
+            cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
+            cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
 
-            # Pushup counter
+            # Lunge counter
             cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
-            cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 5)
+            cv2.putText(img, str(int(full_count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 5)
 
             # Feedback
             cv2.rectangle(img, (500, 0), (640, 40), (255, 255, 255), cv2.FILLED)
             cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
 
-        cv2.imshow('Squat Counter', img)
+
+        cv2.imshow('Lunge Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
 

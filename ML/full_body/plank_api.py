@@ -15,11 +15,11 @@ os.environ['TF_LITE_USE_XNNPACK'] = '0'  # Disable TensorFlow Lite XNNPACK optim
 # Suppress absl log warnings
 absl.logging.set_verbosity(absl.logging.FATAL)  # Only fatal errors will be shown
 
-# Add the path of pushup.py
-pushup_path = r"./pushup.py"
-sys.path.append(pushup_path)
+# Add the path of plank.py
+plank_path = r"./plank.py"
+sys.path.append(plank_path)
 
-from pushup import PoseDetector  # Import PoseDetector from pushup.py
+from plank import PoseDetector  # Import PoseDetector from pushup.py
 
 app = Flask(__name__)
 
@@ -35,10 +35,10 @@ def index():
             return render_template_string("""
                 <html>
                     <head>
-                        <title>Pushup Tracker</title>
+                        <title>Plank Exercise Tracker</title>
                     </head>
                     <body>
-                        <h1>Pushup Tracker - Camera Stopped</h1>
+                        <h1>Plank Exercise Tracker - Camera Stopped</h1>
                         <p>Camera feed is stopped. Go back to tracker or home page.</p>
                         <a href="/">Go to Tracker</a><br>
                         <a href="/home">Go to Home Page</a>
@@ -50,10 +50,10 @@ def index():
         return render_template_string("""
             <html>
                 <head>
-                    <title>Pushup Tracker</title>
+                    <title>Plank Exercise Tracker</title>
                 </head>
                 <body>
-                    <h1>Pushup Tracker</h1>
+                    <h1>Plank Exercise Tracker</h1>
                     <form method="POST">
                         <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
                     </form>
@@ -66,10 +66,10 @@ def index():
     return render_template_string("""
     <html>
         <head>
-            <title>Pushup Tracker</title>
+            <title>Plank Exercise Tracker</title>
         </head>
         <body>
-            <h1>Pushup Tracker</h1>
+            <h1>Plank Exercise Tracker</h1>
             <form method="POST">
                 <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
             </form>
@@ -96,48 +96,45 @@ def video_feed():
             lmList = detector.findPosition(img, False)
 
             if lmList:
-                left_elbow = detector.findAngle(img, 11, 13, 15)
-                right_elbow = detector.findAngle(img, 12, 14, 16)
                 left_shoulder = detector.findAngle(img, 13, 11, 23)
                 right_shoulder = detector.findAngle(img, 14, 12, 24)
                 left_hip = detector.findAngle(img, 11, 23, 25)
                 right_hip = detector.findAngle(img, 12, 24, 26)
-                left_knee = detector.findAngle(img, 23, 25, 27)
-                right_knee = detector.findAngle(img, 24, 26, 28)
-                left_ankle = detector.findAngle(img, 25, 27, 29)
-                right_ankle = detector.findAngle(img, 26, 28, 30)
+                left_ankle = detector.findAngle(img, 23, 25, 27)
+                right_ankle = detector.findAngle(img, 24, 26, 28)
+                left_knee = detector.findAngle(img, 25, 27, 29)
+                right_knee = detector.findAngle(img, 26, 28, 30)
 
-                elbow= (left_elbow and right_elbow) 
-                shoulder = (left_shoulder and right_shoulder)
-                hip = (left_hip and right_hip)
                 
+                # Extract X-coordinates of key landmarks
+                left_shoulder_x = lmList[11][1]
+                right_shoulder_x = lmList[12][1]
+                left_hip_x = lmList[23][1]
+                right_hip_x = lmList[24][1]
+                left_ankle_x = lmList[25][1]
+                right_ankle_x = lmList[26][1]
 
-                per = np.interp(elbow, (90, 160), (0, 100))
-                bar = np.interp(elbow, (90, 160), (380, 50))
+                # Calculate the horizontal alignment differences
+                shoulder_diff = abs(left_shoulder_x - right_shoulder_x)
+                hip_diff = abs(left_hip_x - right_hip_x)
+                ankle_diff = abs(left_ankle_x - right_ankle_x)
 
-                if elbow > 160 and shoulder > 40 and hip > 160:
-                    form = 1
+                # Define threshold for alignment (small differences mean proper plank form)
+                threshold = 10  # Adjust based on precision needed
+
+                # Checking if the plank position is correct
+                if shoulder_diff < threshold and hip_diff < threshold and ankle_diff < threshold:
+                    form = 1  # Proper plank form
+                else:
+                    form = 0  # Misaligned body
 
                 if form == 1:
-                    if elbow <= 90 and hip > 160:
-                        feedback = "Down"
-                        if direction == 0:
-                            count += 0.5
-                            direction = 1
-                    elif elbow > 160 and shoulder > 40 and hip > 160:
-                        feedback = "Up"
-                        if direction == 1:
-                            count += 0.5
-                            direction = 0
-                    else:
-                        feedback = "Fix Form"
+                    feedback = "Good Form"
+                    count += 1  # Increment plank hold time count
+                else:
+                    feedback = "Fix Alignment"
 
-                    # Draw Bar
-                    cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
-                    cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
-                    cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
-
-                # Push-up counter
+                # Plank counter
                 cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
                 cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 5)
 
@@ -161,7 +158,7 @@ def home_page():
             <title>Home Page</title>
         </head>
         <body>
-            <h1>Welcome to the Pushup Tracker!</h1>
+            <h1>Welcome to the Plank Exercise Tracker!</h1>
             <a href="/">Go to Tracker</a>
         </body>
     </html>
@@ -169,6 +166,6 @@ def home_page():
 
 if __name__ == "__main__":
     host = "127.0.0.1"
-    port = 5000
+    port = 5002
     print(f"Flask app running at: http:/{host}:{port}/")
     app.run(host=host, port=port, debug=True)

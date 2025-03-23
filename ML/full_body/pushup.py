@@ -91,9 +91,21 @@ def main():
         lmList = detector.findPosition(img, False)
 
         if lmList:
-            elbow = detector.findAngle(img, 11, 13, 15)
-            shoulder = detector.findAngle(img, 13, 11, 23)
-            hip = detector.findAngle(img, 11, 23, 25)
+            left_elbow = detector.findAngle(img, 11, 13, 15)
+            right_elbow = detector.findAngle(img, 12, 14, 16)
+            left_shoulder = detector.findAngle(img, 13, 11, 23)
+            right_shoulder = detector.findAngle(img, 14, 12, 24)
+            left_hip = detector.findAngle(img, 11, 23, 25)
+            right_hip = detector.findAngle(img, 12, 24, 26)
+            left_knee = detector.findAngle(img, 23, 25, 27)
+            right_knee = detector.findAngle(img, 24, 26, 28)
+            left_ankle = detector.findAngle(img, 25, 27, 29)
+            right_ankle = detector.findAngle(img, 26, 28, 30)
+
+            elbow= (left_elbow and right_elbow) 
+            shoulder = (left_shoulder and right_shoulder)
+            hip = (left_hip and right_hip)
+            
 
             per = np.interp(elbow, (90, 160), (0, 100))
             bar = np.interp(elbow, (90, 160), (380, 50))

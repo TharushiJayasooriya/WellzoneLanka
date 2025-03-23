@@ -91,49 +91,46 @@ def main():
         lmList = detector.findPosition(img, False)
 
         if lmList:
-            left_elbow = detector.findAngle(img, 11, 13, 15)
-            right_elbow = detector.findAngle(img, 12, 14, 16)
             left_shoulder = detector.findAngle(img, 13, 11, 23)
             right_shoulder = detector.findAngle(img, 14, 12, 24)
             left_hip = detector.findAngle(img, 11, 23, 25)
             right_hip = detector.findAngle(img, 12, 24, 26)
-            left_knee = detector.findAngle(img, 23, 25, 27)
-            right_knee = detector.findAngle(img, 24, 26, 28)
-            left_ankle = detector.findAngle(img, 25, 27, 29)
-            right_ankle = detector.findAngle(img, 26, 28, 30)
+            left_ankle = detector.findAngle(img, 23, 25, 27)
+            right_ankle = detector.findAngle(img, 24, 26, 28)
+            left_knee = detector.findAngle(img, 25, 27, 29)
+            right_knee = detector.findAngle(img, 26, 28, 30)
 
-            knee= (left_knee and right_knee)
-            hip = (left_hip and right_hip)
+            
+            # Extract X-coordinates of key landmarks
+            left_shoulder_x = lmList[11][1]
+            right_shoulder_x = lmList[12][1]
+            left_hip_x = lmList[23][1]
+            right_hip_x = lmList[24][1]
+            left_ankle_x = lmList[25][1]
+            right_ankle_x = lmList[26][1]
 
-            # Mapping knee angle to progress percentage
-            per = np.interp(knee, (60, 170), (0, 100))
-            bar = np.interp(knee, (60, 170), (380, 50))
+            # Calculate the horizontal alignment differences
+            shoulder_diff = abs(left_shoulder_x - right_shoulder_x)
+            hip_diff = abs(left_hip_x - right_hip_x)
+            ankle_diff = abs(left_ankle_x - right_ankle_x)
 
-            # Checking if the squat position is correct
-            if knee > 160 and hip > 160:
-                form = 1  # Ready to squat
+            # Define threshold for alignment (small differences mean proper plank form)
+            threshold = 10  # Adjust based on precision needed
+
+            # Checking if the plank position is correct
+            if shoulder_diff < threshold and hip_diff < threshold and ankle_diff < threshold:
+                form = 1  # Proper plank form
+            else:
+                form = 0  # Misaligned body
 
             if form == 1:
-                if knee <= 90 and hip < 140:  # Deep squat position
-                    feedback = "Down"
-                    if direction == 0:
-                        count += 0.5
-                        direction = 1
-                elif knee > 160 and hip > 160:  # Standing position
-                    feedback = "Up"
-                    if direction == 1:
-                        count += 0.5
-                        direction = 0
-                else:
-                    feedback = "Fix Form"
+                feedback = "Good Form"
+                count += 1  # Increment plank hold time count
+            else:
+                feedback = "Fix Alignment"
 
-
-                        # Draw Bar
-                cv2.rectangle(img, (580, 50), (600, 380), (0, 255, 0), 3)
-                cv2.rectangle(img, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
-                cv2.putText(img, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2, (255, 0, 0), 2)
-
-            # Squat counter
+                 
+            # Plank counter
             cv2.rectangle(img, (0, 380), (100, 480), (0, 255, 0), cv2.FILLED)
             cv2.putText(img, str(int(count)), (25, 455), cv2.FONT_HERSHEY_PLAIN, 5, (255, 0, 0), 5)
 
@@ -141,7 +138,7 @@ def main():
             cv2.rectangle(img, (500, 0), (640, 40), (255, 255, 255), cv2.FILLED)
             cv2.putText(img, feedback, (500, 40), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
 
-        cv2.imshow('Squat Counter', img)
+        cv2.imshow('Plank Counter', img)
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
 
