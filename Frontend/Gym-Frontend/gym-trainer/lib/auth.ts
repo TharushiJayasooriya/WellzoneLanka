@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers"
 import { connectToDatabase } from "@/lib/api/mongodb"
-import { redirect } from "next/navigation"
+import { ObjectId } from "mongodb"
 
 interface LoginData {
   email: string
@@ -54,13 +54,13 @@ export async function login(data: LoginData) {
     console.log("Setting session cookie")
 
     // Store session in cookie
-    const cookieStore = await cookies()
+    const cookieStore = await cookies();
     cookieStore.set("session", JSON.stringify(session), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60, // 7 days
       path: "/",
-    })
+    });
 
     // After setting the cookie
     console.log("Session cookie set")
@@ -81,13 +81,15 @@ export async function login(data: LoginData) {
 }
 
 export async function logout() {
-  const cookieStore = await cookies()
-  cookieStore.delete("session")
-  redirect("/")
+  const cookieStore = await cookies();
+  cookieStore.delete("session");
+  // Remove the redirect here to handle it client-side
+  return { success: true }
 }
 
 export async function getSession(): Promise<User | null> {
-  const sessionCookie = (await cookies()).get("session")
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get("session");
   console.log("Getting session, cookie exists:", !!sessionCookie)
 
   if (!sessionCookie) {
@@ -101,8 +103,8 @@ export async function getSession(): Promise<User | null> {
     // Check if session is expired
     if (new Date(session.expires) < new Date()) {
       console.log("Session expired")
-      const cookieStore = await cookies()
-      cookieStore.delete("session")
+      const cookieStore = await cookies();
+      cookieStore.delete("session");
       return null
     }
 
@@ -163,3 +165,29 @@ export async function register(data: any) {
   }
 }
 
+export async function getProfile(userId: string) {
+  try {
+    const { db } = await connectToDatabase()
+
+    const user = await db.collection("users").findOne({
+      _id: new ObjectId(userId),
+    })
+
+    if (!user) {
+      return { success: false, message: "User not found" }
+    }
+
+    return {
+      success: true,
+      user: {
+        id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    }
+  } catch (error) {
+    console.error("Get profile error:", error)
+    return { success: false, message: "An error occurred while getting profile" }
+  }
+}
