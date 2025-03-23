@@ -2,6 +2,7 @@ import os
 import sys
 import cv2
 import numpy as np
+from flask_cors import CORS
 from flask import Flask, Response, jsonify, render_template_string, request
 import absl.logging
 import tensorflow as tf
@@ -22,6 +23,7 @@ sys.path.append(plank_path)
 from plank import PoseDetector  # Import PoseDetector from pushup.py
 
 app = Flask(__name__)
+CORS(app) 
 
 detector = PoseDetector()
 cap = cv2.VideoCapture(0)

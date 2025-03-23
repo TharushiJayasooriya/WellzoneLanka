@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/gym-navbar";
+import axios from "axios"; // Import Axios
 
 import {
   Dumbbell,
@@ -32,6 +33,7 @@ export default function Exercises() {
       description:
         "A classic bodyweight exercise that targets the chest, shoulders, and triceps.",
       url: "https://www.youtube.com/embed/IODxDxX7oi4?si=TgTQg0AdXA_Uy-Wd",
+      apiEndpoint: "http://127.0.0.1:5000", // Push-ups API endpoint
     },
     {
       id: "ex-2",
@@ -44,6 +46,7 @@ export default function Exercises() {
       description:
         "A fundamental lower body exercise that strengthens the legs and glutes.",
       url: "https://youtu.be/gsNoPYwWXeM",
+      apiEndpoint: "http://127.0.0.1:5001", // Squats API endpoint
     },
     {
       id: "ex-3",
@@ -56,6 +59,7 @@ export default function Exercises() {
       description:
         "An isometric core exercise that improves stability and posture.",
       url: "https://youtu.be/kL_NJAkCQBg?si=6uSJy3ZbuVxeYZLe",
+      apiEndpoint: "http://127.0.0.1:5002", // Plank API endpoint
     },
     {
       id: "ex-4",
@@ -68,8 +72,20 @@ export default function Exercises() {
       description:
         "A unilateral exercise that targets the legs and improves balance.",
       url: "https://youtube.com/shorts/nvRONn4vV6E?si=YaPYIcIXVG3eV-ld",
+      apiEndpoint: "http://127.0.0.1:5003", // Lunges API endpoint
     },
   ];
+
+  // Function to handle API call for each exercise
+  const handleExerciseClick = async (apiEndpoint: string) => {
+    try {
+      const response = await axios.get(apiEndpoint);
+      console.log("API Response:", response.data);
+      // Handle the response (e.g., display video feed or other data)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -179,7 +195,10 @@ export default function Exercises() {
                 </Button>
                 <Button
                   variant={showCamera ? "default" : "outline"}
-                  onClick={() => setShowCamera(true)}
+                  onClick={() => {
+                    setShowCamera(true);
+                    handleExerciseClick(exercise.apiEndpoint); // Call the API
+                  }}
                   className="shadow-sm hover:shadow transition-shadow"
                 >
                   <Camera className="mr-2 h-4 w-4" /> Track My Form
