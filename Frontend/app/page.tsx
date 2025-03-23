@@ -79,7 +79,7 @@ export default function Home() {
               experts for personalized care.
             </p>
             <div className="flex items-center gap-6">
-              <Link href="/services">
+              <Link href="/doc-services">
                 <Button className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg">
                   Get Started <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
