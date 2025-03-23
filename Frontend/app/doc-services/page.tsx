@@ -17,6 +17,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
 import { ChatButton } from "@/components/chatbot/ChatButton";
+import Sidebar from "@/app/Sidebar";
 
 export default function ServicesPage() {
   const services = [
@@ -154,6 +155,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
+      <Sidebar />
       {/* Hero Section */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}

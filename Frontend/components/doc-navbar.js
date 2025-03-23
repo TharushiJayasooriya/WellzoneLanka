@@ -19,7 +19,7 @@ export default function Navbar() {
                         <span className="ml-2 text-xl font-bold text-black">WellZone Lanka</span>
                     </div>
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="/" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Home</Link>
+                        <Link href="/doctors" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Home</Link>
                         <Link href="/about" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">About us</Link>
                         
                         {/* Services dropdown */}
@@ -37,7 +37,7 @@ export default function Navbar() {
                             
                         </div>
                         
-                        <Link href="/contact" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Contact us</Link>
+                        
                         <Link href="/doctors" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Doctors</Link>
                         <Link 
                             href="/login" 

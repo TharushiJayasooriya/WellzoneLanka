@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { UserPlus, Dumbbell, Stethoscope } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from "react";
+import { UserPlus, Dumbbell, Stethoscope } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-const RoleSelectionButtons = ({ onChange, initialRole = 'user' }) => {
+const RoleSelectionButtons = ({ onChange, initialRole = "user" }) => {
   const [role, setRole] = useState(initialRole);
   const router = useRouter();
 
@@ -10,9 +10,8 @@ const RoleSelectionButtons = ({ onChange, initialRole = 'user' }) => {
     if (selectedRole === "doctor") {
       router.push("/doctor"); // Redirect to doctor.tsx
       return;
-    }
-    else if (selectedRole === "trainer") {
-      router.push("/trainer"); // Redirect to trainer.tsx
+    } else if (selectedRole === "trainer") {
+      router.push("/trainer-form"); // Redirect to trainer.tsx
       return;
     }
 
@@ -71,7 +70,8 @@ const RoleSelectionButtons = ({ onChange, initialRole = 'user' }) => {
 
       {(role === "trainer" || role === "doctor") && (
         <p className="text-xs text-amber-600 mt-2">
-          Note: {role === "trainer" ? "Trainer" : "Doctor"} accounts require verification after registration.
+          Note: {role === "trainer" ? "Trainer" : "Doctor"} accounts require
+          verification after registration.
         </p>
       )}
     </div>

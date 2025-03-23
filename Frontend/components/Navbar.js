@@ -15,7 +15,7 @@ export default function Navbar() {
                     </div>
                     <div className="hidden md:flex items-center space-x-8">
                         <Link href="/" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Home</Link>
-                        <Link href="/about" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">About us</Link>
+                        <Link href="/about-2" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">About us</Link>
                         
                         {/* Services dropdown */}
                         <div className="relative">

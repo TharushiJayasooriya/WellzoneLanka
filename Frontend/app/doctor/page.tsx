@@ -519,7 +519,7 @@ export default function DoctorRegister() {
                         </a>{" "}
                         or{" "}
                         <a
-                          href="/trainer"
+                          href="/trainer-form"
                           className="text-cyan-600 hover:text-cyan-700 font-medium"
                         >
                           Register as Trainer

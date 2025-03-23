@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/doc-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Appointment from "@/doc-appointment";
+import Sidebar from "@/app/Sidebar";
+
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
 import { ChatButton } from "@/components/chatbot/ChatButton";
 import {
@@ -16,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Appointment from "../doc-appointment/appoinment";
 
 // Define Doctor Interface
 interface Doctor {
@@ -102,6 +104,7 @@ export default function DoctorsPage() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <Sidebar />
       <motion.div
         className="max-w-7xl mx-auto pt-12"
         initial={{ opacity: 0 }}
