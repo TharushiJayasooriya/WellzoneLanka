@@ -68,10 +68,12 @@ export default function Home() {
                   Get Started <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Button variant="outline" className="text-gray-700 hover:text-sky-600 px-8 py-6 text-lg border-2">
-                <Play className="mr-2 h-5 w-5" />
-                How it works
-              </Button>
+              <Link href="/about">
+                <Button variant="outline" className="text-gray-700 hover:text-sky-600 px-8 py-6 text-lg border-2">
+                  <Play className="mr-2 h-5 w-5" />
+                  How it works
+                </Button>
+              </Link>
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative">
