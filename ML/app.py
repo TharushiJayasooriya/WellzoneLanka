@@ -1,114 +1,304 @@
-# import os
-# import sys
-# import cv2
-# import numpy as np
-# from flask import Flask, Response, jsonify, render_template_string, request
-# import absl.logging
-# import tensorflow as tf
+import os
+import sys
+import cv2
+import numpy as np
+from flask import Flask, Response, jsonify, render_template_string, request
+import absl.logging
+import tensorflow as tf
+import math
 
-# # Suppress TensorFlow and absl logging
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-# absl.logging.set_verbosity(absl.logging.FATAL)
+# Suppress TensorFlow Lite and TensorFlow logs
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress all logs (info, warnings, errors)
+os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'  # Disable oneDNN optimizations
+os.environ['TF_LITE_USE_XNNPACK'] = '0'  # Disable TensorFlow Lite XNNPACK optimizations
 
-# # Import modules from your structured folders
-# sys.path.append("./full_body")
-# sys.path.append("./back_pain")
+# Suppress absl log warnings
+absl.logging.set_verbosity(absl.logging.FATAL)  # Only fatal errors will be shown
 
-# from full_body.pushup import PoseDetector  # Push-up module
-# # from full_body.squat import SquatDetector  # Squat module
-# # from back_pain.catcow import CatCowExercise  # Back pain module
+# Add the path of plank.py and squat.py
+plank_path = r"./plank.py"
+squat_path = r"./squat.py"
+lunge_path = r"./lunge.py"
+pushup_path = r"./pushup.py"
+sys.path.append(plank_path)
+sys.path.append(squat_path)
+sys.path.append(lunge_path)
+sys.path.append(pushup_path)
 
-# app = Flask(__name__)
+from plank import PoseDetector as PlankPoseDetector
+from squat import PoseDetector as SquatPoseDetector
+from lunge import PoseDetector as LungePoseDetector
+from pushup import PoseDetector as PushupPoseDetector
 
-# cap = cv2.VideoCapture(0)
-# pose_detector = PoseDetector()
-# squat_detector = SquatDetector()
-# catcow_exercise = CatCowExercise()
+app = Flask(__name__)
 
-# # Home Route
-# @app.route('/')
-# def home():
-#     return render_template_string("""
-#     <html>
-#         <head><title>Exercise Tracker</title></head>
-#         <body>
-#             <h1>Exercise Tracker</h1>
-#             <a href="/pushup">Pushup Tracker</a><br>
-#             <a href="/squat">Squat Tracker</a><br>
-#             <a href="/catcow">Cat-Cow Exercise</a><br>
-#         </body>
-#     </html>
-#     """)
+# Initialize detectors for plank, squat, lunge, and pushup
+plank_detector = PlankPoseDetector()
+squat_detector = SquatPoseDetector()
+lunge_detector = LungePoseDetector()
+pushup_detector = PushupPoseDetector()
 
-# # Push-up Route
-# @app.route('/pushup')
-# def pushup():
-#     return render_template_string("""
-#     <html>
-#         <head><title>Pushup Tracker</title></head>
-#         <body>
-#             <h1>Pushup Tracker</h1>
-#             <img src="{{ url_for('video_feed', exercise='pushup') }}" width="640" height="480"/>
-#         </body>
-#     </html>
-#     """)
+# Initialize video capture for plank, squat, lunge, and pushup
+plank_cap = cv2.VideoCapture(0)
+squat_cap = cv2.VideoCapture(1)
+lunge_cap = cv2.VideoCapture(2)
+pushup_cap = cv2.VideoCapture(3)
 
-# # Squat Route
-# # @app.route('/squat')
-# # def squat():
-# #     return render_template_string("""
-# #     <html>
-# #         <head><title>Squat Tracker</title></head>
-# #         <body>
-# #             <h1>Squat Tracker</h1>
-# #             <img src="{{ url_for('video_feed', exercise='squat') }}" width="640" height="480"/>
-# #         </body>
-# #     </html>
-# #     """)
+@app.route('/')
+def home_page():
+    return render_template_string("""
+    <html>
+        <head>
+            <title>Exercise Tracker</title>
+        </head>
+        <body>
+            <h1>Welcome to the Exercise Tracker!</h1>
+            <a href="/plank">Go to Plank Tracker</a><br>
+            <a href="/squat">Go to Squat Tracker</a><br>
+            <a href="/pushup">Go to Push-up Tracker</a><br>
+            <a href="/lunge">Go to Lunge Tracker</a><br>
+        </body>
+    </html>
+    """)
 
-# # # Cat-Cow Route
-# # @app.route('/catcow')
-# # def catcow():
-# #     return render_template_string("""
-# #     <html>
-# #         <head><title>Cat-Cow Exercise</title></head>
-# #         <body>
-# #             <h1>Cat-Cow Exercise</h1>
-# #             <img src="{{ url_for('video_feed', exercise='catcow') }}" width="640" height="480"/>
-# #         </body>
-# #     </html>
-# #     """)
+@app.route('/plank', methods=['GET', 'POST'])
+def plank():
+    if request.method == 'POST':
+        if request.form.get('action') == 'stop_video':
+            plank_cap.release()
+            return render_template_string("""
+                <html>
+                    <head><title>Plank Exercise Tracker</title></head>
+                    <body>
+                        <h1>Plank Exercise Tracker - Camera Stopped</h1>
+                        <a href="/">Go to Home Page</a>
+                    </body>
+                </html>
+            """)
 
-# # Video Feed Route (Handles all exercises)
-# @app.route('/video_feed/<exercise>')
-# def video_feed(exercise):
-#     def generate():
-#         while True:
-#             ret, img = cap.read()
-#             if not ret:
-#                 break
+        return render_template_string("""
+            <html>
+                <head><title>Plank Tracker</title></head>
+                <body>
+                    <h1>Plank Tracker</h1>
+                    <form method="POST">
+                        <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                    </form>
+                    <img src="{{ url_for('video_feed_plank') }}" width="640" height="480" />
+                </body>
+            </html>
+        """)
 
-#             if exercise == "pushup":
-#                 img = pose_detector.findPose(img, False)
-#             elif exercise == "squat":
-#                 img = squat_detector.detectSquat(img)
-#             elif exercise == "catcow":
-#                 img = catcow_exercise.detectCatCow(img)
+    return render_template_string("""
+        <html>
+            <head><title>Plank Tracker</title></head>
+            <body>
+                <h1>Plank Tracker</h1>
+                <form method="POST">
+                    <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                </form>
+                <img src="{{ url_for('video_feed_plank') }}" width="640" height="480" />
+            </body>
+        </html>
+    """)
 
-#             _, buffer = cv2.imencode('.jpg', img)
-#             frame = buffer.tobytes()
+@app.route('/video_feed_plank')
+def video_feed_plank():
+    def generate():
+        while True:
+            ret, img = plank_cap.read()
+            if not ret:
+                break
+            img = plank_detector.findPose(img, False)
+            lmList = plank_detector.findPosition(img, False)
+            if lmList:
+                # Implement plank logic here, similar to the plank file
+                pass
+            _, buffer = cv2.imencode('.jpg', img)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-#             yield (b'--frame\r\n'
-#                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+@app.route('/squat', methods=['GET', 'POST'])
+def squat():
+    if request.method == 'POST':
+        if request.form.get('action') == 'stop_video':
+            squat_cap.release()
+            return render_template_string("""
+                <html>
+                    <head><title>Squat Exercise Tracker</title></head>
+                    <body>
+                        <h1>Squat Exercise Tracker - Camera Stopped</h1>
+                        <a href="/">Go to Home Page</a>
+                    </body>
+                </html>
+            """)
 
-#     return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
+        return render_template_string("""
+            <html>
+                <head><title>Squat Tracker</title></head>
+                <body>
+                    <h1>Squat Tracker</h1>
+                    <form method="POST">
+                        <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                    </form>
+                    <img src="{{ url_for('video_feed_squat') }}" width="640" height="480" />
+                </body>
+            </html>
+        """)
 
-# # Stop Camera Route
-# @app.route('/stop_camera')
-# def stop_camera():
-#     cap.release()
-#     return jsonify({"status": "camera stopped"})
+    return render_template_string("""
+        <html>
+            <head><title>Squat Tracker</title></head>
+            <body>
+                <h1>Squat Tracker</h1>
+                <form method="POST">
+                    <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                </form>
+                <img src="{{ url_for('video_feed_squat') }}" width="640" height="480" />
+            </body>
+        </html>
+    """)
 
-# # Start Flask Server
-# if __name__ == "__main__":
-#     app.run(debug=True)
+@app.route('/video_feed_squat')
+def video_feed_squat():
+    def generate():
+        while True:
+            ret, img = squat_cap.read()
+            if not ret:
+                break
+            img = squat_detector.findPose(img, False)
+            lmList = squat_detector.findPosition(img, False)
+            if lmList:
+                # Implement squat logic here, similar to the squat file
+                pass
+            _, buffer = cv2.imencode('.jpg', img)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/pushup', methods=['GET', 'POST'])
+def pushup():
+    if request.method == 'POST':
+        if request.form.get('action') == 'stop_video':
+            pushup_cap.release()
+            return render_template_string("""
+                <html>
+                    <head><title>Pushup Exercise Tracker</title></head>
+                    <body>
+                        <h1>Pushup Exercise Tracker - Camera Stopped</h1>
+                        <a href="/">Go to Home Page</a>
+                    </body>
+                </html>
+            """)
+
+        return render_template_string("""
+            <html>
+                <head><title>Pushup Tracker</title></head>
+                <body>
+                    <h1>Pushup Tracker</h1>
+                    <form method="POST">
+                        <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                    </form>
+                    <img src="{{ url_for('video_feed_pushup') }}" width="640" height="480" />
+                </body>
+            </html>
+        """)
+
+    return render_template_string("""
+        <html>
+            <head><title>Pushup Tracker</title></head>
+            <body>
+                <h1>Pushup Tracker</h1>
+                <form method="POST">
+                    <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                </form>
+                <img src="{{ url_for('video_feed_pushup') }}" width="640" height="480" />
+            </body>
+        </html>
+    """)
+
+@app.route('/video_feed_pushup')
+def video_feed_pushup():
+    def generate():
+        while True:
+            ret, img = pushup_cap.read()
+            if not ret:
+                break
+            img = pushup_detector.findPose(img, False)
+            lmList = pushup_detector.findPosition(img, False)
+            if lmList:
+                # Implement pushup logic here, similar to the pushup file
+                pass
+            _, buffer = cv2.imencode('.jpg', img)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/lunge', methods=['GET', 'POST'])
+def lunge():
+    if request.method == 'POST':
+        if request.form.get('action') == 'stop_video':
+            lunge_cap.release()
+            return render_template_string("""
+                <html>
+                    <head><title>Lunge Exercise Tracker</title></head>
+                    <body>
+                        <h1>Lunge Exercise Tracker - Camera Stopped</h1>
+                        <a href="/">Go to Home Page</a>
+                    </body>
+                </html>
+            """)
+
+        return render_template_string("""
+            <html>
+                <head><title>Lunge Tracker</title></head>
+                <body>
+                    <h1>Lunge Tracker</h1>
+                    <form method="POST">
+                        <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                    </form>
+                    <img src="{{ url_for('video_feed_lunge') }}" width="640" height="480" />
+                </body>
+            </html>
+        """)
+
+    return render_template_string("""
+        <html>
+            <head><title>Lunge Tracker</title></head>
+            <body>
+                <h1>Lunge Tracker</h1>
+                <form method="POST">
+                    <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+                </form>
+                <img src="{{ url_for('video_feed_lunge') }}" width="640" height="480" />
+            </body>
+        </html>
+    """)
+
+@app.route('/video_feed_lunge')
+def video_feed_lunge():
+    def generate():
+        while True:
+            ret, img = lunge_cap.read()
+            if not ret:
+                break
+            img = lunge_detector.findPose(img, False)
+            lmList = lunge_detector.findPosition(img, False)
+            if lmList:
+                # Implement lunge logic here, similar to the lunge file
+                pass
+            _, buffer = cv2.imencode('.jpg', img)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    return Response(generate(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+if __name__ == "__main__":
+    host = "127.0.0.1"
+    port = 5000
+    print(f"Flask app running at: http://{host}:{port}/")
+    app.run(host=host, port=port, debug=True)
