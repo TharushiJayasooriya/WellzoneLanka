@@ -4,11 +4,10 @@ import React, { useState, useEffect } from "react";
 import { Eye, EyeOff, TriangleAlert } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import Navbar from "../Navbar";
+import Navbar from "@/components/Navbar";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import FloatingBackButton from "../backbutton/page";
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -87,11 +86,13 @@ const LoginPage = () => {
       </div>
 
       <Navbar />
-            
 
       {/* Main Content - Professional Layout */}
       <div className="relative z-10 max-w-7xl mx-auto pt-6">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6" style={{ paddingTop: "120px" }}>
+        <div
+          className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center p-6"
+          style={{ paddingTop: "120px" }}
+        >
           {/* Left Side - Professional Image Section */}
           <div className="md:col-span-7 rounded-lg overflow-hidden shadow-xl relative">
             {/* Image slideshow with fade transition */}
@@ -118,8 +119,12 @@ const LoginPage = () => {
               ))}
 
               <div className="absolute bottom-0 left-0 right-0 p-8 z-20">
-                <h2 className="text-white text-4xl font-bold mb-3">Elevate Your Fitness</h2>
-                <p className="text-white/90 text-xl mb-4">Professional training programs tailored to your goals</p>
+                <h2 className="text-white text-4xl font-bold mb-3">
+                  Elevate Your Fitness
+                </h2>
+                <p className="text-white/90 text-xl mb-4">
+                  Professional training programs tailored to your goals
+                </p>
 
                 {/* Slideshow indicators */}
                 <div className="flex items-center space-x-2 mt-6">
@@ -127,7 +132,9 @@ const LoginPage = () => {
                     <div
                       key={index}
                       className={`h-2 rounded-full transition-all duration-300 ${
-                        currentImageIndex === index ? "w-10 bg-cyan-500" : "w-3 bg-white/70"
+                        currentImageIndex === index
+                          ? "w-10 bg-cyan-500"
+                          : "w-3 bg-white/70"
                       }`}
                     ></div>
                   ))}
@@ -141,9 +148,14 @@ const LoginPage = () => {
             <div className="max-w-lg mx-auto bg-white p-10 rounded-lg border border-gray-200 shadow-lg">
               <div className="space-y-6">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-800">Welcome back</h1>
+                  <h1 className="text-3xl font-bold text-gray-800">
+                    Welcome back
+                  </h1>
                   <h2 className="text-xl font-medium text-gray-600">
-                    Sign in to <span className="text-cyan-600 font-semibold">WellZone Lanka</span>
+                    Sign in to{" "}
+                    <span className="text-cyan-600 font-semibold">
+                      WellZone Lanka
+                    </span>
                   </h2>
                 </div>
                 {!!error && (
@@ -156,7 +168,9 @@ const LoginPage = () => {
                 {/* Professional Form Fields */}
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Email</label>
+                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                      Email
+                    </label>
                     <div className="relative">
                       <input
                         type="email"
@@ -170,7 +184,9 @@ const LoginPage = () => {
                   </div>
 
                   <div>
-                    <label className="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+                    <label className="text-sm font-medium text-gray-700 mb-1 block">
+                      Password
+                    </label>
                     <div className="relative">
                       <input
                         type={showPassword ? "text" : "password"}
@@ -203,11 +219,17 @@ const LoginPage = () => {
                         type="checkbox"
                         className="h-4 w-4 bg-gray-50 border-gray-300 rounded text-cyan-600 focus:ring-cyan-500"
                       />
-                      <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                      <label
+                        htmlFor="remember-me"
+                        className="ml-2 block text-sm text-gray-700"
+                      >
                         Remember me
                       </label>
                     </div>
-                    <a href="../forgot-password" className="text-sm text-cyan-600 hover:text-cyan-700 font-medium">
+                    <a
+                      href="../forgot-password"
+                      className="text-sm text-cyan-600 hover:text-cyan-700 font-medium"
+                    >
                       Forgot Password?
                     </a>
                   </div>
@@ -223,7 +245,10 @@ const LoginPage = () => {
                   <div className="text-center">
                     <p className="text-gray-600 text-sm">
                       No Account?{" "}
-                      <a href="../register" className="text-cyan-600 hover:text-cyan-700 font-medium">
+                      <a
+                        href="../register"
+                        className="text-cyan-600 hover:text-cyan-700 font-medium"
+                      >
                         Create an account
                       </a>
                     </p>
@@ -235,7 +260,9 @@ const LoginPage = () => {
                       <div className="w-full border-t border-gray-200" />
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-2 bg-white text-gray-500">or continue with email</span>
+                      <span className="px-2 bg-white text-gray-500">
+                        or continue with email
+                      </span>
                     </div>
                   </div>
                   <div className="w-full">
@@ -243,33 +270,44 @@ const LoginPage = () => {
                       type="button"
                       className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
                     >
-                      <img src="https://www.google.com/favicon.ico" alt="Google" className="w-5 h-5 mr-2" />
+                      <img
+                        src="https://www.google.com/favicon.ico"
+                        alt="Google"
+                        className="w-5 h-5 mr-2"
+                      />
                       <span className="font-medium text-gray-600">Google</span>
                     </button>
                   </div>
 
-                    {/* Added Social Media Links */}
-<div className="pt-6 border-t border-gray-200">
-  <p className="text-center text-sm text-gray-600 mb-4">Follow us on social media</p>
-  <div className="flex justify-center space-x-6">
-    
-    {/* Instagram Logo */}
-    <Link href="https://www.instagram.com/wellzonelanka?igsh=YzF3aW05Znhkdjc2" target="_blank">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-        alt="Instagram"
-        className="h-8 w-8 transition-transform transform hover:scale-110"
-      />
-    </Link>
+                  {/* Added Social Media Links */}
+                  <div className="pt-6 border-t border-gray-200">
+                    <p className="text-center text-sm text-gray-600 mb-4">
+                      Follow us on social media
+                    </p>
+                    <div className="flex justify-center space-x-6">
+                      {/* Instagram Logo */}
+                      <Link
+                        href="https://www.instagram.com/wellzonelanka?igsh=YzF3aW05Znhkdjc2"
+                        target="_blank"
+                      >
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                          alt="Instagram"
+                          className="h-8 w-8 transition-transform transform hover:scale-110"
+                        />
+                      </Link>
 
-    {/* YouTube Logo */}
-    <Link href="https://www.youtube.com/@wellzonelanka/community" target="_blank">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
-        alt="YouTube"
-        className="h-8 w-auto transition-transform transform hover:scale-110"
-      />
-    </Link>
+                      {/* YouTube Logo */}
+                      <Link
+                        href="https://www.youtube.com/@wellzonelanka/community"
+                        target="_blank"
+                      >
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg"
+                          alt="YouTube"
+                          className="h-8 w-auto transition-transform transform hover:scale-110"
+                        />
+                      </Link>
                     </div>
                   </div>
                 </form>

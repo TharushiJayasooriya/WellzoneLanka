@@ -26,7 +26,7 @@ export default function Navbar() {
                             onMouseLeave={() => setServicesOpen(false)}
                         >
                             <Link 
-                                href="/doc-services"
+                                href="/services"
                                 className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 flex items-center"
                             >
                                 Services
@@ -35,7 +35,7 @@ export default function Navbar() {
                         </div>
                         
                         <Link href="/contact" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Contact us</Link>
-                        <Link href="/doctors" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Doctors</Link>
+                        <Link href="/trainers" className="text-gray-700 hover:text-cyan-600 font-medium transition-colors duration-300 hover:scale-105">Trainers</Link>
                         <Link 
                             href="/login" 
                             className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-2.5 hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 rounded-full font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
@@ -48,3 +48,5 @@ export default function Navbar() {
         </nav>
     );
 }
+
+

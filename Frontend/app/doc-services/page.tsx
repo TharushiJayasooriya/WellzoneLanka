@@ -1,36 +1,48 @@
 "use client";
 
-import { Activity, Brain, Bot, Dumbbell, Spline as Spine, FileWarning as Running, Baby, Armchair as Wheelchair, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import Navbar from '@/components/navbar';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import { ChatDialog } from '@/components/chatbot/ChatDialog';
-import { ChatButton } from '@/components/chatbot/ChatButton';
+import {
+  Activity,
+  Brain,
+  Bot,
+  Dumbbell,
+  Spline as Spine,
+  FileWarning as Running,
+  Baby,
+  Armchair as Wheelchair,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
+import Navbar from "@/components/doc-navbar";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { ChatDialog } from "@/components/chatbot/ChatDialog";
+import { ChatButton } from "@/components/chatbot/ChatButton";
 
 export default function ServicesPage() {
   const services = [
     {
       icon: <Spine className="h-12 w-12" />,
       title: "Orthopedic Physiotherapy",
-      description: "Expert treatment for musculoskeletal conditions, joint pain, and post-surgical rehabilitation.",
+      description:
+        "Expert treatment for musculoskeletal conditions, joint pain, and post-surgical rehabilitation.",
       features: [
         "Joint and muscle pain treatment",
         "Post-surgery rehabilitation",
         "Sports injury recovery",
-        "Spine care programs"
-      ]
+        "Spine care programs",
+      ],
     },
     {
       icon: <Brain className="h-12 w-12" />,
       title: "Neurological Rehabilitation",
-      description: "Specialized care for neurological conditions and movement disorders.",
+      description:
+        "Specialized care for neurological conditions and movement disorders.",
       features: [
         "Stroke rehabilitation",
         "Balance disorder treatment",
         "Movement therapy",
-        "Cognitive rehabilitation"
-      ]
+        "Cognitive rehabilitation",
+      ],
     },
     {
       icon: <Running className="h-12 w-12" />,
@@ -40,8 +52,8 @@ export default function ServicesPage() {
         "Sports injury treatment",
         "Performance enhancement",
         "Injury prevention",
-        "Return to sport programs"
-      ]
+        "Return to sport programs",
+      ],
     },
     {
       icon: <Baby className="h-12 w-12" />,
@@ -51,31 +63,33 @@ export default function ServicesPage() {
         "Developmental assessment",
         "Motor skills development",
         "Posture correction",
-        "Pediatric rehabilitation"
-      ]
+        "Pediatric rehabilitation",
+      ],
     },
     {
       icon: <Wheelchair className="h-12 w-12" />,
       title: "Geriatric Physiotherapy",
-      description: "Tailored care for elderly patients focusing on mobility and independence.",
+      description:
+        "Tailored care for elderly patients focusing on mobility and independence.",
       features: [
         "Balance training",
         "Fall prevention",
         "Mobility enhancement",
-        "Pain management"
-      ]
+        "Pain management",
+      ],
     },
     {
       icon: <Dumbbell className="h-12 w-12" />,
       title: "Exercise Therapy",
-      description: "Customized exercise programs for various conditions and fitness goals.",
+      description:
+        "Customized exercise programs for various conditions and fitness goals.",
       features: [
         "Therapeutic exercises",
         "Strength training",
         "Flexibility programs",
-        "Core stabilization"
-      ]
-    }
+        "Core stabilization",
+      ],
+    },
   ];
 
   // Animation variants
@@ -84,70 +98,71 @@ export default function ServicesPage() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         type: "spring",
         stiffness: 100,
-        damping: 12
-      }
+        damping: 12,
+      },
     },
     hover: {
       scale: 1.03,
-      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      boxShadow:
+        "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       transition: {
         type: "spring",
         stiffness: 400,
-        damping: 10
-      }
-    }
+        damping: 10,
+      },
+    },
   };
 
   const iconVariants = {
     hidden: { scale: 0 },
-    visible: { 
+    visible: {
       scale: 1,
       transition: {
         type: "spring",
         stiffness: 260,
-        damping: 20
-      }
-    }
+        damping: 20,
+      },
+    },
   };
 
   const processStepVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.5
-      }
-    }
+        duration: 0.5,
+      },
+    },
   };
 
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar/>
+      <Navbar />
       {/* Hero Section */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative py-20 px-4 bg-gradient-to-b from-primary/10 to-background"
       >
         <div className="max-w-7xl mx-auto text-center pt-11">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -155,13 +170,14 @@ export default function ServicesPage() {
           >
             Our Services
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Comprehensive physiotherapy and wellness services tailored to your needs
+            Comprehensive physiotherapy and wellness services tailored to your
+            needs
           </motion.p>
         </div>
       </motion.section>
@@ -169,7 +185,7 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={containerVariants}
             initial="hidden"
@@ -177,19 +193,19 @@ export default function ServicesPage() {
             viewport={{ once: true, amount: 0.1 }}
           >
             {services.map((service, index) => (
-              <motion.div 
-                key={index} 
+              <motion.div
+                key={index}
                 className="bg-card rounded-lg p-6 shadow-lg transition-shadow"
                 variants={cardVariants}
                 whileHover="hover"
               >
-                <motion.div 
+                <motion.div
                   className="text-primary mb-6"
                   variants={iconVariants}
                 >
                   {service.icon}
                 </motion.div>
-                <motion.h3 
+                <motion.h3
                   className="text-2xl font-semibold mb-4"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -197,7 +213,7 @@ export default function ServicesPage() {
                 >
                   {service.title}
                 </motion.h3>
-                <motion.p 
+                <motion.p
                   className="text-muted-foreground mb-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -205,15 +221,15 @@ export default function ServicesPage() {
                 >
                   {service.description}
                 </motion.p>
-                <motion.ul 
+                <motion.ul
                   className="space-y-3 mb-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 + index * 0.1 }}
                 >
                   {service.features.map((feature, idx) => (
-                    <motion.li 
-                      key={idx} 
+                    <motion.li
+                      key={idx}
                       className="flex items-center text-sm"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -230,7 +246,10 @@ export default function ServicesPage() {
                   transition={{ delay: 0.7 + index * 0.1 }}
                   whileHover={{ x: 5 }}
                 >
-                  <Link href="/doctors" className="inline-flex items-center text-primary hover:text-primary/80 transition-colors">
+                  <Link
+                    href="/doctors"
+                    className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
+                  >
                     Book Service
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
@@ -244,7 +263,7 @@ export default function ServicesPage() {
       {/* Treatment Process */}
       <section className="py-16 px-4 bg-card">
         <div className="max-w-7xl mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -253,7 +272,7 @@ export default function ServicesPage() {
           >
             Our Treatment Process
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-4 gap-8"
             initial="hidden"
             whileInView="visible"
@@ -264,46 +283,49 @@ export default function ServicesPage() {
               {
                 number: "01",
                 title: "Initial Assessment",
-                description: "Comprehensive evaluation of your condition and medical history"
+                description:
+                  "Comprehensive evaluation of your condition and medical history",
               },
               {
                 number: "02",
                 title: "Treatment Plan",
-                description: "Customized therapy program tailored to your specific needs"
+                description:
+                  "Customized therapy program tailored to your specific needs",
               },
               {
                 number: "03",
                 title: "Regular Sessions",
-                description: "Structured therapy sessions with continuous progress monitoring"
+                description:
+                  "Structured therapy sessions with continuous progress monitoring",
               },
               {
                 number: "04",
                 title: "Recovery & Prevention",
-                description: "Long-term recovery plan with preventive measures"
-              }
+                description: "Long-term recovery plan with preventive measures",
+              },
             ].map((step, index) => (
-              <motion.div 
-                key={index} 
+              <motion.div
+                key={index}
                 className="text-center"
                 variants={processStepVariants}
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <motion.div 
+                <motion.div
                   className="text-4xl font-bold text-primary mb-4"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
-                  transition={{ 
+                  transition={{
                     delay: index * 0.2,
                     type: "spring",
                     stiffness: 260,
-                    damping: 20
+                    damping: 20,
                   }}
                   viewport={{ once: true }}
                 >
                   {step.number}
                 </motion.div>
-                <motion.h3 
+                <motion.h3
                   className="text-xl font-semibold mb-2"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -312,7 +334,7 @@ export default function ServicesPage() {
                 >
                   {step.title}
                 </motion.h3>
-                <motion.p 
+                <motion.p
                   className="text-muted-foreground"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
@@ -326,13 +348,13 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
-      
+
       {/* Chatbot Icon */}
       <ChatButton onClick={() => setChatOpen(true)} />
       <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
 
       {/* CTA Section */}
-      <motion.section 
+      <motion.section
         className="py-16 px-4"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -340,26 +362,26 @@ export default function ServicesPage() {
         viewport={{ once: true }}
       >
         <div className="max-w-3xl mx-auto text-center">
-          <motion.div 
+          <motion.div
             className="bg-primary text-primary-foreground rounded-lg p-8"
             initial={{ y: 50, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ 
+            transition={{
               type: "spring",
               stiffness: 100,
-              damping: 15
+              damping: 15,
             }}
             viewport={{ once: true }}
-            whileHover={{ 
+            whileHover={{
               scale: 1.02,
-              transition: { 
-                type: "spring", 
-                stiffness: 400, 
-                damping: 10 
-              }
+              transition: {
+                type: "spring",
+                stiffness: 400,
+                damping: 10,
+              },
             }}
           >
-            <motion.h2 
+            <motion.h2
               className="text-3xl font-bold mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -368,14 +390,15 @@ export default function ServicesPage() {
             >
               Ready to Start Your Recovery Journey?
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="mb-8"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
               viewport={{ once: true }}
             >
-              Book an appointment with our expert physiotherapists and take the first step towards better health.
+              Book an appointment with our expert physiotherapists and take the
+              first step towards better health.
             </motion.p>
             <motion.div
               initial={{ opacity: 0 }}

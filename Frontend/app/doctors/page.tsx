@@ -4,11 +4,11 @@ import { Activity, Star, Clock, Video, Bot, Filter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/doc-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { ChatDialog } from '@/components/chatbot/ChatDialog';
-import { ChatButton } from '@/components/chatbot/ChatButton';
+import { ChatDialog } from "@/components/chatbot/ChatDialog";
+import { ChatButton } from "@/components/chatbot/ChatButton";
 import {
   Select,
   SelectContent,
@@ -73,7 +73,11 @@ export default function DoctorsPage() {
       experience: "9+ years",
       rating: 4.6,
       image: "/images/doctor-male.png",
-      expertise: ["Spinal Adjustments", "Posture Correction", "Chronic Back Pain"],
+      expertise: [
+        "Spinal Adjustments",
+        "Posture Correction",
+        "Chronic Back Pain",
+      ],
     },
   ];
 
@@ -82,7 +86,10 @@ export default function DoctorsPage() {
     { value: "general", label: "General Physiotherapy" },
     { value: "orthopedic", label: "Orthopedic" },
     { value: "neurological", label: "Neurological" },
-    { value: "Chiropractic Physiotherapist", label: "Chiropractic Physiotherapist" },
+    {
+      value: "Chiropractic Physiotherapist",
+      label: "Chiropractic Physiotherapist",
+    },
   ];
 
   const filteredDoctors =
@@ -91,7 +98,7 @@ export default function DoctorsPage() {
       : allDoctors.filter((doctor) => doctor.category === selectedCategory);
 
   const [chatOpen, setChatOpen] = useState(false);
-  
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -210,7 +217,10 @@ export default function DoctorsPage() {
       </motion.div>
 
       {selectedDoctor && (
-        <Appointment doctor={selectedDoctor} onClose={() => setSelectedDoctor(null)} />
+        <Appointment
+          doctor={selectedDoctor}
+          onClose={() => setSelectedDoctor(null)}
+        />
       )}
 
       {/* Chatbot Icon */}

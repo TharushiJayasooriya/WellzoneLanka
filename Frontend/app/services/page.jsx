@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Footer } from "../Footer";
 import Sidebar from '../Sidebar';
-import FloatingBackButton from '../backbutton/page';
 
 export default function ServicesPage() {
   const [activeTab, setActiveTab] = useState('fitness');

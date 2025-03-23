@@ -1,15 +1,23 @@
-'use client';
+"use client";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Heart, Calendar, Video, Star, Bot, Play } from "lucide-react";
+import {
+  ArrowRight,
+  Heart,
+  Calendar,
+  Video,
+  Star,
+  Bot,
+  Play,
+} from "lucide-react";
 import { motion } from "framer-motion";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/doc-navbar";
 import { Marquee } from "@/components/magicui/marquee";
-import { useState } from 'react';
-import { ChatDialog } from '@/components/chatbot/ChatDialog';
-import { ChatButton } from '@/components/chatbot/ChatButton';
+import { useState } from "react";
+import { ChatDialog } from "@/components/chatbot/ChatDialog";
+import { ChatButton } from "@/components/chatbot/ChatButton";
 
 const reviews = [
   { img: "/images/marquee_1.jpeg" },
@@ -55,12 +63,20 @@ export default function Home() {
       <Navbar />
       <section className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="space-y-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-8"
+          >
             <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight pt-11">
-              Your Journey to <span className="block text-sky-500">Physical Wellness</span> Starts Here
+              Your Journey to{" "}
+              <span className="block text-sky-500">Physical Wellness</span>{" "}
+              Starts Here
             </h1>
             <p className="text-gray-600 text-lg max-w-xl">
-              Connect with Sri Lanka's leading physiotherapists and wellness experts for personalized care.
+              Connect with Sri Lanka's leading physiotherapists and wellness
+              experts for personalized care.
             </p>
             <div className="flex items-center gap-6">
               <Link href="/services">
@@ -69,14 +85,22 @@ export default function Home() {
                 </Button>
               </Link>
               <Link href="/about">
-                <Button variant="outline" className="text-gray-700 hover:text-sky-600 px-8 py-6 text-lg border-2">
+                <Button
+                  variant="outline"
+                  className="text-gray-700 hover:text-sky-600 px-8 py-6 text-lg border-2"
+                >
                   <Play className="mr-2 h-5 w-5" />
                   How it works
                 </Button>
               </Link>
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} className="relative">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
             <MarqueeDemoVertical />
           </motion.div>
         </div>
@@ -85,7 +109,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 px-4 relative overflow-hidden bg-gradient-to-b from-white to-sky-50">
         <div className="container mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -94,7 +118,7 @@ export default function Home() {
             Why Choose Wellzone Lanka
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <FeatureCard 
+            <FeatureCard
               icon={<Heart className="h-10 w-10" />}
               title="Specialized Care"
               description="Access to qualified physiotherapists and wellness experts"
@@ -122,7 +146,7 @@ export default function Home() {
       {/* Testimonials Section */}
       <section className="py-20 px-4 relative overflow-hidden bg-white">
         <div className="container mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -158,18 +182,24 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-20 px-4 relative overflow-hidden bg-gradient-to-b from-white to-sky-50">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="container mx-auto text-center relative z-10"
         >
-          <h2 className="text-4xl font-bold mb-6 text-gray-900">Ready to Start Your Wellness Journey?</h2>
+          <h2 className="text-4xl font-bold mb-6 text-gray-900">
+            Ready to Start Your Wellness Journey?
+          </h2>
           <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied patients who have transformed their lives with our expert care and support.
+            Join thousands of satisfied patients who have transformed their
+            lives with our expert care and support.
           </p>
           <Link href="/doctors">
-            <Button size="lg" className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg">
+            <Button
+              size="lg"
+              className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg"
+            >
               Book Your First Session <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
@@ -195,9 +225,19 @@ export default function Home() {
   );
 }
 
-function FeatureCard({ icon, title, description, delay }: { icon: React.ReactNode; title: string; description: string; delay: number }) {
+function FeatureCard({
+  icon,
+  title,
+  description,
+  delay,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  delay: number;
+}) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
@@ -210,9 +250,19 @@ function FeatureCard({ icon, title, description, delay }: { icon: React.ReactNod
   );
 }
 
-function TestimonialCard({ image, name, text, delay }: { image: string; name: string; text: string; delay: number }) {
+function TestimonialCard({
+  image,
+  name,
+  text,
+  delay,
+}: {
+  image: string;
+  name: string;
+  text: string;
+  delay: number;
+}) {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
