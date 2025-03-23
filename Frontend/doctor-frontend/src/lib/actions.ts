@@ -9,13 +9,13 @@ interface AppointmentData {
   email: string
   date: string
   timeSlot: string
-  trainer: string
+  doctor: string
   notes: string
 }
 
 interface Appointment {
   id: string
-  trainer: string
+  doctor: string
   date: string
   time: string
   status: "pending" | "confirmed" | "cancelled"
@@ -27,7 +27,7 @@ export async function bookAppointment(data: AppointmentData) {
     const { db } = await connectToDatabase()
 
     // Format the trainer name from the ID
-    const trainerName = data.trainer
+    const doctorName = data.doctor
       .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ")
@@ -43,8 +43,8 @@ export async function bookAppointment(data: AppointmentData) {
     const appointmentDoc = {
       name: data.name,
       email: data.email,
-      trainer: trainerName,
-      trainerId: data.trainer,
+      doctor: doctorName,
+      doctorID: data.doctor,
       date: data.date,
       time: time,
       status: "pending",
@@ -53,7 +53,7 @@ export async function bookAppointment(data: AppointmentData) {
     }
 
     // Insert into MongoDB
-    const result = await db.collection("appointments").insertOne(appointmentDoc)
+    const result = await db.collection("doctorAppointments").insertOne(appointmentDoc)
 
     revalidatePath("/gym-trainer/my-appointments")
     return { success: true, appointmentId: result.insertedId.toString() }
@@ -68,12 +68,12 @@ export async function getAppointments(): Promise<Appointment[]> {
     const { db } = await connectToDatabase()
 
     // Fetch appointments from MongoDB
-    const appointmentDocs = await db.collection("appointments").find({}).sort({ createdAt: -1 }).toArray()
+    const appointmentDocs = await db.collection("doctorAppointments").find({}).sort({ createdAt: -1 }).toArray()
 
     // Convert MongoDB documents to JSON and format for frontend
     const appointments = appointmentDocs.map((doc) => ({
       id: doc._id.toString(),
-      trainer: doc.trainer,
+      doctor: doc.trainer,
       date: doc.date,
       time: doc.time,
       status: doc.status,
@@ -93,7 +93,7 @@ export async function cancelAppointment(id: string) {
 
     // Update appointment status in MongoDB
     const result = await db
-      .collection("appointments")
+      .collection("doctorAppointments")
       .updateOne({ _id: new ObjectId(id) }, { $set: { status: "cancelled", updatedAt: new Date() } })
 
     if (result.modifiedCount === 0) {

@@ -218,4 +218,3 @@ export async function cancelDoctorAppointment(id: string) {
     throw new Error("Failed to cancel doctor appointment")
   }
 }
-
