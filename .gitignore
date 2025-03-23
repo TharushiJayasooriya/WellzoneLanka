@@ -1,23 +1,7 @@
-*.json
 /Frontend/node_modules
-*.json
-*.json
-*.json
-*.json
 /node_modules
-*.json
-*.json
-*.json
-*.json
-*.json
-*.json
-*.json
-*.json
 /node_modules
-*.json
-*.json
 Frontend/package-lock.json
-*.json
 .DS_Store
 # Next.js
 node_modules/
