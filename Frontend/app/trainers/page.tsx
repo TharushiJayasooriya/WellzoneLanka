@@ -2,13 +2,13 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Star, 
-  Calendar, 
-  MessageSquare, 
-  ArrowRight, 
-  Users, 
-  Search
+import {
+  Star,
+  Calendar,
+  MessageSquare,
+  ArrowRight,
+  Users,
+  Search,
 } from "lucide-react";
 
 export default function Trainers() {
@@ -18,12 +18,17 @@ export default function Trainers() {
       id: "trainer-1",
       name: "Sanuka Siriwardhana",
       image: "https://well-zone-assets.netlify.app/Sanuka%20Siriwardhana.png",
-      specialties: ["Weight Training", "Rehabilitation", "Nutrition", "Calisthenics"],
+      specialties: [
+        "Weight Training",
+        "Rehabilitation",
+        "Nutrition",
+        "Calisthenics",
+      ],
       experience: "8 years",
       rating: 4.9,
       reviews: 254,
       price: "Rs. 1,500/hour",
-      availability: "Mon-Fri, 6AM-8PM"
+      availability: "Mon-Fri, 6AM-8PM",
     },
     {
       id: "trainer-2",
@@ -34,7 +39,7 @@ export default function Trainers() {
       rating: 4.5,
       reviews: 220,
       price: "Rs. 1,700/hour",
-      availability: "Tue-Sat, 7AM-7PM"
+      availability: "Tue-Sat, 7AM-7PM",
     },
     {
       id: "trainer-3",
@@ -45,7 +50,7 @@ export default function Trainers() {
       rating: 5,
       reviews: 450,
       price: "Rs. 2,500/hour",
-      availability: "Mon-Sat, 5AM-9PM"
+      availability: "Mon-Sat, 5AM-9PM",
     },
     {
       id: "trainer-4",
@@ -56,25 +61,28 @@ export default function Trainers() {
       rating: 4.9,
       reviews: 350,
       price: "Rs. 2,500/hour",
-      availability: "Mon-Fri, 8AM-6PM"
+      availability: "Mon-Fri, 8AM-6PM",
     },
   ];
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white text-black">
       {/* Hero Section */}
       <br />
       <br />
-      <section className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20" id="header">
+      <section
+        className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20"
+        id="header"
+      >
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-foreground">
+            <h1 className="text-4xl font-bold tracking-tight text-black">
               Connect with <span className="text-primary">Expert Trainers</span>
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
-              Find the perfect fitness professional to guide your home workout journey.
-              Our certified trainers provide personalized coaching and support to help you
-              achieve your fitness goals.
+              Find the perfect fitness professional to guide your home workout
+              journey. Our certified trainers provide personalized coaching and
+              support to help you achieve your fitness goals.
             </p>
           </div>
         </div>
@@ -92,13 +100,25 @@ export default function Trainers() {
                 className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant="outline" size="sm">All</Button>
-              <Button variant="outline" size="sm">Weight Training</Button>
-              <Button variant="outline" size="sm">Yoga</Button>
-              <Button variant="outline" size="sm">Rehabilitation</Button>
-              <Button variant="outline" size="sm">Nutrition</Button>
-              <Button variant="outline" size="sm">More Filters</Button>
+            <div className="flex flex-wrap gap-2 text-white ">
+              <Button variant="outline" size="sm">
+                All
+              </Button>
+              <Button variant="outline" size="sm">
+                Weight Training
+              </Button>
+              <Button variant="outline" size="sm">
+                Yoga
+              </Button>
+              <Button variant="outline" size="sm">
+                Rehabilitation
+              </Button>
+              <Button variant="outline" size="sm">
+                Nutrition
+              </Button>
+              <Button variant="outline" size="sm">
+                More Filters
+              </Button>
             </div>
           </div>
         </div>
@@ -109,10 +129,10 @@ export default function Trainers() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {trainers.map((trainer) => (
             <Card key={trainer.id} className="wellzone-card overflow-hidden">
-              <div className="relative h-48" style={{height:"300px"}}>
-                <img 
-                  src={trainer.image} 
-                  alt={trainer.name} 
+              <div className="relative h-48" style={{ height: "300px" }}>
+                <img
+                  src={trainer.image}
+                  alt={trainer.name}
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm px-2 py-1 rounded-md flex items-center">
@@ -122,8 +142,10 @@ export default function Trainers() {
               </div>
               <CardContent className="pt-6">
                 <h3 className="text-xl font-semibold mb-1">{trainer.name}</h3>
-                <p className="text-sm text-muted-foreground mb-3">{trainer.experience} experience</p>
-                
+                <p className="text-sm text-muted-foreground mb-3">
+                  {trainer.experience} experience
+                </p>
+
                 <div className="flex flex-wrap gap-1 mb-4">
                   {trainer.specialties.map((specialty, index) => (
                     <Badge key={index} variant="secondary" className="text-xs">
@@ -131,11 +153,13 @@ export default function Trainers() {
                     </Badge>
                   ))}
                 </div>
-                
+
                 <div className="flex items-center justify-between text-sm">
                   <div className="flex items-center">
                     <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
-                    <span className="text-muted-foreground">{trainer.availability}</span>
+                    <span className="text-muted-foreground">
+                      {trainer.availability}
+                    </span>
                   </div>
                   <span className="font-medium">{trainer.price}</span>
                 </div>
@@ -157,10 +181,13 @@ export default function Trainers() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2">
-              <h2 className="text-3xl font-bold mb-4">Join Our Trainer Network</h2>
+              <h2 className="text-3xl font-bold mb-4">
+                Join Our Trainer Network
+              </h2>
               <p className="text-muted-foreground mb-6">
-                Are you a certified fitness professional? Join our platform to connect with clients,
-                expand your reach, and grow your online training business.
+                Are you a certified fitness professional? Join our platform to
+                connect with clients, expand your reach, and grow your online
+                training business.
               </p>
               <Button asChild size="lg" className="trainer-button">
                 <Link href="/trainers/apply">
@@ -169,9 +196,9 @@ export default function Trainers() {
               </Button>
             </div>
             <div className="md:w-1/2">
-              <img 
-                src="https://well-zone-assets.netlify.app/Situp%20Girl.jpeg" 
-                alt="Become a trainer" 
+              <img
+                src="https://well-zone-assets.netlify.app/Situp%20Girl.jpeg"
+                alt="Become a trainer"
                 className="rounded-lg shadow-lg"
               />
             </div>

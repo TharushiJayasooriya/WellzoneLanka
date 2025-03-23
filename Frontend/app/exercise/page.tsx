@@ -1,13 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/gym-navbar";
 
-import { Dumbbell, Clock, ArrowRight, Search, Filter } from "lucide-react";
-import { url } from "inspector";
+import {
+  Dumbbell,
+  Clock,
+  ArrowRight,
+  Search,
+  Filter,
+  Camera,
+} from "lucide-react";
+import { useState } from "react";
 
 export default function Exercises() {
+  const [showCamera, setShowCamera] = useState(false);
+
   // Mock data for exercises
   const exercises = [
     {
@@ -62,7 +73,7 @@ export default function Exercises() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
+      <Navbar />
       <br />
       <br />
       <section
@@ -83,7 +94,6 @@ export default function Exercises() {
         </div>
       </section>
 
-      {/* Search and Filter Section */}
       <section className="py-8 px-4 sm:px-6 lg:px-8 border-b">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -119,7 +129,6 @@ export default function Exercises() {
         </div>
       </section>
 
-      {/* Exercises Grid */}
       <section className="wellzone-section">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {exercises.map((exercise) => (
@@ -164,9 +173,16 @@ export default function Exercises() {
               </CardContent>
               <CardFooter>
                 <Button asChild className="w-full">
-                  <Link href={`${exercise.url}`}>
+                  <Link href={exercise.url} target="_blank">
                     View Exercise <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
+                </Button>
+                <Button
+                  variant={showCamera ? "default" : "outline"}
+                  onClick={() => setShowCamera(true)}
+                  className="shadow-sm hover:shadow transition-shadow"
+                >
+                  <Camera className="mr-2 h-4 w-4" /> Track My Form
                 </Button>
               </CardFooter>
             </Card>

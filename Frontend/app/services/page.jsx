@@ -36,7 +36,7 @@ export default function ServicesPage() {
   const services = {
     fitness: [
       {
-        link: "/gym_trainer/app",
+        link: "/trainers",
         id: 1,
         name: "Personal Training",
         description: "One-on-one fitness coaching tailored to your specific goals and needs.",
@@ -381,7 +381,7 @@ export default function ServicesPage() {
                     data-aos="fade-up"
                     data-aos-delay="500"
                   >
-                    <Link href="/gym">
+                    <Link href="/trainer">
                       <button 
                         onClick={() => {
                           setActiveTab('medical');
