@@ -6,6 +6,8 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/gym-navbar";
 import axios from "axios"; // Import Axios
+import { useState } from "react";
+import { Footer } from "@/app/exercise/Footer";
 
 import {
   Dumbbell,
@@ -15,10 +17,10 @@ import {
   Filter,
   Camera,
 } from "lucide-react";
-import { useState } from "react";
 
 export default function Exercises() {
   const [showCamera, setShowCamera] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); // State to store error messages
 
   // Mock data for exercises
   const exercises = [
@@ -33,7 +35,7 @@ export default function Exercises() {
       description:
         "A classic bodyweight exercise that targets the chest, shoulders, and triceps.",
       url: "https://www.youtube.com/embed/IODxDxX7oi4?si=TgTQg0AdXA_Uy-Wd",
-      apiEndpoint: "http://127.0.0.1:5000", // Push-ups API endpoint
+      apiEndpoint: "http://127.0.0.1:5000",
     },
     {
       id: "ex-2",
@@ -46,7 +48,7 @@ export default function Exercises() {
       description:
         "A fundamental lower body exercise that strengthens the legs and glutes.",
       url: "https://youtu.be/gsNoPYwWXeM",
-      apiEndpoint: "http://127.0.0.1:5001", // Squats API endpoint
+      apiEndpoint: "http://127.0.0.1:5001",
     },
     {
       id: "ex-3",
@@ -59,7 +61,7 @@ export default function Exercises() {
       description:
         "An isometric core exercise that improves stability and posture.",
       url: "https://youtu.be/kL_NJAkCQBg?si=6uSJy3ZbuVxeYZLe",
-      apiEndpoint: "http://127.0.0.1:5002", // Plank API endpoint
+      apiEndpoint: "http://127.0.0.1:5002",
     },
     {
       id: "ex-4",
@@ -72,23 +74,58 @@ export default function Exercises() {
       description:
         "A unilateral exercise that targets the legs and improves balance.",
       url: "https://youtube.com/shorts/nvRONn4vV6E?si=YaPYIcIXVG3eV-ld",
-      apiEndpoint: "http://127.0.0.1:5003", // Lunges API endpoint
+      apiEndpoint: "http://127.0.0.1:5003",
     },
   ];
 
-  // Function to handle API call for each exercise
-  const handleExerciseClick = async (apiEndpoint: string) => {
+  // Function to handle API call for each exercise with retry logic
+  const handleExerciseClick = async (
+    apiEndpoint: string,
+    retries = 3,
+    delay = 1000
+  ) => {
     try {
-      const response = await axios.get(apiEndpoint);
+      const response = await axios.get(apiEndpoint, {
+        timeout: 5000, // Set a timeout of 5 seconds
+      });
       console.log("API Response:", response.data);
+      setErrorMessage(""); // Clear any previous error messages
       // Handle the response (e.g., display video feed or other data)
     } catch (error) {
-      console.error("Error fetching data:", error);
+      if (retries > 0) {
+        console.log(`Retrying... Attempts left: ${retries}`);
+        setTimeout(() => {
+          handleExerciseClick(apiEndpoint, retries - 1, delay * 2); // Exponential backoff
+        }, delay);
+      } else {
+        // Handle the error
+        if (axios.isAxiosError(error) && error.response) {
+          // The server responded with a status code outside the 2xx range
+          console.error("Error response:", error.response);
+          setErrorMessage(`Server error: ${error.response.status}`);
+        } else if (axios.isAxiosError(error) && error.request) {
+          // The request was made but no response was received
+          console.error("Error request:", error.request);
+          setErrorMessage("Network error: No response from server.");
+        } else {
+          // Something happened in setting up the request
+          if (error instanceof Error) {
+            console.error("Error message:", error.message);
+          } else {
+            console.error("Unexpected error:", error);
+          }
+          if (error instanceof Error) {
+            setErrorMessage(`Request error: ${error.message}`);
+          } else {
+            setErrorMessage("An unexpected error occurred.");
+          }
+        }
+      }
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white text-black">
       <Navbar />
       <br />
       <br />
@@ -98,7 +135,7 @@ export default function Exercises() {
       >
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-foreground">
+            <h1 className="text-4xl font-bold tracking-tight text-black">
               Exercise <span className="text-primary">Library</span>
             </h1>
             <p className="mt-4 text-lg text-muted-foreground max-w-3xl mx-auto">
@@ -121,7 +158,7 @@ export default function Exercises() {
                 className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 text-white">
               <Button variant="outline" size="sm">
                 All
               </Button>
@@ -199,7 +236,7 @@ export default function Exercises() {
                     setShowCamera(true);
                     handleExerciseClick(exercise.apiEndpoint); // Call the API
                   }}
-                  className="shadow-sm hover:shadow transition-shadow"
+                  className="shadow-sm hover:shadow transition-shadow text-white bg-sky-500"
                 >
                   <Camera className="mr-2 h-4 w-4" /> Track My Form
                 </Button>
@@ -208,6 +245,14 @@ export default function Exercises() {
           ))}
         </div>
       </section>
+      <Footer />
+
+      {/* Display error message if any */}
+      {errorMessage && (
+        <div className="fixed bottom-4 right-4 bg-red-500 text-white p-4 rounded-md shadow-lg">
+          {errorMessage}
+        </div>
+      )}
     </div>
   );
 }

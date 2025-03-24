@@ -93,9 +93,9 @@ export default function Home() {
               <Link href="/about">
                 <Button
                   variant="outline"
-                  className="text-gray-700 hover:text-sky-600 px-8 py-6 text-lg border-2"
+                  className="text-gray-700 hover:text-sky-600 px-8 py-6 text-lg border-2  "
                 >
-                  <Play className="mr-2 h-5 w-5" />
+                  <Play className="mr-2 h-5 w-5 bg-sky-500" />
                   How it works
                 </Button>
               </Link>

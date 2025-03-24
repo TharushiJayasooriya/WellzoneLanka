@@ -215,7 +215,7 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 font-bold">
             <Button asChild size="lg" className="exercise-button">
-              <Link href="/signup">Get Started</Link>
+              <Link href="/gym-trainer/app">Get Started</Link>
             </Button>
             <Button
               asChild
