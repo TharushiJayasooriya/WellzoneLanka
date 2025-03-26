@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
-import User from '../../../../models/user';
-import connectToDatabase from '../../../../lib/mongodb';
+import User from '../../../models/user';
+import connectToDatabase from '../../../lib/db';
 
 export async function POST(request: Request) {
   const { firstName, lastName, email, password, confirmPassword } = await request.json();

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import User from "../../../../models/user";
-import connectToDatabase from "../../../../lib/mongodb";
+import User from "../../../models/user";
+import connectToDatabase from "../../../lib/db";
 import crypto from "crypto";
 import sgMail from "@sendgrid/mail";
 

@@ -3,8 +3,8 @@ import { JWT } from "next-auth/jwt";
 import { Session } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "../../../../models/user";
-import connectToDatabase from "../../../../lib/mongodb";
+import User from "../../../models/user";
+import connectToDatabase from "../.././../lib/db";
 import dotenv from 'dotenv';
 dotenv.config();
 

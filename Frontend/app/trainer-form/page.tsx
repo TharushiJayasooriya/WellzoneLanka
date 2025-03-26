@@ -31,7 +31,7 @@ export default function TrainerRegister() {
     bio: "",
   });
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
