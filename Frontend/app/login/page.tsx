@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import bcrypt from "bcryptjs"; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
@@ -31,10 +32,13 @@ const LoginPage = () => {
     }
 
     try {
+      // Hash the password before sending it to the server
+      const hashedPassword = await bcrypt.hash(password, 10);
+
       const res = await signIn("credentials", {
         redirect: false,
         email,
-        password,
+        password: hashedPassword, // Send the hashed password
       });
 
       if (res?.ok) {

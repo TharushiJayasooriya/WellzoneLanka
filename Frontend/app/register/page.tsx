@@ -53,7 +53,11 @@ export default function Register() {
   }, [images.length]);
 
   // Update form.role when RoleSelectionButtons component changes role
-  const handleRoleSelection = (role) => {
+  interface RoleSelectionHandler {
+    (role: string): void;
+  }
+
+  const handleRoleSelection: RoleSelectionHandler = (role) => {
     setForm({ ...form, role });
   };
 
