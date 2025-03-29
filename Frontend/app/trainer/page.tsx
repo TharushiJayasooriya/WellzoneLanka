@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dumbbell, Users, Camera, ArrowRight } from "lucide-react";
 import Navbar from "@/components/gym-navbar";
-import { Footer } from "@/Footer";
+import { Footer } from "@/app/trainer/Footer";
 
 export default function Home() {
   return (
@@ -215,7 +215,7 @@ export default function Home() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 font-bold">
             <Button asChild size="lg" className="exercise-button">
-              <Link href="/gym-trainer/app">Get Started</Link>
+              <Link href="/gym-doc-home">Get Started</Link>
             </Button>
             <Button
               asChild
