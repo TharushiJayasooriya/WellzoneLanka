@@ -347,8 +347,8 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
-       {/* CTA Section */}
-       <motion.section
+      {/* CTA Section */}
+      <motion.section
         className="py-16 px-4 bg-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -401,7 +401,7 @@ export default function ServicesPage() {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <Link href="/doc-appointment">
+              <Link href="/gym-doc-home">
                 <button className="bg-sky-500 hover:bg-sky-600 text-white px-8 py-6 text-lg rounded-lg font-medium transition-colors">
                   Book an Appointment
                 </button>
@@ -417,8 +417,6 @@ export default function ServicesPage() {
 
       {/* Footer */}
       <Footer />
-
-     
     </div>
   );
 }

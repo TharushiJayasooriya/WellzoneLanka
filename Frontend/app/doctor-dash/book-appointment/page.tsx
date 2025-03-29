@@ -3,11 +3,11 @@
 import type React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { bookAppointment } from "@/app/lib/actions";
+import { bookDoctorAppointment } from "@/app/lib/actions";
 import { useToast } from "@/hooks/use-toast";
 import { CheckCircle } from "lucide-react";
 
-export default function BookAppointmentPage() {
+export default function BookDoctorAppointmentPage() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
@@ -16,16 +16,16 @@ export default function BookAppointmentPage() {
     email: "",
     date: "",
     timeSlot: "",
-    trainer: "",
-    notes: "",
+    doctor: "",
+    symptoms: "",
   });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     date: "",
     timeSlot: "",
-    trainer: "",
-    notes: "",
+    doctor: "",
+    symptoms: "",
   });
 
   const handleChange = (
@@ -44,7 +44,8 @@ export default function BookAppointmentPage() {
     setIsSubmitting(true);
 
     try {
-      await bookAppointment(formData);
+      // Using the same action for now, but ideally would have a separate action for doctor appointments
+      await bookDoctorAppointment(formData);
 
       // Save the submitted data before resetting the form
       setSubmittedData({ ...formData });
@@ -53,7 +54,7 @@ export default function BookAppointmentPage() {
       toast({
         title: "Appointment Requested",
         description:
-          "Your appointment request has been submitted successfully.",
+          "Your doctor appointment request has been submitted successfully.",
       });
 
       // Show success dialog
@@ -65,8 +66,8 @@ export default function BookAppointmentPage() {
         email: "",
         date: "",
         timeSlot: "",
-        trainer: "",
-        notes: "",
+        doctor: "",
+        symptoms: "",
       });
     } catch (error) {
       toast({
@@ -80,25 +81,25 @@ export default function BookAppointmentPage() {
   };
 
   return (
-    <div className="bg-white min-h-screen flex items-center justify-center py-10">
-      <div className="container mx-auto p-4 max-w-4xl bg-white text-black">
+    <div className="bg-white min-h-screen flex items-center justify-center py-10 text-black">
+      <div className="container mx-auto p-4 max-w-4xl">
         <div className="flex items-center mb-8">
-          <Link href="/gym-doc-home" className="mr-4">
+          <Link href="/doctor-dash" className="mr-4">
             <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
               Back
             </button>
           </Link>
-          <h1 className="text-3xl font-bold">Book an Appointment</h1>
+          <h1 className="text-3xl font-bold">Book a Doctor Appointment</h1>
         </div>
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <h2 className="text-2xl font-bold">
-              Schedule a Gym Trainer Session
+              Schedule a Doctor Consultation
             </h2>
             <p className="text-gray-600">
               Fill out the form below to request an appointment with one of our
-              trainers.
+              healthcare professionals.
             </p>
           </div>
           <div className="p-6">
@@ -109,7 +110,7 @@ export default function BookAppointmentPage() {
                     htmlFor="name"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Name
+                    Patient Name
                   </label>
                   <input
                     id="name"
@@ -147,7 +148,7 @@ export default function BookAppointmentPage() {
                     htmlFor="date"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Date
+                    Preferred Date
                   </label>
                   <input
                     id="date"
@@ -164,7 +165,7 @@ export default function BookAppointmentPage() {
                     htmlFor="timeSlot"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Time Slot
+                    Preferred Time
                   </label>
                   <select
                     id="timeSlot"
@@ -190,46 +191,49 @@ export default function BookAppointmentPage() {
 
               <div className="space-y-2">
                 <label
-                  htmlFor="trainer"
+                  htmlFor="doctor"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Trainer
+                  Doctor
                 </label>
                 <select
-                  id="trainer"
-                  name="trainer"
-                  value={formData.trainer}
-                  onChange={(e) =>
-                    handleSelectChange("trainer", e.target.value)
-                  }
+                  id="doctor"
+                  name="doctor"
+                  value={formData.doctor}
+                  onChange={(e) => handleSelectChange("doctor", e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
                 >
-                  <option value="">Select a trainer</option>
-                  <option value="john-smith">John Smith</option>
-                  <option value="sarah-johnson">Sarah Johnson</option>
-                  <option value="michael-lee">Michael Lee</option>
-                  <option value="emma-wilson">Emma Wilson</option>
+                  <option value="">Select a doctor</option>
+                  <option value="dr-smith">
+                    Dr. Smith (General Physician)
+                  </option>
+                  <option value="dr-patel">Dr. Patel (Cardiologist)</option>
+                  <option value="dr-johnson">Dr. Johnson (Pediatrician)</option>
+                  <option value="dr-williams">
+                    Dr. Williams (Dermatologist)
+                  </option>
                 </select>
               </div>
 
               <div className="space-y-2">
                 <label
-                  htmlFor="notes"
+                  htmlFor="symptoms"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Additional Notes
+                  Symptoms or Reason for Visit
                 </label>
                 <textarea
-                  id="notes"
-                  name="notes"
-                  placeholder="Tell us about your fitness goals or any specific requirements"
-                  value={formData.notes}
+                  id="symptoms"
+                  name="symptoms"
+                  placeholder="Please describe your symptoms or reason for the appointment"
+                  value={formData.symptoms}
                   onChange={handleChange}
                   rows={4}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
                 />
                 <p className="text-sm text-gray-500">
-                  This information helps the trainer prepare for your session.
+                  This information helps the doctor prepare for your
+                  consultation.
                 </p>
               </div>
 
@@ -244,7 +248,7 @@ export default function BookAppointmentPage() {
           </div>
           <div className="p-6 border-t border-gray-200 text-center text-sm text-gray-500">
             <p>
-              Your appointment request will be reviewed by the trainer, and
+              Your appointment request will be reviewed by the doctor, and
               you&apos;ll receive a confirmation email once approved.
             </p>
           </div>
@@ -257,16 +261,16 @@ export default function BookAppointmentPage() {
               <div className="flex items-center gap-2 mb-4">
                 <CheckCircle className="h-6 w-6 text-green-500" />
                 <h2 className="text-xl font-bold">
-                  Appointment Booked Successfully
+                  Doctor Appointment Booked Successfully
                 </h2>
               </div>
               <p className="text-gray-600 mb-4">
                 Your appointment request has been submitted and is pending
-                approval from the trainer.
+                approval from the doctor.
               </p>
               <div className="grid gap-4 mb-6">
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right font-medium col-span-1">Name:</p>
+                  <p className="text-right font-medium col-span-1">Patient:</p>
                   <p className="col-span-3">
                     {submittedData.name || "Not provided"}
                   </p>
@@ -284,10 +288,10 @@ export default function BookAppointmentPage() {
                   </p>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <p className="text-right font-medium col-span-1">Trainer:</p>
+                  <p className="text-right font-medium col-span-1">Doctor:</p>
                   <p className="col-span-3">
-                    {submittedData.trainer
-                      ? submittedData.trainer
+                    {submittedData.doctor
+                      ? submittedData.doctor
                           .split("-")
                           .map(
                             (word) =>

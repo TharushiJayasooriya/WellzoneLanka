@@ -2,30 +2,34 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Calendar, Clock, User, Video, X } from "lucide-react";
-import { getAppointments, cancelAppointment } from "@/app/lib/actions";
+import { Calendar, Clock, Video, X, Stethoscope } from "lucide-react";
+import {
+  getDoctorAppointments,
+  cancelDoctorAppointment,
+} from "@/app/lib/actions";
 import { useToast } from "@/hooks/use-toast";
 
-interface Appointment {
+interface DoctorAppointment {
   id: string;
-  trainer: string;
+  doctor: string;
   date: string;
   time: string;
   status: "pending" | "confirmed" | "cancelled";
-  notes?: string;
+  symptoms?: string;
 }
 
-export default function MyAppointmentsPage() {
+export default function MyDoctorAppointmentsPage() {
   const { toast } = useToast();
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<DoctorAppointment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedAppointment, setSelectedAppointment] =
-    useState<Appointment | null>(null);
+    useState<DoctorAppointment | null>(null);
 
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const data = await getAppointments();
+        // In a real app, this would fetch from the API
+        const data = await getDoctorAppointments();
         setAppointments(data);
       } catch (error) {
         toast({
@@ -43,7 +47,7 @@ export default function MyAppointmentsPage() {
 
   const handleCancelAppointment = async (id: string) => {
     try {
-      await cancelAppointment(id);
+      await cancelDoctorAppointment(id);
       setAppointments(
         appointments.map((app) =>
           app.id === id ? { ...app, status: "cancelled" } : app
@@ -51,7 +55,7 @@ export default function MyAppointmentsPage() {
       );
       toast({
         title: "Appointment Cancelled",
-        description: "Your appointment has been cancelled successfully.",
+        description: "Your doctor appointment has been cancelled successfully.",
       });
     } catch (error) {
       toast({
@@ -102,26 +106,25 @@ export default function MyAppointmentsPage() {
   };
 
   return (
-
     <div className="bg-white min-h-screen flex items-center justify-center py-10 text-black">
-      <div className="container mx-auto p-4 max-w-4xl ">
+      <div className="container mx-auto p-4 max-w-4xl">
         <div className="flex items-center mb-8">
-          <Link href="/gym-trainer" className="mr-4">
+          <Link href="/doctor-dash" className="mr-4">
             <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
               Back
             </button>
           </Link>
-          <h1 className="text-3xl font-bold">My Appointments</h1>
+          <h1 className="text-3xl font-bold">My Doctor Appointments</h1>
         </div>
 
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="p-6 border-b border-gray-200">
             <h2 className="text-2xl font-bold">
-              Manage your scheduled sessions
+              Manage your medical consultations
             </h2>
             <p className="text-gray-600">
               View, reschedule, or cancel your upcoming appointments with
-              trainers.
+              doctors.
             </p>
           </div>
           <div className="p-6">
@@ -132,13 +135,13 @@ export default function MyAppointmentsPage() {
             ) : appointments.length === 0 ? (
               <div className="text-center p-8">
                 <p className="text-gray-500 mb-4">
-                  You don&apos;t have any appointments yet.
+                  You don&apos;t have any doctor appointments yet.
                 </p>
                 <Link
-                  href="/gym-trainer/book-appointment"
+                  href="/doctor/book-appointment"
                   className="px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-700 transition-colors"
                 >
-                  Book an Appointment
+                  Book a Doctor Appointment
                 </Link>
               </div>
             ) : (
@@ -170,11 +173,11 @@ export default function MyAppointmentsPage() {
                         </div>
                       </div>
                       <div className="flex items-center space-x-3">
-                        <User className="h-5 w-5 text-gray-400" />
+                        <Stethoscope className="h-5 w-5 text-gray-400" />
                         <div>
-                          <p className="text-sm font-medium">Trainer</p>
+                          <p className="text-sm font-medium">Doctor</p>
                           <p className="text-sm text-gray-500">
-                            {appointment.trainer}
+                            {appointment.doctor}
                           </p>
                         </div>
                       </div>
@@ -183,7 +186,7 @@ export default function MyAppointmentsPage() {
                         <div className="flex space-x-2">
                           {appointment.status === "confirmed" && (
                             <Link
-                              href="/gym-trainer/video-session"
+                              href="/doctor/video-consultation"
                               className="px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors flex items-center"
                             >
                               <Video className="h-4 w-4 mr-1" />
@@ -211,7 +214,7 @@ export default function MyAppointmentsPage() {
           </div>
           <div className="p-6 border-t border-gray-200 flex justify-center">
             <Link
-              href="/gym-dash/book-appointment"
+              href="/doctor/book-appointment"
               className="px-4 py-2 bg-sky-500 text-white rounded-2xl hover:bg-sky-700 transition-colors"
             >
               Book New Appointment
@@ -221,12 +224,14 @@ export default function MyAppointmentsPage() {
 
         {/* Cancel Appointment Dialog */}
         {selectedAppointment && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-md w-full">
-              <h2 className="text-xl font-bold mb-4">Cancel Appointment</h2>
+              <h2 className="text-xl font-bold mb-4">
+                Cancel Doctor Appointment
+              </h2>
               <p className="text-gray-600 mb-6">
-                Are you sure you want to cancel this appointment? This action
-                cannot be undone.
+                Are you sure you want to cancel this doctor appointment? This
+                action cannot be undone.
               </p>
               <div className="flex justify-end space-x-4">
                 <button
@@ -249,7 +254,6 @@ export default function MyAppointmentsPage() {
           </div>
         )}
       </div>
-
     </div>
   );
 }
