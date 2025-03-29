@@ -23,7 +23,7 @@ export default function GymTrainerLayout({
 
         if (!session) {
           // Redirect to auth page if not logged in
-          router.push("/gym-trainer-auth");
+          router.push("/gym-dash");
           return;
         }
 
@@ -41,7 +41,7 @@ export default function GymTrainerLayout({
         setIsLoading(false);
       } catch (error) {
         console.error("Auth check error:", error);
-        router.push("/gym-trainer-auth");
+        router.push("/gym-dash");
       }
     };
 
