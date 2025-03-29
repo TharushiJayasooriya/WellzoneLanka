@@ -18,6 +18,7 @@ import { useState } from "react";
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
 import { ChatButton } from "@/components/chatbot/ChatButton";
 import Sidebar from "@/app/Sidebar";
+import { Footer } from "../Footer";
 
 export default function ServicesPage() {
   const services = [
@@ -246,7 +247,7 @@ export default function ServicesPage() {
                   whileHover={{ x: 5 }}
                 >
                   <Link
-                    href="/doctors"
+                    href="/doctors-names"
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors font-semibold"
                   >
                     Book Service
@@ -347,13 +348,8 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Chatbot Icon */}
-      <ChatButton onClick={() => setChatOpen(true)} />
-      <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
-
-      {/* CTA Section */}
-      <motion.section
+       {/* CTA Section */}
+       <motion.section
         className="py-16 px-4 bg-white"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -415,6 +411,15 @@ export default function ServicesPage() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Chatbot Icon */}
+      <ChatButton onClick={() => setChatOpen(true)} />
+      <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
+
+      {/* Footer */}
+      <Footer />
+
+     
     </div>
   );
 }

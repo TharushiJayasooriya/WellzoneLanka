@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/doc-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
-// import Appointment from "@/app/doc-appointment";
 import Appointment from "../doc-appointment/page";
-import Sidebar from "@/app/Sidebar";
+import Sidebar from "../Sidebar";
+import { Footer } from "../Footer";
 
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
 import { ChatButton } from "@/components/chatbot/ChatButton";
@@ -90,7 +90,7 @@ export default function DoctorsPage() {
     { value: "orthopedic", label: "Orthopedic" },
     { value: "neurological", label: "Neurological" },
     {
-      value: "Chiropractic Physiotherapist",
+      value: "chiropractic",
       label: "Chiropractic Physiotherapist",
     },
   ];
@@ -103,11 +103,11 @@ export default function DoctorsPage() {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <Sidebar />
       <motion.div
-        className="max-w-7xl mx-auto pt-12"
+        className="max-w-7xl mx-auto pt-12 flex-grow"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -230,6 +230,9 @@ export default function DoctorsPage() {
       {/* Chatbot Icon */}
       <ChatButton onClick={() => setChatOpen(true)} />
       <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
