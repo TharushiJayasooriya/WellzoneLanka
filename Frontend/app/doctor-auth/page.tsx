@@ -20,6 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { login, register, getSession } from "@/app/lib/auth";
 import { Eye, EyeOff } from "lucide-react";
+import { AuthContainer } from "../gym-trainer-auth/auth-container";
 
 export default function DoctorAuthPage() {
   const router = useRouter();
@@ -87,7 +88,7 @@ export default function DoctorAuthPage() {
         });
         // Add a small delay before redirecting to ensure the session is set
         setTimeout(() => {
-          router.push("/doctor");
+          router.push("/doc-dash");
         }, 500);
       } else {
         toast({
@@ -144,7 +145,7 @@ export default function DoctorAuthPage() {
         if (loginResult.success) {
           // Add a small delay before redirecting to ensure the session is set
           setTimeout(() => {
-            router.push("/doctor");
+            router.push("/doc-dash");
           }, 500);
         } else {
           router.push("/login");
