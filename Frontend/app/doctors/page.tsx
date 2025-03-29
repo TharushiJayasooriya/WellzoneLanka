@@ -9,7 +9,6 @@ import {
   Calendar,
   Video,
   Star,
-  Bot,
   Play,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -82,7 +81,7 @@ export default function Home() {
               Starts Here
             </h1>
             <p className="text-gray-600 text-lg max-w-xl">
-              Connect with Sri Lanka's leading physiotherapists and wellness
+              Connect with Sri Lanka&apos;s leading physiotherapists and wellness
               experts for personalized care.
             </p>
             <div className="flex items-center gap-6">

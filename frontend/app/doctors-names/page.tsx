@@ -1,6 +1,6 @@
 "use client";
 
-import { Activity, Star, Clock, Video, Bot, Filter } from "lucide-react";
+import { Activity, Star, Clock, Filter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

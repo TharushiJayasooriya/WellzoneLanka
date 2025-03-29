@@ -3,7 +3,6 @@
 import {
   Activity,
   Brain,
-  Bot,
   Dumbbell,
   Spline as Spine,
   FileWarning as Running,
