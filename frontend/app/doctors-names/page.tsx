@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/doc-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Appointment from "@/doc-appointment";
+// import Appointment from "@/app/doc-appointment";
+import Appointment from "../doc-appointment/page";
 import Sidebar from "@/app/Sidebar";
 
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
