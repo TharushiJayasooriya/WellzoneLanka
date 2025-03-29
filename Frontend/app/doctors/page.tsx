@@ -9,7 +9,6 @@ import {
   Calendar,
   Video,
   Star,
-  Bot,
   Play,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -18,6 +17,7 @@ import { Marquee } from "@/components/magicui/marquee";
 import { useState } from "react";
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
 import { ChatButton } from "@/components/chatbot/ChatButton";
+import { Footer } from "../Footer";
 
 const reviews = [
   { img: "/images/marquee_1.jpeg" },
@@ -81,7 +81,7 @@ export default function Home() {
               Starts Here
             </h1>
             <p className="text-gray-600 text-lg max-w-xl">
-              Connect with Sri Lanka's leading physiotherapists and wellness
+              Connect with Sri Lanka&apos;s leading physiotherapists and wellness
               experts for personalized care.
             </p>
             <div className="flex items-center gap-6">
@@ -227,6 +227,9 @@ export default function Home() {
       <div className="absolute bottom-20 right-10">
         <div className="h-3 w-3 bg-blue-300 rounded-full animate-ping"></div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
@@ -262,32 +265,34 @@ interface TestimonialCardProps {
 
 function TestimonialCard({ image, name, text, delay }: TestimonialCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      className="p-6 rounded-xl border border-sky-100 bg-white hover:shadow-xl hover:border-sky-200 transition-all duration-300"
-    >
-      <div className="flex items-center mb-4">
-        <Image
-          src={image}
-          alt={name}
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
-        <div className="ml-4">
-          <h4 className="font-semibold text-gray-900">{name}</h4>
-          <div className="flex text-yellow-400">
-            <Star className="h-4 w-4 fill-current" />
-            <Star className="h-4 w-4 fill-current" />
-            <Star className="h-4 w-4 fill-current" />
-            <Star className="h-4 w-4 fill-current" />
-            <Star className="h-4 w-4 fill-current" />
+    <div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay }}
+        className="p-6 rounded-xl border border-sky-100 bg-white hover:shadow-xl hover:border-sky-200 transition-all duration-300"
+      >
+        <div className="flex items-center mb-4">
+          <Image
+            src={image}
+            alt={name}
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+          <div className="ml-4">
+            <h4 className="font-semibold text-gray-900">{name}</h4>
+            <div className="flex text-yellow-400">
+              <Star className="h-4 w-4 fill-current" />
+              <Star className="h-4 w-4 fill-current" />
+              <Star className="h-4 w-4 fill-current" />
+              <Star className="h-4 w-4 fill-current" />
+              <Star className="h-4 w-4 fill-current" />
+            </div>
           </div>
         </div>
-      </div>
-      <p className="text-gray-600 italic">&quot;{text}&quot;</p>
-    </motion.div>
+        <p className="text-gray-600 italic">&quot;{text}&quot;</p>
+      </motion.div>
+    </div>
   );
 }

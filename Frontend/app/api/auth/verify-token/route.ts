@@ -37,9 +37,38 @@ export const POST = async (request: any) => {
         );
     } catch (error) {
         console.error("Error verifying token:", error);
+
         return new NextResponse(
             JSON.stringify({ message: "Server error" }),
             { status: 500, headers: { "Content-Type": "application/json" } }
         );
     }
+};
+
+export const GET = async (request: Request) => {
+  const { searchParams } = new URL(request.url);
+  const token = searchParams.get("token");
+
+  if (!token) {
+    return NextResponse.json(
+      { message: "Token is required" },
+      { status: 400 }
+    );
+  }
+
+  await connectToDatabase();
+
+  const user = await User.findOne({
+    resetToken: token,
+    resetTokenExpiry: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return NextResponse.json(
+      { message: "Invalid or expired token" },
+      { status: 400 }
+    );
+  }
+
+  return NextResponse.json({ message: "Token is valid" }, { status: 200 });
 };

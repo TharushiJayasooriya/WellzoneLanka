@@ -1,13 +1,13 @@
 "use client";
 
-import { Activity, Star, Clock, Video, Bot, Filter } from "lucide-react";
+import { Activity, Star, Clock, Filter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/doc-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Appointment from "../doc-appointment/appoinment";
+import Appointment from "../doc-appointment/page";
 import Sidebar from "@/app/Sidebar";
 
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
@@ -89,7 +89,7 @@ export default function DoctorsPage() {
     { value: "orthopedic", label: "Orthopedic" },
     { value: "neurological", label: "Neurological" },
     {
-      value: "Chiropractic Physiotherapist",
+      value: "chiropractic",
       label: "Chiropractic Physiotherapist",
     },
   ];
@@ -102,11 +102,11 @@ export default function DoctorsPage() {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Navbar />
       <Sidebar />
       <motion.div
-        className="max-w-7xl mx-auto pt-12"
+        className="max-w-7xl mx-auto pt-12 flex-grow"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -229,6 +229,9 @@ export default function DoctorsPage() {
       {/* Chatbot Icon */}
       <ChatButton onClick={() => setChatOpen(true)} />
       <ChatDialog open={chatOpen} onOpenChange={setChatOpen} />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
