@@ -106,7 +106,7 @@ export default function MyAppointmentsPage() {
     <div className="bg-white min-h-screen flex items-center justify-center py-10 text-black">
       <div className="container mx-auto p-4 max-w-4xl ">
         <div className="flex items-center mb-8">
-          <Link href="/gym-trainer" className="mr-4">
+          <Link href="/gym-dash" className="mr-4">
             <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors">
               Back
             </button>
