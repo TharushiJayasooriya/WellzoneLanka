@@ -190,7 +190,7 @@ export default function Trainers() {
                 training business.
               </p>
               <Button asChild size="lg" className="trainer-button">
-                <Link href="/trainers/apply">
+                <Link href="/gym-doc-home">
                   <Users className="mr-2 h-5 w-5" /> Apply as a Trainer
                 </Link>
               </Button>

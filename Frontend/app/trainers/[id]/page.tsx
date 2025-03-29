@@ -7,17 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  ArrowLeft, 
-  Star, 
-  Calendar, 
-  Clock, 
-  MessageSquare, 
-  Video, 
-  Award, 
-  Users, 
-  CheckCircle2, 
-  ThumbsUp
+import {
+  ArrowLeft,
+  Star,
+  Calendar,
+  Clock,
+  MessageSquare,
+  Video,
+  Award,
+  Users,
+  CheckCircle2,
+  ThumbsUp,
 } from "lucide-react";
 
 // Mock data for trainers
@@ -27,7 +27,12 @@ const trainersData = {
     name: "Sanuka Siriwardhana",
     image: "https://well-zone-assets.netlify.app/Sanuka%20Siriwardhana.png",
     coverImage: "https://well-zone-assets.netlify.app/Background1.jpeg",
-    specialties: ["Weight Training", "Rehabilitation", "Nutrition", "Calisthenics"],
+    specialties: [
+      "Weight Training",
+      "Rehabilitation",
+      "Nutrition",
+      "Calisthenics",
+    ],
     experience: "4 years",
     rating: 4.9,
     reviews: 254,
@@ -38,11 +43,11 @@ const trainersData = {
       "Certified Personal Trainer (CPT)",
       "Rehabilitation Specialist",
       "Sports Nutrition Certification",
-      "First Aid and CPR Certified"
+      "First Aid and CPR Certified",
     ],
     education: [
       "Bachelor's Degree in Sports Science, University of Colombo",
-      "Diploma in Nutrition, Institute of Health Sciences"
+      "Diploma in Nutrition, Institute of Health Sciences",
     ],
     languages: ["English", "Sinhala", "Tamil"],
   },
@@ -62,11 +67,11 @@ const trainersData = {
       "Registered Yoga Teacher (RYT-200)",
       "Certified Pilates Instructor",
       "Meditation Coach",
-      "First Aid Certified"
+      "First Aid Certified",
     ],
     education: [
       "Diploma in Yoga Therapy, Yoga Alliance",
-      "Certificate in Pilates Instruction, Body Control Pilates"
+      "Certificate in Pilates Instruction, Body Control Pilates",
     ],
     languages: ["English", "Sinhala"],
   },
@@ -86,11 +91,11 @@ const trainersData = {
       "Certified Functional Trainer (CFT)",
       "High-Intensity Interval Training (HIIT) Specialist",
       "Weight Loss & Performance Coaching Certification",
-      "CPR & First Aid Certified"
+      "CPR & First Aid Certified",
     ],
     education: [
       "Bachelor's Degree in Sports Science, University of Colombo",
-      "Diploma in Fitness & Nutrition, Institute of Health Sciences"
+      "Diploma in Fitness & Nutrition, Institute of Health Sciences",
     ],
     languages: ["English", "Sinhala", "Tamil"],
   },
@@ -110,11 +115,11 @@ const trainersData = {
       "Certified Senior Fitness Trainer (CSFT)",
       "Rehabilitation & Mobility Specialist",
       "Low-Impact Training Certification",
-      "First Aid and CPR Certified"
+      "First Aid and CPR Certified",
     ],
     education: [
       "Bachelor's Degree in Sports Science, University of Colombo",
-      "Diploma in Rehabilitation & Exercise Therapy, University of Colombo"
+      "Diploma in Rehabilitation & Exercise Therapy, University of Colombo",
     ],
     languages: ["English", "Sinhala", "Tamil"],
   },
@@ -147,12 +152,12 @@ export default function TrainerProfile() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white text-black">
       {/* Cover Image */}
       <div className="relative h-64 md:h-80">
-        <img 
-          src={trainer.coverImage} 
-          alt={`${trainer.name} cover`} 
+        <img
+          src={trainer.coverImage}
+          alt={`${trainer.name} cover`}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
@@ -168,9 +173,9 @@ export default function TrainerProfile() {
                 <CardContent className="pt-6">
                   <div className="flex flex-col items-center text-center">
                     <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-background mb-4">
-                      <img 
-                        src={trainer.image} 
-                        alt={trainer.name} 
+                      <img
+                        src={trainer.image}
+                        alt={trainer.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -178,10 +183,14 @@ export default function TrainerProfile() {
                     <div className="flex items-center mb-2">
                       <Star className="h-4 w-4 text-yellow-500 mr-1" />
                       <span className="font-medium">{trainer.rating}</span>
-                      <span className="text-muted-foreground ml-1">({trainer.reviews} reviews)</span>
+                      <span className="text-muted-foreground ml-1">
+                        ({trainer.reviews} reviews)
+                      </span>
                     </div>
-                    <p className="text-muted-foreground mb-4">{trainer.experience} experience</p>
-                    
+                    <p className="text-muted-foreground mb-4">
+                      {trainer.experience} experience
+                    </p>
+
                     <div className="flex flex-wrap justify-center gap-1 mb-6">
                       {trainer.specialties.map((specialty, index) => (
                         <Badge key={index} variant="secondary">
@@ -189,25 +198,35 @@ export default function TrainerProfile() {
                         </Badge>
                       ))}
                     </div>
-                    
+
                     <div className="w-full space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-muted-foreground">Price:</span>
                         <span className="font-medium">{trainer.price}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Availability:</span>
+                        <span className="text-muted-foreground">
+                          Availability:
+                        </span>
                         <span>{trainer.availability}</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Languages:</span>
+                        <span className="text-muted-foreground">
+                          Languages:
+                        </span>
                         <span>{trainer.languages.join(", ")}</span>
                       </div>
                     </div>
-                    
+
                     <div className="w-full pt-6 space-y-3">
-                      <Button variant="outline" className="w-full">
-                        <Video className="mr-2 h-4 w-4" /> Video Consultation
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="w-full bg-sky-500"
+                      >
+                        <Link href="/gym-dash">
+                          <Video className="mr-2 h-4 w-4" /> Video Consultation
+                        </Link>
                       </Button>
                     </div>
                   </div>
@@ -217,7 +236,7 @@ export default function TrainerProfile() {
 
             {/* Main Content */}
             <div className="md:w-2/3">
-              <Button asChild variant="outline" className="mb-6">
+              <Button asChild variant="outline" className="mb-6 bg-sky-500 ">
                 <Link href="/trainers">
                   <ArrowLeft className="mr-2 h-4 w-4" /> Back to Trainers
                 </Link>
@@ -227,12 +246,16 @@ export default function TrainerProfile() {
                 <TabsContent value="about" className="mt-6">
                   <div className="space-y-8">
                     <div>
-                      <h2 className="text-2xl font-semibold mb-4">About {trainer.name}</h2>
+                      <h2 className="text-2xl font-semibold mb-4">
+                        About {trainer.name}
+                      </h2>
                       <p className="text-muted-foreground">{trainer.bio}</p>
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-semibold mb-4">Certifications</h3>
+                      <h3 className="text-xl font-semibold mb-4">
+                        Certifications
+                      </h3>
                       <ul className="space-y-2">
                         {trainer.certifications.map((cert, index) => (
                           <li key={index} className="flex items-start">
@@ -256,14 +279,20 @@ export default function TrainerProfile() {
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-semibold mb-4">Specialties</h3>
+                      <h3 className="text-xl font-semibold mb-4">
+                        Specialties
+                      </h3>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {trainer.specialties.map((specialty, index) => (
                           <Card key={index} className="bg-muted/50">
                             <CardContent className="pt-6">
-                              <h4 className="font-semibold mb-2">{specialty}</h4>
+                              <h4 className="font-semibold mb-2">
+                                {specialty}
+                              </h4>
                               <p className="text-sm text-muted-foreground">
-                                Specialized training and expertise in {specialty.toLowerCase()} techniques and methodologies.
+                                Specialized training and expertise in{" "}
+                                {specialty.toLowerCase()} techniques and
+                                methodologies.
                               </p>
                             </CardContent>
                           </Card>

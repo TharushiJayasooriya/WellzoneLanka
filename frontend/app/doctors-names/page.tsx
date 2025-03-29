@@ -103,7 +103,7 @@ export default function DoctorsPage() {
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col bg-white text-black">
       <Navbar />
       <Sidebar />
       <motion.div
