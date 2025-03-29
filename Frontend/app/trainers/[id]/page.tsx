@@ -224,7 +224,7 @@ export default function TrainerProfile() {
                         variant="outline"
                         className="w-full bg-sky-500"
                       >
-                        <Link href="/gym-dash">
+                        <Link href="/gym-doc-home">
                           <Video className="mr-2 h-4 w-4" /> Video Consultation
                         </Link>
                       </Button>
