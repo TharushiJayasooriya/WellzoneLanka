@@ -16,7 +16,6 @@ const ResetPasswordPage = () => {
   const token = params?.token as string;
   const [error, setError] = useState<string>("");
   const [verified, setVerified] = useState(false);
-  const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pending, setPending] = useState(false);
@@ -30,54 +29,35 @@ const ResetPasswordPage = () => {
         return;
       }
 
+      // Assuming you verify token by making an API call
       try {
-        const res = await fetch("/api/auth/verify-token", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token }),
-        });
-
+        const res = await fetch(`/api/auth/verify-reset-token?token=${token}`);
         if (!res.ok) {
-          setError("Invalid token or it has expired.");
-        } else {
-          const data = await res.json();
-          setEmail(data.email); // Store the email for reset
-          setVerified(true);
+          const { message } = await res.json();
+          setError(message || "Invalid or expired token.");
+          return;
         }
-      } catch (error) {
-        console.error("Error verifying token:", error);
-        setError("An unexpected error occurred. Please try again.");
+        setVerified(true);
+      } catch (err) {
+        console.error("Token verification error:", err);
+        setError("Failed to verify token.");
       }
     };
 
-    // Avoid multiple token checks
-    if (!verified) {
-      verifyToken();
-    }
-  }, [token, verified]); // `verified` ensures we don't repeat the check
+    verifyToken();
+  }, [token]);
 
   // ✅ Redirect if already logged in
   useEffect(() => {
     if (sessionStatus === "authenticated") {
-      router.replace("../../login");
+      router.replace("/login");
     }
   }, [sessionStatus, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
-      return;
-    }
-
-    if (!password || !confirmPassword) {
-      setError("Both password fields are required.");
-      return;
-    }
-
-    if (!email) {
-      setError("Email not found. Please request a new reset link.");
       return;
     }
 
@@ -96,7 +76,7 @@ const ResetPasswordPage = () => {
         setError(message || "Failed to reset password.");
       } else {
         toast.success("Password reset successfully!");
-        router.replace("/login");
+        router.push("/login");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -164,11 +144,7 @@ const ResetPasswordPage = () => {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? (
-                  <EyeOff className="h-5 w-5" />
-                ) : (
-                  <Eye className="h-5 w-5" />
-                )}
+                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
           </div>
@@ -191,11 +167,7 @@ const ResetPasswordPage = () => {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                {showConfirmPassword ? (
-                  <EyeOff className="h-5 w-5" />
-                ) : (
-                  <Eye className="h-5 w-5" />
-                )}
+                {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
               </button>
             </div>
             {password && confirmPassword && (
@@ -210,26 +182,9 @@ const ResetPasswordPage = () => {
             className="w-full bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-3 rounded-lg font-medium transition-colors"
             disabled={pending || error.length > 0}
           >
-            {pending ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Resetting...
-              </span>
-            ) : "Reset Password"}
+            {pending ? "Resetting..." : "Reset Password"}
           </button>
         </form>
-        
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            Remember your password?{" "}
-            <Link href="/login" className="text-cyan-600 hover:text-cyan-800 hover:underline">
-              Login here
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );

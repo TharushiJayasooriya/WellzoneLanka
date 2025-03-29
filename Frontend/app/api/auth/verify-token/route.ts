@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import User from "../../../../models/user";
-import connectToDatabase from "../../../../lib/mongodb";
+import connectToDatabase from "../../../../lib/db";
 
-export const POST = async (request: any) => {
+
+export const POST = async (request: Request) => {
     try {
         const { token } = await request.json();
 
@@ -37,9 +38,29 @@ export const POST = async (request: any) => {
         );
     } catch (error) {
         console.error("Error verifying token:", error);
+
+
+
+
+
+
+
+
         return new NextResponse(
             JSON.stringify({ message: "Server error" }),
             { status: 500, headers: { "Content-Type": "application/json" } }
         );
+
+
+
+
+
+
+
+
+
+
+
+
     }
 };

@@ -2,16 +2,12 @@
 
 import { useState, useEffect } from "react";
 import {
-  Dumbbell,
+
   Eye,
   EyeOff,
-  Facebook,
-  Instagram,
-  Triangle,
+ 
   TriangleAlert,
-  Youtube,
-  UserPlus,
-  Stethoscope,
+ 
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,7 +28,7 @@ export default function Register() {
     role: "user", // Default role is user
   });
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -53,7 +49,7 @@ export default function Register() {
   }, [images.length]);
 
   // Update form.role when RoleSelectionButtons component changes role
-  const handleRoleSelection = (role) => {
+  const handleRoleSelection = (role: string) => {
     setForm({ ...form, role });
   };
 
