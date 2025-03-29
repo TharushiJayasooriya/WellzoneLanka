@@ -1,10 +1,12 @@
 "use client";
 
 import type React from "react";
+
 import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Mic, MicOff, VideoIcon, VideoOff, Phone, Send } from "lucide-react";
+
 
 interface Message {
   id: string;
@@ -17,6 +19,7 @@ interface Message {
 export default function VideoSessionPage() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session");
+
   const [isMicOn, setIsMicOn] = useState(true);
   const [isVideoOn, setIsVideoOn] = useState(true);
   const [message, setMessage] = useState("");
@@ -47,13 +50,17 @@ export default function VideoSessionPage() {
   ]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
   const [activeTab, setActiveTab] = useState("chat");
 
   useEffect(() => {
+
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
+
+
     const fetchSessionData = async () => {
       if (sessionId) {
         try {
@@ -64,10 +71,12 @@ export default function VideoSessionPage() {
             const data = await response.json();
             setSessionData(data.session);
           } else {
+
             console.error("Failed to fetch session data");
           }
         } catch (error) {
           console.error("Error fetching session data:", error);
+
         } finally {
           setIsLoading(false);
         }
@@ -77,9 +86,12 @@ export default function VideoSessionPage() {
     };
 
     fetchSessionData();
+
+
   }, [sessionId]);
 
   useEffect(() => {
+
     const getVideoStream = async () => {
       try {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -93,19 +105,23 @@ export default function VideoSessionPage() {
         }
       } catch (error) {
         console.error("Error accessing media devices:", error);
+
       }
     };
 
     getVideoStream();
 
     return () => {
+
       if (videoRef.current && videoRef.current.srcObject) {
         const stream = videoRef.current.srcObject as MediaStream;
         const tracks = stream.getTracks();
         tracks.forEach((track) => track.stop());
       }
     };
+
   }, []);
+
 
   const toggleMic = () => {
     setIsMicOn(!isMicOn);
@@ -133,7 +149,9 @@ export default function VideoSessionPage() {
       const tracks = stream.getTracks();
       tracks.forEach((track) => track.stop());
     }
+
     window.location.href = "/gym-dash";
+
   };
 
   const sendMessage = (e: React.FormEvent) => {
@@ -148,6 +166,7 @@ export default function VideoSessionPage() {
       };
       setMessages([...messages, newMessage]);
       setMessage("");
+
 
       setTimeout(() => {
         const trainerResponse: Message = {
@@ -169,6 +188,7 @@ export default function VideoSessionPage() {
   const trainerName = sessionData?.appointment?.trainer || "John Smith";
 
   return (
+
     <div className="bg-white min-h-screen flex items-center justify-center py-10">
       <div className="container mx-auto p-4 max-w-6xl">
         <div className="flex items-center mb-8">

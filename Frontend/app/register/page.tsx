@@ -2,12 +2,16 @@
 
 import { useState, useEffect } from "react";
 import {
-
+  Dumbbell,
   Eye,
   EyeOff,
- 
+  Facebook,
+  Instagram,
+  Triangle,
   TriangleAlert,
- 
+  Youtube,
+  UserPlus,
+  Stethoscope,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -49,7 +53,11 @@ export default function Register() {
   }, [images.length]);
 
   // Update form.role when RoleSelectionButtons component changes role
-  const handleRoleSelection = (role: string) => {
+  interface RoleSelectionHandler {
+    (role: string): void;
+  }
+
+  const handleRoleSelection: RoleSelectionHandler = (role) => {
     setForm({ ...form, role });
   };
 

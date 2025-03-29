@@ -102,6 +102,7 @@ export default function MyAppointmentsPage() {
   };
 
   return (
+
     <div className="bg-white min-h-screen flex items-center justify-center py-10 text-black">
       <div className="container mx-auto p-4 max-w-4xl ">
         <div className="flex items-center mb-8">
@@ -248,6 +249,7 @@ export default function MyAppointmentsPage() {
           </div>
         )}
       </div>
+
     </div>
   );
 }
