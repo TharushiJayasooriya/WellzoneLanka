@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers"
 import { connectToDatabase } from "@/app/lib/api/mongodb"
-import { ObjectId } from "mongodb"
+import { redirect } from "next/navigation"
 
 interface LoginData {
   email: string
@@ -25,9 +25,6 @@ export async function login(data: LoginData) {
       email: data.email,
     })
 
-    // After finding the user
-    console.log("User found:", user)
-
     if (!user) {
       return { success: false, message: "User not found" }
     }
@@ -47,23 +44,15 @@ export async function login(data: LoginData) {
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
     }
 
-    // After creating the session
-    console.log("Session created:", session)
-
-    // Before setting the cookie
-    console.log("Setting session cookie")
-
     // Store session in cookie
-    const cookieStore = await cookies();
-    cookieStore.set("session", JSON.stringify(session), {
+    ;(await
+      // Store session in cookie
+      cookies()).set("session", JSON.stringify(session), {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: 7 * 24 * 60 * 60, // 7 days
       path: "/",
-    });
-
-    // After setting the cookie
-    console.log("Session cookie set")
+    })
 
     return {
       success: true,
@@ -81,16 +70,12 @@ export async function login(data: LoginData) {
 }
 
 export async function logout() {
-  const cookieStore = await cookies();
-  cookieStore.delete("session");
-  // Remove the redirect here to handle it client-side
-  return { success: true }
+  (await cookies()).delete("session")
+  redirect("/")
 }
 
 export async function getSession(): Promise<User | null> {
-  const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get("session");
-  console.log("Getting session, cookie exists:", !!sessionCookie)
+  const sessionCookie = (await cookies()).get("session")
 
   if (!sessionCookie) {
     return null
@@ -98,13 +83,10 @@ export async function getSession(): Promise<User | null> {
 
   try {
     const session = JSON.parse(sessionCookie.value)
-    console.log("Parsed session:", session)
 
     // Check if session is expired
     if (new Date(session.expires) < new Date()) {
-      console.log("Session expired")
-      const cookieStore = await cookies();
-      cookieStore.delete("session");
+      (await cookies()).delete("session")
       return null
     }
 
@@ -115,23 +97,13 @@ export async function getSession(): Promise<User | null> {
       role: session.role,
     }
   } catch (error) {
-    console.error("Error parsing session:", error)
     return null
   }
 }
 
-// async function ensureCollections() {
-//   // Placeholder for ensuring collections.  Implementation depends on your database setup.
-//   // For example, you might check if collections exist and create them if not.
-//   // This is just a stub to be filled in with actual logic.
-// }
-
 export async function register(data: any) {
   try {
     const { db } = await connectToDatabase()
-
-    // Ensure collections exist
-    // await ensureCollections()
 
     // Check if user already exists
     const existingUser = await db.collection("users").findOne({
@@ -147,7 +119,7 @@ export async function register(data: any) {
       name: data.name,
       email: data.email,
       password: data.password, // In a real app, hash this password
-      role: data.role || "patient", // Default to patient if no role specified
+      role: data.role,
       createdAt: new Date(),
     }
 
@@ -165,29 +137,3 @@ export async function register(data: any) {
   }
 }
 
-export async function getProfile(userId: string) {
-  try {
-    const { db } = await connectToDatabase()
-
-    const user = await db.collection("users").findOne({
-      _id: new ObjectId(userId),
-    })
-
-    if (!user) {
-      return { success: false, message: "User not found" }
-    }
-
-    return {
-      success: true,
-      user: {
-        id: user._id.toString(),
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    }
-  } catch (error) {
-    console.error("Get profile error:", error)
-    return { success: false, message: "An error occurred while getting profile" }
-  }
-}
