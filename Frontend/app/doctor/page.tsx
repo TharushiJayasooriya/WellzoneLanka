@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Clipboard, Eye, EyeOff, TriangleAlert, Upload } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,22 +12,19 @@ export default function DoctorRegister() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [form, setForm] = useState({
-    _id : "",
-    name: "",
-    email: "",
-    password: "",
-    role: "",
-    licenseNumber: "",
-    createdAt : "",
-    confirmPassword: "",
-    experience: "",
     firstName: "",
     lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    specialization: "",
+    licenseNumber: "",
+    experience: "",
     hospital: "",
     bio: "",
   });
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -50,62 +47,39 @@ export default function DoctorRegister() {
 
     // Validate password match
     if (form.password !== form.confirmPassword) {
-        setError("Passwords do not match.");
-        setPending(false);
-        return;
+      setError("Passwords do not match.");
+      setPending(false);
+      return;
     }
 
     try {
-        // First, sign up the doctor
-        const signupRes = await fetch("/api/auth/doctor-signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(form),
-        });
+      const res = await fetch("/api/auth/doctor-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-        if (!signupRes.ok) {
-            const signupError = await signupRes.json();
-            setError(signupError.message || "Failed to sign up.");
-            setPending(false);
-            return;
-        }
+      const data = await res.json();
 
-        // Then, log in the doctor
-        const loginRes = await fetch("/api/auth/doctor-login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: form.email, password: form.password }),
-        });
-
-        const loginData = await loginRes.json();
-
-        if (loginRes.ok) {
-            // Store the token in localStorage or cookies
-            localStorage.setItem("token", loginData.token);
-
-            // Show success message and redirect
-            toast.success("Login Successful");
-            router.push("../verification-pending"); // Redirect to verification pending page
-        } else {
-            setError(loginData.error || "Failed to log in.");
-            setPending(false);
-        }
-    } catch (error) {
+      if (res.ok) {
         setPending(false);
-        setError("An error occurred while submitting the form.");
-        console.error("Fetch error:", error);
+        toast.success(data.message);
+        router.push("../verification-pending"); // Redirect to verification pending page
+      } else if (res.status === 400) {
+        setError(data.message);
+        setPending(false);
+      } else if (res.status === 500) {
+        setError(data.message);
+        setPending(false);
+      } else {
+        setError("An unexpected error occurred.");
+        setPending(false);
+      }
+    } catch (error) {
+      setPending(false);
+      setError("An error occurred while submitting the form.");
+      console.error("Fetch error:", error);
     }
-};
-
-  const fetchProtectedEndpoint = async () => {
-    const token = localStorage.getItem("token");
-    const res = await fetch("/api/protected-endpoint", {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-        }
-    });
   };
 
   return (
@@ -267,11 +241,11 @@ export default function DoctorRegister() {
                           <select
                             className="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                             disabled={pending}
-                            value={form.role}
+                            value={form.specialization}
                             onChange={(e) =>
                               setForm({
                                 ...form,
-                                role: e.target.value,
+                                specialization: e.target.value,
                               })
                             }
                             required

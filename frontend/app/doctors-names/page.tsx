@@ -8,7 +8,8 @@ import Navbar from "@/components/doc-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Appointment from "../doc-appointment/page";
-import Sidebar from "@/app/Sidebar";
+import Sidebar from "../Sidebar";
+import { Footer } from "../Footer";
 
 import { ChatDialog } from "@/components/chatbot/ChatDialog";
 import { ChatButton } from "@/components/chatbot/ChatButton";

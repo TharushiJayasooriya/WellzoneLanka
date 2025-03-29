@@ -27,27 +27,15 @@ export default function Contact() {
     agreeToTerms: false,
   });
 
-  interface FormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    subject: string;
-    message: string;
-    agreeToTerms: boolean;
-  }
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { id, value, type, checked } = e.target as HTMLInputElement;
+  const handleChange = (e) => {
+    const { id, value, type, checked } = e.target;
     setFormData((prevState) => ({
       ...prevState,
       [id]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     // Add your form submission logic here
