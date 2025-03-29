@@ -2,10 +2,10 @@ import type React from "react";
 import Link from "next/link";
 import { Video, Calendar, ClipboardList } from "lucide-react";
 
-export default function GymTrainerPage() {
+export default function DoctorServicesPage() {
   return (
     <div className="bg-white min-h-screen flex items-center justify-center py-10">
-      <div className="flex flex-col min-h-screen bg-white text-black </di">
+      <div className="flex flex-col min-h-screen bg-white text-black">
         <div className="container mx-auto p-4 max-w-6xl bg-white text-black">
           <div className="flex items-center mb-8">
             <Link href="/gym-doc-home" className="mr-4">
@@ -13,35 +13,35 @@ export default function GymTrainerPage() {
                 Back
               </button>
             </Link>
-            <h1 className="text-3xl font-bold">Gym Trainer Services</h1>
+            <h1 className="text-3xl font-bold">Doctor Services</h1>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <ServiceCard
-              title="Video Conferencing"
-              description="Connect with your trainer virtually"
-              details="Join live video sessions with your fitness trainer for real-time guidance and feedback."
+              title="Video Consultation"
+              description="Consult with doctors online"
+              details="Connect with licensed doctors through secure video calls for medical advice and treatment."
               icon={<Video className="h-10 w-10 text-sky-500" />}
-              buttonText="Join Session"
-              href="/gym-dash/video-session"
+              buttonText="Start Consultation"
+              href="/doctor-dash/video-session"
             />
 
             <ServiceCard
               title="Book Appointment"
-              description="Schedule your training sessions"
-              details="Book appointments with available trainers based on your schedule and fitness goals."
+              description="Schedule a visit with a doctor"
+              details="Book appointments with doctors at your convenience for in-person or virtual consultations."
               icon={<Calendar className="h-10 w-10 text-sky-500" />}
               buttonText="Book Now"
-              href="/gym-dash/book-appointment"
+              href="/doctor-dash/book-appointment"
             />
 
             <ServiceCard
               title="My Appointments"
-              description="Manage your scheduled sessions"
-              details="View, reschedule, or cancel your upcoming appointments with trainers."
+              description="Manage your doctor visits"
+              details="View, reschedule, or cancel your upcoming appointments with doctors."
               icon={<ClipboardList className="h-10 w-10 text-sky-500" />}
               buttonText="View Appointments"
-              href="/gym-dash/my-appointments"
+              href="/doctor-dash/my-appointments"
             />
           </div>
         </div>

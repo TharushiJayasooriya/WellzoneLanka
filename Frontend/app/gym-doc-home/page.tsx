@@ -1,12 +1,17 @@
+"use client";
 import type React from "react";
 import Link from "next/link";
 import { Stethoscope, User, Dumbbell } from "lucide-react";
 import { BackgroundVideo } from "@/app/gym-doc-home/background-video";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
     <>
       <BackgroundVideo videoSrc="/images/fitness2.mp4" />
+      <div className="-mt-4 z-10">
+        <Navbar />
+      </div>
 
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
         <div className="text-center mb-12 text-white">
@@ -20,7 +25,7 @@ export default function Home() {
             description="Connect with healthcare professionals"
             details="Get medical consultations, prescriptions, and health advice from certified doctors."
             icon={<Stethoscope className="h-12 w-12 text-primary" />}
-            href="/doc-dash"
+            href="/doctor-dash"
           />
 
           <UserPhaseCard
