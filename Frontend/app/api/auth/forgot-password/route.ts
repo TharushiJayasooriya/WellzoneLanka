@@ -31,7 +31,9 @@ export const POST = async (request: any) => {
     user.resetTokenExpiry = new Date(Date.now() + 3600000); // 1 hour
     await user.save();
 
-    const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password/${resetToken}`;
+    // Generate reset URL
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const resetUrl = `${baseUrl}/reset-password/${resetToken}`;
     console.log("Reset URL:", resetUrl);
 
     // Configure SendGrid

@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { toast } from "sonner";
-import { useSession } from "next-auth/react";
 import { TriangleAlert, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,33 +10,31 @@ import Link from "next/link";
 const ResetPasswordPage = () => {
   const params = useParams();
   const router = useRouter();
-  const { data: session, status: sessionStatus } = useSession();
 
   const token = params?.token as string;
-  const [error, setError] = useState<string>("");
-  const [verified, setVerified] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [verified, setVerified] = useState(false);
   const [pending, setPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     const verifyToken = async () => {
-      if (!token) {
-        setError("No token found in URL.");
-        return;
-      }
-
-      // Assuming you verify token by making an API call
       try {
-        const res = await fetch(`/api/auth/verify-reset-token?token=${token}`);
+        const res = await fetch(`/api/auth/verify-token`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+
         if (!res.ok) {
           const { message } = await res.json();
           setError(message || "Invalid or expired token.");
-          return;
+        } else {
+          setVerified(true);
         }
-        setVerified(true);
       } catch (err) {
         console.error("Token verification error:", err);
         setError("Failed to verify token.");
@@ -46,13 +43,6 @@ const ResetPasswordPage = () => {
 
     verifyToken();
   }, [token]);
-
-  // ✅ Redirect if already logged in
-  useEffect(() => {
-    if (sessionStatus === "authenticated") {
-      router.replace("/login");
-    }
-  }, [sessionStatus, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,20 +68,16 @@ const ResetPasswordPage = () => {
         toast.success("Password reset successfully!");
         router.push("/login");
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      console.error("Error resetting password:", err);
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setPending(false);
     }
   };
 
-  if (sessionStatus === "loading") {
-    return <h4>Loading...</h4>;
-  }
-
-  if (sessionStatus === "authenticated") {
-    return null;
+  if (!verified) {
+    return <p>{error || "Verifying token..."}</p>;
   }
 
   return (
