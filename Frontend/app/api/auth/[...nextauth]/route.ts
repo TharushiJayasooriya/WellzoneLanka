@@ -3,20 +3,31 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "../../../../models/user";
 import connectToDatabase from "../../../../lib/db";
-import dotenv from "dotenv";
-
+import dotenv from 'dotenv';
 dotenv.config();
 
-// Ensure required environment variables are set
-const mongoUri = process.env.MONGODB_URI;
-const authSecret = process.env.NEXTAUTH_SECRET;
-
+const mongoUri = process.env.MONGO;
 if (!mongoUri) {
-  throw new Error("Please define the MONGODB_URI environment variable");
+  throw new Error('Please define the MONGO environment variable');
 }
-if (!authSecret) {
-  throw new Error("Please define the NEXTAUTH_SECRET environment variable");
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    id?: string;
+  }
 }
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id?: string;
+      email?: string;
+      name?: string;
+    };
+  }
+}
+
+
 
 const handler = NextAuth({
   session: {
@@ -31,54 +42,34 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         try {
-          if (!credentials?.email || !credentials?.password) {
-            throw new Error("Missing email or password");
-          }
+          console.log("Received credentials:", credentials);
 
-          console.log("🔍 Checking credentials for:", credentials.email.trim());
-
-          // Connect to database
           await connectToDatabase();
 
-          // Find user by email (Trim email to avoid leading/trailing spaces)
-          const user = await User.findOne({ email: credentials.email.trim() }).exec() as { _id: string; email: string; password: string; firstName?: string; lastName?: string };
-          
+          const user = await User.findOne({ email: credentials?.email }).exec() as { _id: string; email: string; firstName: string; lastName: string; password: string };
+          console.log("User found:", user);
+
           if (!user) {
-            console.error("🚫 User not found:", credentials.email);
             throw new Error("User not found");
           }
 
-          console.log("✅ User found in DB:", user.email);
-
-          // Debugging: Log stored password format
-          console.log("🔑 Stored password (hashed):", user.password);
-
-          // Compare provided password with hashed password
-          const isValidPassword = await bcrypt.compare(credentials.password.trim(), user.password);
-
-          console.log("🛠 Password match:", isValidPassword);
+          const isValidPassword = await bcrypt.compare(
+            credentials?.password ?? "",
+            user.password as string
+          );
+          console.log("Password valid:", isValidPassword);
 
           if (!isValidPassword) {
-            console.error("❌ Invalid password for user:", credentials.email);
             throw new Error("Invalid password");
           }
-
-          // Handle cases where firstName and lastName might be missing
-          const fullName = user.firstName && user.lastName
-            ? `${user.firstName} ${user.lastName}`
-            : user.email;
 
           return {
             id: user._id.toString(),
             email: user.email,
-            name: fullName,
+            name: user.firstName + " " + user.lastName,
           };
         } catch (error) {
-          if (error instanceof Error) {
-            console.error("⚠️ Authorization error:", error.message);
-          } else {
-            console.error("⚠️ Authorization error:", error);
-          }
+          console.error("Authorization error:", error);
           return null;
         }
       },
@@ -91,6 +82,7 @@ const handler = NextAuth({
         token.email = user.email;
         token.name = user.name;
       }
+      console.log("JWT Token:", token);
       return token;
     },
     async session({ session, token }) {
@@ -99,13 +91,14 @@ const handler = NextAuth({
         email: token.email ?? undefined,
         name: token.name ?? undefined,
       };
+      console.log("Session:", session);
       return session;
     },
   },
   pages: {
     signIn: "/login",
   },
-  secret: authSecret,
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };

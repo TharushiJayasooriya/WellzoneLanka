@@ -4,7 +4,6 @@ import { Video, Calendar, ClipboardList } from "lucide-react";
 
 export default function GymTrainerPage() {
   return (
-
     <div className="bg-white min-h-screen flex items-center justify-center py-10">
       <div className="flex flex-col min-h-screen bg-white text-black </di">
         <div className="container mx-auto p-4 max-w-6xl bg-white text-black">
@@ -46,7 +45,6 @@ export default function GymTrainerPage() {
             />
           </div>
         </div>
-
       </div>
     </div>
   );
@@ -71,7 +69,6 @@ function ServiceCard({
 }: ServiceCardProps) {
   return (
     <div className="flex flex-col h-full bg-white text-black rounded-lg shadow-lg overflow-hidden">
-
       <div className="text-center p-6">
         <div className="mx-auto bg-sky-100 p-4 rounded-full mb-4">{icon}</div>
         <h2 className="text-2xl font-bold mb-2">{title}</h2>

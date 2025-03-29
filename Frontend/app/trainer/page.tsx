@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dumbbell, Users, Camera, ArrowRight } from "lucide-react";
 import Navbar from "@/components/gym-navbar";
-import { Footer } from "@/app/Footer";
+import { Footer } from "./Footer";
 
 export default function Home() {
   return (
