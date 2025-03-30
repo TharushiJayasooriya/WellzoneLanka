@@ -67,33 +67,17 @@ def index():
     # Default GET request response to show the video feed and home page
     return render_template_string("""
     <html>
-    <head>
-        <title>Lunge Tracker</title>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
-
-            #video-feed {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Lunge Tracker</h1>
-        <form method="POST">
-            <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
-        </form>
-        <img src="{{ url_for('video_feed') }}" id="video-feed" />
-    </body>
-</html>
-
+        <head>
+            <title>Lunge Tracker</title>
+        </head>
+        <body>
+            <h1>Lunge Tracker</h1>
+            <form method="POST">
+                <button type="submit" name="action" value="stop_video">Stop Video Feed and Go Home</button>
+            </form>
+            <img src="{{ url_for('video_feed') }}" id="video-feed" width="640" height="480" />
+        </body>
+    </html>
     """)
 
 @app.route('/video_feed')
