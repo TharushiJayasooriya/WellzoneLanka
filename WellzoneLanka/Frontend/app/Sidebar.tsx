@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import {
   Calendar,
@@ -9,14 +10,18 @@ import {
   ChevronRight,
   ChevronLeft,
   ArrowRight,
-  Home
+  Home,
+  LogOut,
+  User,
+  Trash2
 } from "lucide-react";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session, status } = useSession();
   const router = useRouter();
-  const sidebarRef = useRef(null);
-  const triggerRef = useRef(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   // Auto-hide sidebar when mouse leaves the sidebar area
   useEffect(() => {
@@ -24,25 +29,27 @@ const Sidebar = () => {
       setIsOpen(false);
     };
 
-    if (sidebarRef.current) {
-      sidebarRef.current.addEventListener("mouseleave", handleMouseLeave);
+    const currentSidebarRef = sidebarRef.current;
+    if (currentSidebarRef) {
+      currentSidebarRef.addEventListener("mouseleave", handleMouseLeave);
     }
 
     return () => {
-      if (sidebarRef.current) {
-        sidebarRef.current.removeEventListener("mouseleave", handleMouseLeave);
+      if (currentSidebarRef) {
+        currentSidebarRef.removeEventListener("mouseleave", handleMouseLeave);
       }
     };
-  }, [sidebarRef]);
+  }, []);
 
   // Close sidebar when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         isOpen &&
         sidebarRef.current &&
-        !sidebarRef.current.contains(event.target) &&
-        !triggerRef.current.contains(event.target)
+        !sidebarRef.current.contains(event.target as Node) &&
+        triggerRef.current &&
+        !triggerRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
       }
@@ -60,21 +67,18 @@ const Sidebar = () => {
       setIsOpen(true);
     };
 
-    if (triggerRef.current) {
-      triggerRef.current.addEventListener("mouseenter", handleTriggerHover);
+    const currentTriggerRef = triggerRef.current;
+    if (currentTriggerRef) {
+      currentTriggerRef.addEventListener("mouseenter", handleTriggerHover);
     }
 
     return () => {
-      if (triggerRef.current) {
-        triggerRef.current.removeEventListener(
-          "mouseenter",
-          handleTriggerHover
-        );
+      if (currentTriggerRef) {
+        currentTriggerRef.removeEventListener("mouseenter", handleTriggerHover);
       }
     };
-  }, [triggerRef]);
+  }, []);
 
-  // Navigate to service pages
   const navigateToHome = () => {
     router.push("/");
     setIsOpen(false);
@@ -88,6 +92,36 @@ const Sidebar = () => {
   const navigateToDoctor = () => {
     router.push("/doctors#Doctor");
     setIsOpen(false);
+  };
+
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    router.push("/login");
+    setIsOpen(false);
+  };
+
+  const handleDeleteAccount = async () => {
+    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+      try {
+        const response = await fetch('/api/auth/delete-account', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          await signOut({ redirect: false });
+          router.push("/register");
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Failed to delete account");
+        }
+      } catch (error) {
+        console.error("Error deleting account:", error);
+        alert(error instanceof Error ? error.message : "An error occurred while deleting your account.");
+      }
+    }
   };
 
   return (
@@ -146,13 +180,32 @@ const Sidebar = () => {
             </div>
           </div>
 
-          {/* Decorative elements - more subtle for transparency */}
+          {/* Decorative elements */}
           <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-r from-blue-500/20 to-cyan-400/20 opacity-30"></div>
           <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-blue-500/50 to-cyan-400/50"></div>
         </div>
 
+        {/* User Profile Section */}
+        {status === "authenticated" && session?.user && (
+          <div className="px-6 py-4 border-b border-blue-500/10 relative z-10">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 rounded-full bg-blue-800/30 border border-white/10">
+                <User className="h-5 w-5 text-blue-200" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-white truncate">
+                  {session.user.name || "User"}
+                </p>
+                <p className="text-xs text-blue-300 truncate">
+                  {session.user.email || ""}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Main Menu Items */}
-        <div className="px-6 pt-8 pb-6 flex-1 relative z-10">
+        <div className="px-6 pt-4 pb-6 flex-1 relative z-10">
           <div className="mb-6">
             <NavItemEnhanced
               icon={<Home className="h-5 w-5" />}
@@ -183,8 +236,48 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* Footer with brand message - Made more transparent */}
-        <div className="mt-auto mb-0 relative z-10">
+        {/* Account Actions */}
+        <div className="mt-auto mb-0 relative z-10 px-6 pb-4 space-y-2">
+          {status === "authenticated" ? (
+            <>
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-blue-900/30 hover:bg-blue-800/40 border border-white/10 hover:border-blue-400/30 transition-all duration-300 backdrop-blur-sm text-white group"
+              >
+                <div className="flex items-center">
+                  <LogOut className="h-5 w-5 mr-3 text-blue-300 group-hover:text-cyan-300" />
+                  <span>Log Out</span>
+                </div>
+                <ArrowRight className="h-4 w-4 text-blue-400 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-300" />
+              </button>
+
+              <button
+                onClick={handleDeleteAccount}
+                className="w-full flex items-center justify-between p-3 rounded-xl bg-red-900/30 hover:bg-red-800/40 border border-white/10 hover:border-red-400/30 transition-all duration-300 backdrop-blur-sm text-white group"
+              >
+                <div className="flex items-center">
+                  <Trash2 className="h-5 w-5 mr-3 text-red-300 group-hover:text-red-200" />
+                  <span>Delete Account</span>
+                </div>
+                <ArrowRight className="h-4 w-4 text-red-400 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-300" />
+              </button>
+            </>
+          ) : (
+            <button
+              onClick={() => router.push("/login")}
+              className="w-full flex items-center justify-between p-3 rounded-xl bg-blue-900/30 hover:bg-blue-800/40 border border-white/10 hover:border-blue-400/30 transition-all duration-300 backdrop-blur-sm text-white group"
+            >
+              <div className="flex items-center">
+                <LogOut className="h-5 w-5 mr-3 text-blue-300 group-hover:text-cyan-300" />
+                <span>Sign In</span>
+              </div>
+              <ArrowRight className="h-4 w-4 text-blue-400 opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-300" />
+            </button>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="relative z-10">
           <div className="px-6 py-4 rounded-b-3xl bg-gradient-to-r from-blue-900/30 to-blue-800/30 border-t border-blue-500/10">
             <div className="text-center">
               <p className="text-xs text-blue-200 mb-1 font-medium">
@@ -198,7 +291,7 @@ const Sidebar = () => {
         </div>
       </div>
 
-      {/* Enhanced sidebar trigger - More transparent */}
+      {/* Enhanced sidebar trigger */}
       <div
         ref={triggerRef}
         className="fixed top-1/2 left-0 transform -translate-y-1/2 z-30 cursor-pointer"
@@ -218,8 +311,17 @@ const Sidebar = () => {
   );
 };
 
-// Enhanced Navigation Item Component - Adapted for transparent design
-const NavItemEnhanced = ({ icon, text, subtext, onClick }) => {
+const NavItemEnhanced = ({ 
+  icon, 
+  text, 
+  subtext, 
+  onClick 
+}: {
+  icon: React.ReactNode;
+  text: string;
+  subtext?: string;
+  onClick: () => void;
+}) => {
   return (
     <div className="group relative" onClick={onClick}>
       <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-200"></div>
