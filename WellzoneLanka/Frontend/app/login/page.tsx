@@ -266,17 +266,18 @@ const LoginPage = () => {
                     </div>
                   </div>
                   <div className="w-full">
-                    <button
-                      type="button"
-                      className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
-                    >
-                      <img
-                        src="https://www.google.com/favicon.ico"
-                        alt="Google"
-                        className="w-5 h-5 mr-2"
-                      />
-                      <span className="font-medium text-gray-600">Google</span>
-                    </button>
+                  <button
+                    type="button"
+                    onClick={() => signIn("google")}
+                    className="w-full bg-white border border-gray-200 px-4 py-2.5 rounded-md flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm"
+                  >
+                    <img
+                      src="https://www.google.com/favicon.ico"
+                      alt="Google"
+                      className="w-5 h-5 mr-2"
+                    />
+                    <span className="font-medium text-gray-600">Google</span>
+                  </button>
                   </div>
 
                   {/* Added Social Media Links */}
