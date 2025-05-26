@@ -92,7 +92,7 @@ python app.py
 
 Contributors
 Name	                   Role
-Anupama Jayasooriya	     Team Leader & Backend Developer
+Anupama Jayasooriya	    Team Leader & Backend Developer
 Chathuni Sooriyaarchchi  Backend Developer
 Disath Damsana           Backend Developer
 Esitha Jayasundara       Frontend Developer
