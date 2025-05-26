@@ -1,4 +1,4 @@
-# WellZone Lanka 🧠💪
+# WellZone Lanka 🏋️‍♂️🩺
 
 **AI-Powered Fitness & Health Tracker Built with Next.js, Node.js, and Python (OpenCV, TensorFlow)**
 
@@ -34,7 +34,7 @@ WellZone Lanka is a smart web application that helps users manage their physical
 
 ## 🌐 Live Demo
 
-🚀 [Click here to view the live version](https://wellzonelanka.vercel.app) 
+🚀[ [Click here to view the live version](https://wellzonelanka.live) 
 
 ---
 
@@ -92,7 +92,7 @@ python app.py
 
 Contributors
 Name	                   Role
-Anupama Jayasooriya	    Team Leader & Backend Developer
+Anupama Jayasooriya	   Team Leader & Backend Developer
 Chathuni Sooriyaarchchi  Backend Developer
 Disath Damsana           Backend Developer
 Esitha Jayasundara       Frontend Developer
